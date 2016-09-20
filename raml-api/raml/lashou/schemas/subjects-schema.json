@@ -9,8 +9,8 @@
         "$ref": "subject"
       }
     },
-    "page": {
-      "$ref": "page"
+    "totalResult":{
+      "type": "number"
     }
   }
 }

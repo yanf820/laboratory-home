@@ -3,12 +3,25 @@
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
   "properties": {
-    "scetionTemplateId": {
+    "scetionId": {
       "type": "string",
       "required": false
     },
-    "sectionData": {
-      "$ref": "sectionData"
+    "sectionDatum": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "required": false
+          },
+          "value": {
+            "type": "string",
+            "required": false
+          }
+        }
+      }
     }
   }
 }

@@ -3,21 +3,22 @@
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
   "properties": {
-    "id": {
-      "type": "string",
-      "required": false
-    },
     "name": {
       "type": "string",
       "required": false
     },
-    "pinyin": {
+    "subject": {
+      "$ref": "subject"
+    },
+    "maxQuantity": {
       "type": "string",
       "required": false
     },
-    "pid": {
+    "minQuantity": {
       "type": "string",
       "required": false
-    }
+    },
+    "ageRange": {"$ref": "ageRange"},
+    "city": {"$ref":"city"}
   }
 }

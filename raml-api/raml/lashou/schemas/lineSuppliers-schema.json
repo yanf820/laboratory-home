@@ -8,9 +8,6 @@
       "items": {
         "$ref": "lineSupplier"
       }
-    },
-    "page": {
-      "$ref": "page"
     }
   }
 }

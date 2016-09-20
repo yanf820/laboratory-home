@@ -9,8 +9,9 @@
         "$ref": "topic"
       }
     },
-    "page": {
-      "$ref": "page"
+    "totalResult": {
+      "type": "number",
+      "required": false
     }
   }
 }

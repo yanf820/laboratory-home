@@ -9,9 +9,6 @@
         "items": {
           "$ref": "cardTemplate"
         }
-      },
-      "page": {
-        "$ref": "page"
       }
     }
   }

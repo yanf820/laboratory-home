@@ -3,11 +3,7 @@
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
   "properties": {
-    "max": {
-      "type": "string",
-      "required": false
-    },
-    "min": {
+    "name": {
       "type": "string",
       "required": false
     }

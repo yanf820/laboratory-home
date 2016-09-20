@@ -11,12 +11,13 @@
       "type": "string",
       "required": false
     },
-    "status": {
-      "type": "string",
-      "required": false
-    },
-    "subject": {
-      "$ref": "subject"
+    "topicSubject": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
     },
     "maxQuantity": {
       "type": "string",
@@ -26,13 +27,40 @@
       "type": "string",
       "required": false
     },
-    "ageRange": {"$ref": "ageRange"},
+    "maxAge": {
+      "type": "string",
+      "required": false
+    },
+    "minAge": {
+      "type": "string",
+      "required": false
+    },
     "topicSections": {
       "type": "array",
       "items": {
         "$ref": "topicSection"
       }
     },
-    "city": {"$ref":"city"}
+    "city": {
+      "type": "object",
+      "properties":{
+        "id": {
+          "type": "string",
+          "required": false
+        },
+        "name": {
+          "type": "string",
+          "required": false
+        },
+        "pinyin": {
+          "type": "string",
+          "required": false
+        },
+        "pid": {
+          "type": "string",
+          "required": false
+        }
+      }
+    }
   }
 }

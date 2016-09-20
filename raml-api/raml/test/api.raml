@@ -1,0 +1,17 @@
+#%RAML 0.8
+title: test
+
+schemas:
+  - tree: !include schema/tree.json
+  - ground: !include schema/ground.json
+
+/test:
+  get:
+    body:
+      application/json:
+        schema: tree
+    responses:
+      200:
+        body:
+          application/json:
+            schema: ground

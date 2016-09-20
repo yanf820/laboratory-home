@@ -4,28 +4,24 @@ version: 1.0
 baseUri: http://api.eternity.com/
 
 schemas:
-   - comment: !include schemas/comment-xml-schema.xsd
-   - page: !include schemas/common/page-schema.json
    - image: !include schemas/common/image-schema.json
-   - ageRange: !include schemas/common/ageRange-schema.json
-   - city: !include schemas/common/city-schema.json
    - address: !include schemas/common/address-schema.json
    - frameworkAgreement: !include schemas/frameworkAgreement-schema.json
    - agreement: !include schemas/agreement-schema.json
    - contactor: !include schemas/contactor-schema.json
    - salesStaff: !include schemas/salesStaff-schema.json
    - employee: !include schemas/employee-schema.json
+   - update: !include schemas/update-schema.json
 
    - subject: !include schemas/subject-schema.json
+   - subjectUpdate: !include schemas/subjectUpdate-schema.json
    - subjects: !include schemas/subjects-schema.json
-   - subjectSearch: !include schemas/subjectSearch-schema.json
    - topic: !include schemas/topic-schema.json
-   - topics: !include schemas/topics-schema.json
    - topicSection: !include schemas/topicSection-schema.json
-   - topicSearch: !include schemas/topicSearch-schema.json
-   - sectionTemplate: !include schemas/sectionTemplate-schema.json
-   - sectionTemplates: !include schemas/sectionTemplates-schema.json
-   - sectionData: !include schemas/sectionData-schema.json
+   - topicUpdate: !include schemas/topicUpdate-schema.json
+   - topics: !include schemas/topics-schema.json
+   - section: !include schemas/section-schema.json
+   - sections: !include schemas/sections-schema.json
    - card: !include schemas/card-schema.json
    - cards: !include schemas/cards-schema.json
    - cardStyle: !include schemas/cardStyle-schema.json
@@ -70,103 +66,138 @@ resourceTypes:
 
 traits:
   - paged : !include traits/page.raml
+  - field: !include traits/fieldSelector.raml
+  - keywords: !include traits/keywords.raml
 
 
 /subjects:
-  type : { typedCollection: { schema: subject, collectionSchema: subjects }}
+  type : collection
   get:
-    body:
-      application/xml:
-        schema: comment
-  post:
-  /{subjectId}:
-    type: { typedMember: { schema : subject }}
-    put:
-      headers:
-        asd:
-          type: string
-    patch:
-    delete:
-    /topics:
-      type: collection
-      get:
+    queryParameters:
+      name:
+        type: string
+    responses:
+      200:
         body:
           application/json:
-            schema: subjectSearch
-        responses:
-          200:
-            body:
-              application/json:
-                schema: topics
-      /{topicId}:
-        uriParameters:
-          topicId:
-            type: integer
-        type: member
-/topics:
-  type: { typedCollection: { schema: topic, collectionSchema: topics }}
-  get:
-    body:
-      application/json:
-        schema: topicSearch
+            schema: subjects
   post:
-  /{topicId}:
-    type: { typedMember: { schema: topic }}
-    put:
-    patch:
-    delete:
-    /{sectionTemplatesId}:
-      uriParameters:
-        sectionTemplatesId:
-          type: string
+    body:
+      application/x-www-form-urlencoded:
+        formParameters:
+          name :
+            type: string
+    responses:
+      200:
+        body:
+          application/json:
+            schema: subject
+  /{subjectId}:
+    type: member
+    get:
+      is: [field]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: subject
+    /updateName:
       type: member
-      get:
+      put:
+        description: update subject name
+        body:
+          application/json:
+            schema: subjectUpdate
         responses:
           200:
             body:
               application/json:
-                schema: sectionTemplate
-    /products:
-      type: collection
-      get:
-        responses:
-          200:
-            body:
-              application/json:
-                schema: products
-/products:
-  type:  { typedCollection: {collectionSchema : products, schema : product} }
-  /{productId}:
-    type:  { typedMember: {schema : product} }
-/sectionTemplates:
-  type:  { typedCollection: {collectionSchema : sectionTemplates, schema : sectionTemplate} }
-  /{sectionTemplateId}:
-    type: { typedMember : { schema : sectionTemplate }}
-/cardTemplates:
-  type :  { typedCollection: {collectionSchema : cardTemplates, schema : cardTemplate} }
-  /{cardTemplateId}:
-    type : { typedMember : { schema: cardTemplate }}
-/cardStyles:
-  type :  { typedCollection: {collectionSchema : cardStyles, schema : cardStyle} }
-  /{cardStyleId}:
-    type : { typedMember : { schema : cardStyle }}
-/propTemplates:
-  type:  { typedCollection: {collectionSchema : propTemplates, schema : propTemplate} }
-  /{propTemplateId}:
-    type: { typedMember: { schema : propTemplate }}
-/medalTemplates:
-  type :  { typedCollection: {collectionSchema : medals, schema : medal} }
-  /{medalTemplateId}:
-    type : { typedMember : { schema : medal }}
-/tasks:
-  type:  { typedCollection: {collectionSchema : tasks, schema : task} }
-  /{taskId}:
-    type: { typedMember : { schema : task }}
-/lineSuppliers:
-  type:  { typedCollection: {collectionSchema : lineSuppliers, schema : lineSupplier} }
-  /{lineSupplierId}:
-    type: { typedMember: { schema: lineSupplier }}
-/contentSuppliers:
-  type:  { typedCollection: {collectionSchema : contentSuppliers, schema : contentSupplier} }
-  /{contentSupplierId}:
-    type: { typedMember: { schema: contentSupplier }}
+                schema: update
+/topics:
+  type: collection
+  get:
+    queryParameters:
+      name:
+        type: string
+    responses:
+      200:
+        body:
+          application/json:
+            schema: topics
+  post:
+    body:
+      application/x-www-form-urlencoded:
+        formParameters:
+          name:
+            type: string
+            required: true
+          maxQuantity:
+            type: number
+            required: true
+          minQuantity:
+            type: number
+            required: true
+          maxAge:
+            type: number
+            required: true
+    responses:
+      200:
+        body:
+          application/json:
+            schema: topic
+  /{topicId}:
+    type: member
+    get:
+      is: [field]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: topic
+    put:
+      body:
+        application/x-www-form-urlencoded:
+          formParameters:
+            name:
+              type: string
+              required: true
+            maxQuantity:
+              type: integer
+              required: true
+            minQuantity:
+              type: integer
+              required: true
+            maxAge:
+              type: integer
+              required: true
+      responses:
+        200:
+          body:
+            application/json:
+              schema: update
+    /settings:
+      /setupSubject:
+        type: member
+        put:
+          body:
+            application/x-www-form-urlencoded:
+              formParameters:
+                subjectId:
+                  type: string
+                  required: true
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: update
+      /setupSection:
+        type: member
+        put:
+          body:
+            application/json:
+              schema: topicSection
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: update

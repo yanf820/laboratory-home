@@ -1,5 +1,6 @@
 package com.resteasy.operations.example.root;
 
+import com.resteasy.operations.example.linkingresources.impl.BookStoreImpl;
 import com.resteasy.operations.example.simple.Library;
 
 import javax.ws.rs.ApplicationPath;
@@ -17,6 +18,7 @@ public class OperationApplication extends Application {
 
     public OperationApplication(){
         singletons.add(new Library());
+        singletons.add(new BookStoreImpl());
     }
 
     @Override

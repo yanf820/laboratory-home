@@ -3,14 +3,11 @@
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
   "properties": {
-    "sectionTemplates": {
+    "sections": {
       "type": "array",
       "items": {
-        "$ref": "sectionTemplate"
+        "$ref": "section"
       }
-    },
-    "page": {
-      "$ref": "page"
     }
   }
 }

@@ -8,9 +8,6 @@
       "items": {
         "$ref": "contentSupplier"
       }
-    },
-    "page": {
-      "$ref": "page"
     }
   }
 }
