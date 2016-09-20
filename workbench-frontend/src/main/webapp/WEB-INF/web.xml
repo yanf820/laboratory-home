@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="workbench-frontend" version="2.5">
+
+
+    <servlet>
+        <servlet-name>laboratoryservlet</servlet-name>
+        <servlet-class>
+            com.laboratory.workbench.servlet.WorkbenchServlet
+        </servlet-class>
+
+        <init-param>
+            <param-name>UI</param-name>
+            <param-value>com.laboratory.workbench.ui.MainFrameUI</param-value>
+        </init-param>
+
+        <!-- If not using the default widget set-->
+        <!--<init-param>-->
+        <!--<param-name>widgetset</param-name>-->
+        <!--<param-value>com.ex.myprj.MyWidgetSet</param-value>-->
+        <!--</init-param>-->
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>laboratoryservlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>
