@@ -1,0 +1,15 @@
+{
+  "required" : true ,
+  "$schema" : "http://json-schema.org/draft-extends/schema" ,
+  "type" : "object" ,
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "required" : false
+    },
+    "code" : {
+      "type" : "string",
+      "required" : false
+    }
+  }
+}

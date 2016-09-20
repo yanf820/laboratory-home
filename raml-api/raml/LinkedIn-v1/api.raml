@@ -1,0 +1,85 @@
+#%RAML 0.8
+title: LinkedIn
+version: v1
+baseUri: https://api.linkedin.com/{version}
+securitySchemes:
+  - oauth_2_0: !include securitySchemes/oauth_2_0.raml
+  - oauth_1_0: !include securitySchemes/oauth_1_0.raml
+schemas:
+  - error-schema: !include schemas/error-schema.json
+  - error-xml: !include schemas/error-xml-schema.xsd
+  - people-gm-group-xml: !include schemas/people-gm-group-xml-schema.xsd
+  - jobSuggestions-xml: !include schemas/jobSuggestions-xml-schema.xsd
+  - group-xml: !include schemas/group-xml-schema.xsd
+  - post-xml: !include schemas/post-xml-schema.xsd
+  - company-xml: !include schemas/company-xml-schema.xsd
+  - companies-xml: !include schemas/companies-xml-schema.xsd
+  - update-xml: !include schemas/update-xml-schema.xsd
+  - update-comment-xml: !include schemas/update-comment-xml-schema.xsd
+  - is-liked-xml: !include schemas/is-liked-xml-schema.xsd
+  - updates-xml: !include schemas/updates-xml-schema.xsd
+  - activity-xml: !include schemas/activity-xml-schema.xsd
+  - comment-xml: !include schemas/comment-xml-schema.xsd
+  - comments-xml: !include schemas/comments-xml-schema.xsd
+  - company-about-xml: !include schemas/company-about-xml-schema.xsd
+  - folowing-company-xml: !include schemas/folowing-company-xml-schema.xsd
+  - products-xml: !include schemas/products-xml-schema.xsd
+  - people-share-xml: !include schemas/people-share-xml-schema.xsd
+  - currentUser-xml: !include schemas/currentUser-xml-schema.xsd
+  - currentUser: !include schemas/currentUser-schema.json
+  - connections-xml: !include schemas/connections-xml-schema.xsd
+  - person-xml: !include schemas/person-xml-schema.xsd
+  - people: !include schemas/people-schema.json
+  - followedCompanies-xml: !include schemas/followedCompanies-xml-schema.xsd
+  - mailboxItem-xml: !include schemas/mailboxItem-xml-schema.xsd
+  - personShare-xml: !include schemas/personShare-xml-schema.xsd
+  - networkStats-xml: !include schemas/networkStats-xml-schema.xsd
+  - jobBookmarks-xml: !include schemas/jobBookmarks-xml-schema.xsd
+  - jobBookmark-xml: !include schemas/jobBookmark-xml-schema.xsd
+  - posts-xml: !include schemas/posts-xml-schema.xsd
+  - groupMembership-xml: !include schemas/groupMembership-xml-schema.xsd
+  - peopleSearch-xml: !include schemas/peopleSearch-xml-schema.xsd
+  - companySearch-xml: !include schemas/companySearch-xml-schema.xsd
+  - companyShare-xml: !include schemas/companyShare-xml-schema.xsd
+  - companyShare: !include schemas/companyShare-schema.json
+  - companyStatistics-xml: !include schemas/companyStatistics-xml-schema.xsd
+  - groupPost-xml: !include schemas/groupPost-xml-schema.xsd
+  - groupPosts-xml: !include schemas/groupPosts-xml-schema.xsd
+  - jobSearch-xml: !include schemas/jobSearch-xml-schema.xsd
+  - jobGet-xml: !include schemas/jobGet-xml-schema.xsd
+  - jobUpdate-xml: !include schemas/jobUpdate-xml-schema.xsd
+  - job-xml: !include schemas/job-xml-schema.xsd
+resourceTypes:
+  - member: !include resourceTypes/member.raml
+  - baseResource: !include resourceTypes/baseResource.raml
+  - fieldSelectorMember: !include resourceTypes/fieldSelectorMember.raml
+  - fieldSelectors: !include resourceTypes/fieldSelectors.raml
+  - collection: !include resourceTypes/collection.raml
+  - fieldSelectorCollection: !include resourceTypes/fieldSelectorCollection.raml
+traits:
+  - hasModifiedFilter: !include traits/hasModifiedFilter.raml
+  - hasMembership: !include traits/hasMembership.raml
+  - hasRole: !include traits/hasRole.raml
+  - paged: !include traits/paged.raml
+  - producesPosts: !include traits/producesPosts.raml
+  - filterable: !include traits/filterable.raml
+  - secureUrlParam: !include traits/secureUrlParam.raml
+securedBy: [ oauth_2_0 , oauth_1_0 ]
+/people:
+  /~{fieldSelectors}:
+    displayName: Profile API
+    type: { fieldSelectorMember: { type: currentUser } }
+    get:
+      is: [ secureUrlParam ]
+      description: |
+        Returns profile of the current user
+
+  /url={publicProfileUrl}{fieldSelectors}:
+    displayName: Profile API
+    type: { fieldSelectorMember: { type: person } }
+    get:
+      is: [ secureUrlParam ]
+      description: |
+        Returns profile of user by URL
+
+

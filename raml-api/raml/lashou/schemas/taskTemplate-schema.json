@@ -1,0 +1,29 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "required": false
+    },
+    "name": {
+      "type": "string",
+      "required": false
+    },
+    "taskTemplateId": {
+      "type": "string",
+      "required": false
+    },
+    "type": {
+      "type": "string",
+      "required": false
+    },
+    "condition": {"$ref": "taskCondition"},
+    "trigger" : {"$ref": "taskTrigger"},
+    "status": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

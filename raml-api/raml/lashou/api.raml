@@ -1,0 +1,172 @@
+#%RAML 0.8
+title: eternity API
+version: 1.0
+baseUri: http://api.eternity.com/
+
+schemas:
+   - comment: !include schemas/comment-xml-schema.xsd
+   - page: !include schemas/common/page-schema.json
+   - image: !include schemas/common/image-schema.json
+   - ageRange: !include schemas/common/ageRange-schema.json
+   - city: !include schemas/common/city-schema.json
+   - address: !include schemas/common/address-schema.json
+   - frameworkAgreement: !include schemas/frameworkAgreement-schema.json
+   - agreement: !include schemas/agreement-schema.json
+   - contactor: !include schemas/contactor-schema.json
+   - salesStaff: !include schemas/salesStaff-schema.json
+   - employee: !include schemas/employee-schema.json
+
+   - subject: !include schemas/subject-schema.json
+   - subjects: !include schemas/subjects-schema.json
+   - subjectSearch: !include schemas/subjectSearch-schema.json
+   - topic: !include schemas/topic-schema.json
+   - topics: !include schemas/topics-schema.json
+   - topicSection: !include schemas/topicSection-schema.json
+   - topicSearch: !include schemas/topicSearch-schema.json
+   - sectionTemplate: !include schemas/sectionTemplate-schema.json
+   - sectionTemplates: !include schemas/sectionTemplates-schema.json
+   - sectionData: !include schemas/sectionData-schema.json
+   - card: !include schemas/card-schema.json
+   - cards: !include schemas/cards-schema.json
+   - cardStyle: !include schemas/cardStyle-schema.json
+   - cardStyles: !include schemas/cardStyles-schema.json
+   - cardMaterial: !include schemas/cardMaterial-schema.json
+   - cardCapability: !include schemas/cardCapability-schema.json
+   - cardTemplate: !include schemas/cardTemplate-schema.json
+   - cardTemplates: !include schemas/cardTemplates-schema.json
+   - prop: !include schemas/prop-schema.json
+   - props: !include schemas/props-schema.json
+   - propStyle: !include schemas/propStyle-schema.json
+   - propMaterial: !include schemas/propMaterial-schema.json
+   - propCapability: !include schemas/propCapability-schema.json
+   - propTemplate: !include schemas/propTemplate-schema.json
+   - propTemplates: !include schemas/propTemplates-schema.json
+   - product: !include schemas/product-schema.json
+   - products: !include schemas/products-schema.json
+   - productPrice: !include schemas/productPrice-schema.json
+   - productLeaveTime: !include schemas/productLeaveTime-schema.json
+   - medal: !include schemas/medal-schema.json
+   - medals: !include schemas/medals-schema.json
+   - medalStyle: !include schemas/medalStyle-schema.json
+   - medalMaterial: !include schemas/medalMaterial-schema.json
+   - medalCapability: !include schemas/medalCapability-schema.json
+   - medalTemplate: !include schemas/medalTemplate-schema.json
+   - medalTemplates: !include schemas/medalTemplates-schema.json
+   - task: !include schemas/task-schema.json
+   - tasks: !include schemas/tasks-schema.json
+   - taskTemplate: !include schemas/taskTemplate-schema.json
+   - lineSupplier: !include schemas/lineSupplier-schema.json
+   - lineSuppliers: !include schemas/lineSuppliers-schema.json
+   - contentSupplier: !include schemas/contentSupplier-schema.json
+   - contentSuppliers: !include schemas/contentSuppliers-schema.json
+
+
+resourceTypes:
+  - base: !include resourceTypes/base.raml
+  - collection: !include resourceTypes/collections.raml
+  - typedCollection: !include resourceTypes/typeCollection.raml
+  - member: !include resourceTypes/member.raml
+  - typedMember: !include resourceTypes/typedMember.raml
+
+traits:
+  - paged : !include traits/page.raml
+
+
+/subjects:
+  type : { typedCollection: { schema: subject, collectionSchema: subjects }}
+  get:
+    body:
+      application/xml:
+        schema: comment
+  post:
+  /{subjectId}:
+    type: { typedMember: { schema : subject }}
+    put:
+      headers:
+        asd:
+          type: string
+    patch:
+    delete:
+    /topics:
+      type: collection
+      get:
+        body:
+          application/json:
+            schema: subjectSearch
+        responses:
+          200:
+            body:
+              application/json:
+                schema: topics
+      /{topicId}:
+        uriParameters:
+          topicId:
+            type: integer
+        type: member
+/topics:
+  type: { typedCollection: { schema: topic, collectionSchema: topics }}
+  get:
+    body:
+      application/json:
+        schema: topicSearch
+  post:
+  /{topicId}:
+    type: { typedMember: { schema: topic }}
+    put:
+    patch:
+    delete:
+    /{sectionTemplatesId}:
+      uriParameters:
+        sectionTemplatesId:
+          type: string
+      type: member
+      get:
+        responses:
+          200:
+            body:
+              application/json:
+                schema: sectionTemplate
+    /products:
+      type: collection
+      get:
+        responses:
+          200:
+            body:
+              application/json:
+                schema: products
+/products:
+  type:  { typedCollection: {collectionSchema : products, schema : product} }
+  /{productId}:
+    type:  { typedMember: {schema : product} }
+/sectionTemplates:
+  type:  { typedCollection: {collectionSchema : sectionTemplates, schema : sectionTemplate} }
+  /{sectionTemplateId}:
+    type: { typedMember : { schema : sectionTemplate }}
+/cardTemplates:
+  type :  { typedCollection: {collectionSchema : cardTemplates, schema : cardTemplate} }
+  /{cardTemplateId}:
+    type : { typedMember : { schema: cardTemplate }}
+/cardStyles:
+  type :  { typedCollection: {collectionSchema : cardStyles, schema : cardStyle} }
+  /{cardStyleId}:
+    type : { typedMember : { schema : cardStyle }}
+/propTemplates:
+  type:  { typedCollection: {collectionSchema : propTemplates, schema : propTemplate} }
+  /{propTemplateId}:
+    type: { typedMember: { schema : propTemplate }}
+/medalTemplates:
+  type :  { typedCollection: {collectionSchema : medals, schema : medal} }
+  /{medalTemplateId}:
+    type : { typedMember : { schema : medal }}
+/tasks:
+  type:  { typedCollection: {collectionSchema : tasks, schema : task} }
+  /{taskId}:
+    type: { typedMember : { schema : task }}
+/lineSuppliers:
+  type:  { typedCollection: {collectionSchema : lineSuppliers, schema : lineSupplier} }
+  /{lineSupplierId}:
+    type: { typedMember: { schema: lineSupplier }}
+/contentSuppliers:
+  type:  { typedCollection: {collectionSchema : contentSuppliers, schema : contentSupplier} }
+  /{contentSupplierId}:
+    type: { typedMember: { schema: contentSupplier }}

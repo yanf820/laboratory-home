@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "properties": {
+      "medalTemplates": {
+        "type": "array",
+        "items": {
+          "$ref": "medalTemplate"
+        }
+      },
+      "page": {
+        "$ref": "page"
+      }
+    }
+  }
+}

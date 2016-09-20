@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "contentSuppliers": {
+      "type": "array",
+      "items": {
+        "$ref": "contentSupplier"
+      }
+    },
+    "page": {
+      "$ref": "page"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "required": false
+    },
+    "name": {
+      "type": "string",
+      "required": false
+    },
+    "propMaterial": {
+      "$ref": "propMaterial"
+    },
+    "propCapability": {
+      "type": "array",
+      "items": {
+        "$ref": "propCapability"
+      }
+    },
+    "propStyle": {
+      "type": "array",
+      "items": {
+        "$ref": "propStyle"
+      }
+    },
+    "createTime": {
+      "type": "string",
+      "required" : false
+    },
+    "updateTime": {
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

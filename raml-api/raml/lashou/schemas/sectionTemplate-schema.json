@@ -1,0 +1,41 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type" : "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "visible": {
+      "type": "string",
+      "required": false
+    },
+    "templateType": {
+      "type": "string",
+      "required": false
+    },
+    "templateContent": {
+      "type": "string",
+      "required": false
+    },
+    "cardTemplate": {
+      "type": "array",
+      "items": {
+        "$ref" : "cardTemplate"
+      }
+    },
+    "propertyTemplate": {
+      "type": "array",
+      "items": {
+        "$ref" : "propTemplate"
+      }
+    },
+    "status": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

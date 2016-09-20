@@ -1,0 +1,47 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "required": false
+    },
+    "name": {
+      "type": "string",
+      "required": false
+    },
+    "type": {
+      "type": "string",
+      "required": false
+    },
+    "conditionResult": {
+      "type": "string",
+      "required": false
+    },
+    "triggerResult" : {
+      "type": "string",
+      "required": false
+    },
+    "owner": {
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "type": "string",
+      "required": false
+    },
+    "startTime": {
+      "type": "string",
+      "required": false
+    },
+    "updateTime": {
+      "type": "string",
+      "required": false
+    },
+    "completeTime": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

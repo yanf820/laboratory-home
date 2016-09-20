@@ -1,0 +1,48 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "required": false
+    },
+    "name": {
+      "type": "string",
+      "required": false
+    },
+    "address": {
+      "$ref": "address"
+    },
+    "frameworkAgreement": {
+      "$ref": "frameworkAgreement"
+    },
+    "agreements": {
+      "type": "array",
+      "items": {
+        "$ref": "agreement"
+      }
+    },
+    "employees": {
+      "type": "array",
+      "items": {
+        "$ref": "employee"
+      }
+    },
+    "salesStaff": {
+      "$ref": "salesStaff"
+    },
+    "createTime": {
+      "type": "string",
+      "required" : false
+    },
+    "updateTime": {
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

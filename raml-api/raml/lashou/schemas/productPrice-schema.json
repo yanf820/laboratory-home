@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "productId": {
+      "type": "string",
+      "required": false
+    },
+    "price": {
+      "type": "number",
+      "required": false
+    },
+    "settlementPrice": {
+      "type": "number",
+      "required": false
+    },
+    "discount": {
+      "type": "number",
+      "required": false
+    }
+  }
+}

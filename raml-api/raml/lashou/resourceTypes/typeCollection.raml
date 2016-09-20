@@ -1,0 +1,25 @@
+type: collection
+get?:
+  responses:
+    200:
+      body:
+        application/json:
+          schema: <<collectionSchema>>
+post?:
+  body:
+    application/json:
+      schema: <<schema>>
+  responses:
+    201:
+      body:
+        application/json:
+          schema: <<schema>>
+put?:
+  body:
+    application/json:
+      schema: <<schema>>
+  responses:
+    200:
+      body:
+        application/json:
+          schema: <<schema>>

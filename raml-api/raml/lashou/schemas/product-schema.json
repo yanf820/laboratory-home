@@ -1,0 +1,52 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type" : "string"
+    },
+    "topicId": {
+      "type": "string"
+    },
+    "shortTitle": {
+      "type": "string",
+      "required": false
+    },
+    "longTitle": {
+      "type": "string",
+      "required": false
+    },
+    "description": {
+      "type": "string",
+      "required": false
+    },
+    "city": {"$ref": "city"},
+    "lsp": {"$ref": "lineSupplier"},
+    "csp": {"$ref": "contentSupplier"},
+    "leaveTime": {
+      "type": "array",
+      "items": {
+        "$ref": "productLeaveTime"
+      }
+    },
+    "maxQuantity": {
+      "type": "string",
+      "required": false
+    },
+    "minQuantity": {
+      "type": "string",
+      "required": false
+    },
+    "price": {"$ref": "productPrice"},
+    "ageRange": {"$ref": "ageRange"},
+    "onlineTime": {
+      "type": "string",
+      "required": false
+    },
+    "offlineTime": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "sectionTemplates": {
+      "type": "array",
+      "items": {
+        "$ref": "sectionTemplate"
+      }
+    },
+    "page": {
+      "$ref": "page"
+    }
+  }
+}

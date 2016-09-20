@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "properties": {
+      "cardTemplates": {
+        "type": "array",
+        "items": {
+          "$ref": "cardTemplate"
+        }
+      },
+      "page": {
+        "$ref": "page"
+      }
+    }
+  }
+}

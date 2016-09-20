@@ -12,6 +12,7 @@
         <module>workbench-frontend</module>
         <module>jersey-operation</module>
         <module>resteasy-operation</module>
+        <module>raml-api</module>
     </modules>
 
     <properties>
