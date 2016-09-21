@@ -11,6 +11,14 @@
     },
     "fruit": {
       "type": "string"
+    },
+    "tree": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "string"
+        }
+      }
     }
   }
 }

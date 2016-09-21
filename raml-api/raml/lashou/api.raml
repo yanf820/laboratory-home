@@ -84,9 +84,7 @@ traits:
   post:
     body:
       application/x-www-form-urlencoded:
-        formParameters:
-          name :
-            type: string
+        schema: !include schemas/common/address-schema.json
     responses:
       200:
         body:

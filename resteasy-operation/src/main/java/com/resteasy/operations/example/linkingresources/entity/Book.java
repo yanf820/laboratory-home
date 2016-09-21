@@ -4,6 +4,7 @@ import org.jboss.resteasy.annotations.providers.jaxb.json.Mapped;
 import org.jboss.resteasy.annotations.providers.jaxb.json.XmlNsMap;
 import org.jboss.resteasy.links.RESTServiceDiscovery;
 
+import javax.ws.rs.FormParam;
 import javax.xml.bind.annotation.*;
 
 /**
@@ -13,9 +14,11 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
 public class Book {
+    @FormParam("author")
     @XmlAttribute
     private String author;
 
+    @FormParam("title")
     @XmlID
     @XmlAttribute
     private String title;
@@ -23,4 +26,27 @@ public class Book {
     @XmlElementRef
     private RESTServiceDiscovery rest;
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public RESTServiceDiscovery getRest() {
+        return rest;
+    }
+
+    public void setRest(RESTServiceDiscovery rest) {
+        this.rest = rest;
+    }
 }

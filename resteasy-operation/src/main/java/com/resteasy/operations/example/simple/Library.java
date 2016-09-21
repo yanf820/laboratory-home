@@ -1,8 +1,11 @@
 package com.resteasy.operations.example.simple;
 
+import com.resteasy.operations.example.linkingresources.entity.Book;
+import org.jboss.resteasy.annotations.*;
+import org.jboss.resteasy.annotations.Form;
+
 import javax.ws.rs.*;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
+import javax.ws.rs.core.*;
 import java.util.Set;
 
 /**
@@ -45,8 +48,9 @@ public class Library {
         return name.getName();
     }
 
+    //POST http://localhost:8080/operations/library/book==;name=EJB 3.0;title=Bill Burke
     @POST
-    @Path("/book/{multi}")
+    @Path("/book{multi}")
     public void postBook(@PathParam("multi") PathSegment multi){
         MultivaluedMap<String,String> paramMap =multi.getMatrixParameters();
         Set<String> set=paramMap.keySet();
@@ -55,4 +59,45 @@ public class Library {
             System.out.println(key+" : "+paramMap.get(key));
         }
     }
+
+    @PUT
+    @Path("/books")
+    public void updateBook(@MatrixParam("name") String name,@MatrixParam("title") String title){
+        System.out.println("name :"+name+" ,title :"+title);
+    }
+
+    @POST
+    @Path("/books-form1")
+    public void addBookByForm(@FormParam("name") @DefaultValue("yimmm") String name,@FormParam("title") String title){
+        System.out.println("name :"+name+" ,title :"+title);
+    }
+
+    @POST
+    @Path("/books-form2")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void addBookByForm(MultivaluedMap<String,String> form){
+        Set<String> set=form.keySet();
+
+        for (String key:set){
+            System.out.println(key+" : "+form.get(key));
+        }
+    }
+
+    @POST
+    @Path("/books-form3")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void addBookByForm(@Form Book book){
+        System.out.println(book.getAuthor());
+        System.out.println(book.getTitle());
+    }
+
+    @GET
+    @Path("encodeTest/{name}")
+    public String testEncode(@Context javax.ws.rs.core.HttpHeaders headers,@PathParam("name") @Encoded String name){
+
+        return name;
+    }
+
+
+
 }

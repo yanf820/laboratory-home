@@ -3,7 +3,9 @@ package com.resteasy.operations.example.linkingresources.impl;
 import com.resteasy.operations.example.linkingresources.BookStore;
 import com.resteasy.operations.example.linkingresources.entity.Book;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by yf on 2016/9/20.
@@ -11,11 +13,13 @@ import java.util.Collection;
 public class BookStoreImpl implements BookStore {
     public Collection<Book> getBooks() {
 
+        List<Book> books=new ArrayList<Book>();
         for(int i=0;i<3;i++){
             Book book=new Book();
+            book.setTitle("title :"+ i);
+            books.add(book);
         }
-
-        return null;
+        return books;
     }
 
     public void addBook(Book book) {

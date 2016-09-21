@@ -1,12 +1,10 @@
 
-package com.linkedin.api.model;
+package com.ricston.blog.contactsapp.rest.api.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
-import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,41 +12,55 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+
+/**
+ * Response JSON for successful POST operation
+ * 
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "trees"
+    "id"
 })
-public class Ground {
+public class ApiCreatedEntity {
 
-    @JsonProperty("trees")
-    @Valid
-    private List<Object> trees = new ArrayList<Object>();
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    @NotNull
+    @JsonProperty("id")
+    private String id;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
+     * (Required)
+     * 
      * @return
-     *     The trees
+     *     The id
      */
-    @JsonProperty("trees")
-    public List<Object> getTrees() {
-        return trees;
+    @JsonProperty("id")
+    public String getId() {
+        return id;
     }
 
     /**
      * 
-     * @param trees
-     *     The trees
+     * (Required)
+     * 
+     * @param id
+     *     The id
      */
-    @JsonProperty("trees")
-    public void setTrees(List<Object> trees) {
-        this.trees = trees;
+    @JsonProperty("id")
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Ground withTrees(List<Object> trees) {
-        this.trees = trees;
+    public ApiCreatedEntity withId(String id) {
+        this.id = id;
         return this;
     }
 
@@ -62,7 +74,7 @@ public class Ground {
         this.additionalProperties.put(name, value);
     }
 
-    public Ground withAdditionalProperty(String name, Object value) {
+    public ApiCreatedEntity withAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
         return this;
     }

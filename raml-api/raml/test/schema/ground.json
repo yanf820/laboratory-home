@@ -3,19 +3,8 @@
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
   "properties":{
-    "trees": {
-    "type": "array",
-    "items": {
-      "root":{
-        "type": "string"
-      },
-      "leaf":{
-        "type": "string"
-      },
-      "fruit": {
-        "type": "string"
-      }
-    }
+    "tree": {
+      "$ref": "tree"
    }
   }
 }
