@@ -1,7 +1,7 @@
 {
   "required": true,
   "$schema": "http://json-schema.org/draft-extends/schema",
-  "javatype": "Object",
+  "type": "object",
   "properties": {
     "sections": {
       "type": "array",

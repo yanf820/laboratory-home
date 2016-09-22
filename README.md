@@ -8,3 +8,9 @@ Discovery
 
 **workbench-frontend**
 >vaddin discovery
+
+**raml-api**
+>raml generate to java api
+
+**jsonschema2pojo-operation**
+>jsonschema2pojo discovery

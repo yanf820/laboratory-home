@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>laboratory.home</artifactId>
+        <groupId>com.laboratory.home</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.laboratory.home</groupId>
+    <artifactId>jsonschema2pojo-operation</artifactId>
+    <name>jsonschema2pojo operation</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jsonschema2pojo</groupId>
+                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+                <version>0.4.26</version>
+                <configuration>
+                    <!--<sourceDirectory>${basedir}/json/schema</sourceDirectory>-->
+                    <sourcePaths>
+                        <sourcePath>${basedir}/json/schema/source.json</sourcePath>
+                    </sourcePaths>
+                    <outputDirectory>${basedir}/src/main/java</outputDirectory>
+                    <targetPackage>com.example.oth</targetPackage>
+                    <removeOldOutput>true</removeOldOutput>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.6.3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.6.3</version>
+        </dependency>
+    </dependencies>
+
+</project>

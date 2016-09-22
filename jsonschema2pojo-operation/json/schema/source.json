@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type":"object",
+
+  "extends": {
+    "$ref": "#/properties/drink/items"
+  },
+  "additionalProperties": {
+    "type": "number"
+  },
+  "properties": {
+    "foo": {
+      "type": "integer",
+      "format": "date"
+    },
+    "doo": {
+      "$ref": "#/properties/foo"
+    },
+    "drink": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "water.json"
+      }
+    },
+
+    "sub": {
+      "type": "array",
+      "items" :{
+        "$ref": "#"
+      }
+    },
+
+    "custom": {
+      "javaType" :"com.example.oth.Custom",
+      "properties": {
+        "name" : {
+          "type": "string"
+        },
+        "age": {
+          "type": "object",
+          "javaType": "com.example.oth.Age"
+        },
+        "title": {
+          "type": "object",
+          "javaType": "java.util.Map<String,Integer>"
+        }
+      }
+    }
+  }
+}

@@ -13,6 +13,7 @@
         <module>jersey-operation</module>
         <module>resteasy-operation</module>
         <module>raml-api</module>
+        <module>jsonschema2pojo-operation</module>
     </modules>
 
     <properties>
