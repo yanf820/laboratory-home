@@ -12,7 +12,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @JsonPropertyOrder({
     "temperature"
 })
-public class SourceParent {
+public class Water {
 
     @JsonProperty("temperature")
     private Double temperature;
@@ -52,10 +52,10 @@ public class SourceParent {
         if (other == this) {
             return true;
         }
-        if ((other instanceof SourceParent) == false) {
+        if ((other instanceof Water) == false) {
             return false;
         }
-        SourceParent rhs = ((SourceParent) other);
+        Water rhs = ((Water) other);
         return new EqualsBuilder().append(temperature, rhs.temperature).isEquals();
     }
 

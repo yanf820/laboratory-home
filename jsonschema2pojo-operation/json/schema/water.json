@@ -1,5 +1,6 @@
 {
   "type": "object",
+  "javaName": "Water",
   "additionalProperties": false,
   "properties": {
     "temperature": {

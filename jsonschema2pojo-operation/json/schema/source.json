@@ -2,13 +2,25 @@
   "$schema": "http://json-schema.org/draft-04/schema",
   "type":"object",
 
+  "javaName": "qweqweqweqweqweqwe",
+  "javaInterfaces": ["java.io.Serializable","Cloneable"],
   "extends": {
+    "javaName": "Water",
     "$ref": "#/properties/drink/items"
   },
   "additionalProperties": {
     "type": "number"
   },
   "properties": {
+    "name": {
+      "type": "double",
+      "usePrimitives": false
+    },
+    "voo": {
+      "type": "string",
+      "enum": ["H","L"],
+      "javaEnumNames": ["HIGH","LOW"]
+    },
     "foo": {
       "type": "integer",
       "format": "date"
@@ -19,7 +31,9 @@
     "drink": {
       "type": "array",
       "uniqueItems": true,
+      "javaName": "water",
       "items": {
+        "javaName": "Water",
         "$ref": "water.json"
       }
     },
