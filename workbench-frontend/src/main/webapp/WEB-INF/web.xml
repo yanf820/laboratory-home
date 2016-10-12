@@ -8,12 +8,12 @@
     <servlet>
         <servlet-name>laboratoryservlet</servlet-name>
         <servlet-class>
-            com.laboratory.workbench.servlet.WorkbenchServlet
+            com.laboratory.plugin.workbench.servlet.WorkbenchServlet
         </servlet-class>
 
         <init-param>
             <param-name>UI</param-name>
-            <param-value>com.laboratory.workbench.ui.MainFrameUI</param-value>
+            <param-value>com.laboratory.plugin.workbench.ui.MainFrameUI</param-value>
         </init-param>
 
         <!-- If not using the default widget set-->

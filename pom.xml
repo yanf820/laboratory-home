@@ -14,6 +14,12 @@
         <module>resteasy-operation</module>
         <module>raml-api</module>
         <module>jsonschema2pojo-operation</module>
+        <module>gr plugin</module>
+        <module>learn-home</module>
+        <module>learn-home</module>
+        <module>learn-home</module>
+        <module>learn-home</module>
+        <module>learn-home</module>
     </modules>
 
     <properties>
