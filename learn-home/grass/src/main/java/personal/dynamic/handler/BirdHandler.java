@@ -14,13 +14,13 @@ public class BirdHandler implements InvocationHandler {
     Bird bird;
 
     public BirdHandler(Pigeon pigeon) {
-       this.bird=bird;
+        this.bird=pigeon;
     }
 
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         rush();
-        method.invoke(proxy,args);
+        method.invoke(bird,args);
         descend();
 
         return null;
