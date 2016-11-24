@@ -16,10 +16,7 @@
         <module>jsonschema2pojo-operation</module>
         <module>gr plugin</module>
         <module>learn-home</module>
-        <module>learn-home</module>
-        <module>learn-home</module>
-        <module>learn-home</module>
-        <module>learn-home</module>
+        <module>lucene-operation</module>
     </modules>
 
     <properties>
