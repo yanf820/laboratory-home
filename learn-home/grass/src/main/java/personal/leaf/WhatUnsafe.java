@@ -15,22 +15,29 @@ public class WhatUnsafe {
         value = initialValue ? 1 : 0;
 
     }
-    private  AtomicInteger atomicInteger=new AtomicInteger(1);
-    public  void test() {
 
+
+    private AtomicInteger atomicInteger=new AtomicInteger(1);
+    public  void test() throws InterruptedException {
+
+        Runnable r=new Runnable() {
+            public void run() {
+                atomicInteger.getAndIncrement();
+
+            }
+        };
 
         for (int i =1 ;i<10000;i++){
 
-            new Thread(new Runnable() {
-                public void run() {
-                    atomicInteger.incrementAndGet();
-                }
-            }).start();
+            new Thread(r).start();
+
         }
+          Thread.sleep(1000);
+
         System.out.println(atomicInteger);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
 WhatUnsafe whatUnsafe=new WhatUnsafe(true);
 whatUnsafe.test();
