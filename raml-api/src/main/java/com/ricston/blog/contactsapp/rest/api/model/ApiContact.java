@@ -2,8 +2,10 @@
 package com.ricston.blog.contactsapp.rest.api.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -22,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "id",
     "name",
-    "email"
+    "emails"
 })
 public class ApiContact {
 
@@ -42,8 +44,9 @@ public class ApiContact {
     @NotNull
     @JsonProperty("name")
     private String name;
-    @JsonProperty("email")
-    private String email;
+    @JsonProperty("emails")
+    @Valid
+    private List<Object> emails = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -108,25 +111,25 @@ public class ApiContact {
     /**
      * 
      * @return
-     *     The email
+     *     The emails
      */
-    @JsonProperty("email")
-    public String getEmail() {
-        return email;
+    @JsonProperty("emails")
+    public List<Object> getEmails() {
+        return emails;
     }
 
     /**
      * 
-     * @param email
-     *     The email
+     * @param emails
+     *     The emails
      */
-    @JsonProperty("email")
-    public void setEmail(String email) {
-        this.email = email;
+    @JsonProperty("emails")
+    public void setEmails(List<Object> emails) {
+        this.emails = emails;
     }
 
-    public ApiContact withEmail(String email) {
-        this.email = email;
+    public ApiContact withEmails(List<Object> emails) {
+        this.emails = emails;
         return this;
     }
 
