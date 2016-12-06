@@ -44,6 +44,7 @@ public class FlinkProcessActuator implements IProcessActuator {
         if(producerNodes==null || producerNodes.size()==0) return;
 
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+//        final StreamExecutionEnvironment env=StreamExecutionEnvironment.createLocalEnvironment();
 
         for(ProcessorNode pn : this.processorGraph.getNodes()) {
             if(this.processorGraph.isProducerNode(pn.getId())){

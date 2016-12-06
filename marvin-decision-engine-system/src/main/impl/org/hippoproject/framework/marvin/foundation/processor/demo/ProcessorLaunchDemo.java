@@ -47,7 +47,7 @@ public class ProcessorLaunchDemo {
 	    }else{
 	    	processManager.setExecutor(standaloneProcessExecutor);
 	    }
-	    
+
 	    //register graph
 	    processManager.registerProcess(makeDemoProcessorGraph());
 	    
@@ -57,7 +57,7 @@ public class ProcessorLaunchDemo {
         }else{
             processManager.executeProcesses("demoprocessorgraph");
         }
-    
+
 	}
 
 	private static ProcessorGraph makeDemoProcessorGraph() {
