@@ -1,0 +1,59 @@
+#%RAML 0.8
+title: eternity API
+version: 1.0
+baseUri: http://api.startupsass.com/
+
+securitySchemes:
+  - oauth_2_0: !include securitySchemes/oauth_2_0.yml
+
+schemas:
+  - topic: !include schemas/topic-schema.json
+  - topics: !include schemas/topics-schema.json
+  - post: !include schemas/post-schema.json
+  - publisher: !include schemas/publisher-shcema.json
+  - poster: !include schemas/poster-shcema.json
+  - content: !include schemas/content-shcema.json
+  - contentDetail: !include schemas/contentDetail-schema.json
+  - funs: !include schemas/funs-schema.json
+  - like: !include schemas/like-schema.json
+  - error-schema: !include schemas/error-schema.json
+
+resourceTypes:
+  - member: !include resourceTypes/member.yml
+  - baseResource: !include resourceTypes/baseResource.yml
+  - fieldSelectorMember: !include resourceTypes/fieldSelectorMember.yml
+  - fieldSelectors: !include resourceTypes/fieldSelectors.yml
+  - collection: !include resourceTypes/collections.yml
+  - fieldSelectorCollection: !include resourceTypes/fieldSelectorCollection.yml
+
+traits:
+  - hasModifiedFilter: !include traits/hasModifiedFilter.yml
+  - hasMembership: !include traits/hasMembership.yml
+  - paged: !include traits/paged.yml
+
+securedBy: [ oauth_2_0 ]
+/topics:
+  /~{fieldSelectors}:
+    displayName: Topic API
+    type: { fieldSelectorMember: {type :  topic} }
+    get:
+      securedBy: [ oauth_2_0 ]
+      is: [ paged, hasMembership ]
+      description: |
+    post:
+      description: |
+      body:
+        application/json:
+      responses:
+        200:
+          description: ok
+    /{topicId}:
+      type: baseResource
+      uriParameters:
+        topicId:
+          displayName: Numeric group ID
+          description: |
+            The unique identifier for a topic
+          type: integer
+          required: true
+      get:

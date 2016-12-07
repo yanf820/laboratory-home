@@ -1,0 +1,286 @@
+get?:
+  headers:
+    x-la-format:
+      description: |
+        Type of data
+      enum:
+        - json
+  responses:
+    200:
+      description: |
+        Request succeeded
+      body:
+        application/json:
+    400:
+      description: |
+        Your request was not formatted correctly
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    401:
+      description: |
+        The OAuth signature was bad
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    403:
+      description: |
+        Access to the resource was denied. Usually this means you have reached a throttle limit. Can also mean you do not have permission to access this resource.
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    404:
+      description: |
+        The resource was not found (i.e. you asked for a non-existent user or URL)
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    405:
+      description: |
+        Usually this means you used the wrong HTTP method (GET when you should POST, etc)
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    500:
+      description: |
+        There was an application error on the server.
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+put?:
+  headers:
+    x-la-format:
+      description: |
+        Type of data
+      enum:
+        - json
+  responses:
+    200:
+      description: |
+        Request succeeded
+      body:
+        application/json:
+    201:
+      description: |
+        Your request to POST or PUT a record was successful. A Location HTTP header is often returned when we respond with a 201.
+      body:
+        application/json:
+    400:
+      description: |
+        Your request was not formatted correctly
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    401:
+      description: |
+        The OAuth signature was bad
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    403:
+      description: |
+        Access to the resource was denied. Usually this means you have reached a throttle limit. Can also mean you do not have permission to access this resource.
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    404:
+      description: |
+        The resource was not found (i.e. you asked for a non-existent user or URL)
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    405:
+      description: |
+        Usually this means you used the wrong HTTP method (GET when you should POST, etc)
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    500:
+      description: |
+        There was an application error on the server.
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+patch?:
+  headers:
+    x-la-format:
+      description: |
+        Type of data
+      enum:
+        - json
+  responses:
+    200:
+      description: |
+        Request succeeded
+      body:
+        application/json:
+    201:
+      description: |
+        Your request to POST or PUT a record was successful. A Location HTTP header is often returned when we respond with a 201.
+      body:
+        application/json:
+    400:
+      description: |
+        Your request was not formatted correctly
+      body:
+        application/json:
+          example: !include ../examples/error-example.json
+    401:
+      description: |
+        The OAuth signature was bad
+      body:
+        application/json:
+          example: !include ../examples/error-example.json
+    403:
+      description: |
+        Access to the resource was denied. Usually this means you have reached a throttle limit. Can also mean you do not have permission to access this resource.
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    404:
+      description: |
+        The resource was not found (i.e. you asked for a non-existent user or URL)
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    405:
+      description: |
+        Usually this means you used the wrong HTTP method (GET when you should POST, etc)
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    500:
+      description: |
+        There was an application error on the server.
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+post?:
+  headers:
+    x-la-format:
+      description: |
+        Type of data
+      enum:
+        - json
+  responses:
+    200:
+      description: |
+        Request succeeded
+      body:
+        application/json:
+    201:
+      description: |
+        Your request to POST or PUT a record was successful. A Location HTTP header is often returned when we respond with a 201.
+      body:
+        application/json:
+    400:
+      description: |
+        Your request was not formatted correctly
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    401:
+      description: |
+        The OAuth signature was bad
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    403:
+      description: |
+        Access to the resource was denied. Usually this means you have reached a throttle limit. Can also mean you do not have permission to access this resource.
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    404:
+      description: |
+        The resource was not found (i.e. you asked for a non-existent user or URL)
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    405:
+      description: |
+        Usually this means you used the wrong HTTP method (GET when you should POST, etc)
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    500:
+      description: |
+        There was an application error on the LinkedIn server.
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+delete?:
+  headers:
+    x-la-format:
+      description: |
+        Type of data
+      enum:
+        - json
+  responses:
+    204:
+      description: |
+        Your request to DELETE a record was successful
+    400:
+      description: |
+        Your request was not formatted correctly
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    401:
+      description: |
+        The OAuth signature was bad
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    403:
+      description: |
+        Access to the resource was denied. Usually this means you have reached a throttle limit. Can also mean you do not have permission to access this resource.
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    404:
+      description: |
+        The resource was not found (i.e. you asked for a non-existent user or URL)
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    405:
+      description: |
+        Usually this means you used the wrong HTTP method (GET when you should POST, etc)
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json
+    500:
+      description: |
+        There was an application error on the server.
+      body:
+        application/json:
+          schema: error-schema
+          example: !include ../examples/error-example.json

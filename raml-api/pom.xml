@@ -62,7 +62,8 @@
             <artifactId>raml-jaxrs-maven-plugin</artifactId>
             <version>1.3.4</version>
             <configuration>
-                <sourceDirectory>${basedir}/raml/test</sourceDirectory>
+                <!--<sourceDirectory>${basedir}/raml/LinkedIn-v1/</sourceDirectory>-->
+                <sourceDirectory>${basedir}/raml/LinkedIn-v1</sourceDirectory>
                 <!--<sourcePaths>-->
                 <!--<sourcePath>${basedir}/raml/*.raml</sourcePath>-->
                 <!--</sourcePaths>-->
@@ -70,6 +71,7 @@
                 <basePackageName>com.linkedin.api</basePackageName>
                 <!--<useSourceHierarchyInPackageName>true</useSourceHierarchyInPackageName>-->
                 <jaxrsVersion>2.0</jaxrsVersion>
+
                 <useJsr303Annotations>true</useJsr303Annotations>
                 <jsonMapper>jackson2</jsonMapper>
                 <removeOldOutput>true</removeOldOutput>

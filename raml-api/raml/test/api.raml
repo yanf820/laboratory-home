@@ -20,7 +20,7 @@ schemas:
          "properties": {
            "id":  { "type": "string", "required": true },
            "name":  { "type": "string", "required": true },
-           "emails":  { "type": "array" , "default": null }
+           "emails":  { "type": "array" }
          }
       }
   - apiContacts: |
@@ -36,6 +36,8 @@ schemas:
            }
          }
       }
+
+
 
 /contacts:
   # note, changing the displayName will change the name of the generated class in ${base.package.name}.resource

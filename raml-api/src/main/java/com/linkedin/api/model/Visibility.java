@@ -1,10 +1,9 @@
 
-package com.ricston.blog.contactsapp.rest.api.model;
+package com.linkedin.api.model;
 
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
-import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,55 +11,43 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-
-/**
- * Response JSON for successful POST operation
- * 
- */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "id"
+    "code"
 })
-public class ApiCreatedEntity {
+public class Visibility {
 
     /**
      * 
-     * (Required)
-     * 
      */
-    @NotNull
-    @JsonProperty("id")
-    private String id;
+    @JsonProperty("code")
+    private String code;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
-     * (Required)
-     * 
      * @return
-     *     The id
+     *     The code
      */
-    @JsonProperty("id")
-    public String getId() {
-        return id;
+    @JsonProperty("code")
+    public String getCode() {
+        return code;
     }
 
     /**
      * 
-     * (Required)
-     * 
-     * @param id
-     *     The id
+     * @param code
+     *     The code
      */
-    @JsonProperty("id")
-    public void setId(String id) {
-        this.id = id;
+    @JsonProperty("code")
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public ApiCreatedEntity withId(String id) {
-        this.id = id;
+    public Visibility withCode(String code) {
+        this.code = code;
         return this;
     }
 
@@ -74,7 +61,7 @@ public class ApiCreatedEntity {
         this.additionalProperties.put(name, value);
     }
 
-    public ApiCreatedEntity withAdditionalProperty(String name, Object value) {
+    public Visibility withAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
         return this;
     }

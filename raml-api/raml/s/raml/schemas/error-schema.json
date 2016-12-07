@@ -1,0 +1,27 @@
+{
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "type": "number",
+        "required": false
+    }
+  }
+}

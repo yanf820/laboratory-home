@@ -1,0 +1,14 @@
+post?:
+  body:
+    application/json:
+      schema: <<type>>
+put?:
+  body:
+    application/json:
+      schema: <<type>>
+get:
+  responses:
+    200:
+      body:
+        application/json:
+          schema: <<type>>

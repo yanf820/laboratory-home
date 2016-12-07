@@ -5,6 +5,7 @@ package org.hippoproject.framework.marvin.foundation.processor.demo;
 
 import org.hippoproject.framework.marvin.foundation.component.ClassInstantiationComponentProvider;
 import org.hippoproject.framework.marvin.foundation.component.IComponentProvider;
+import org.hippoproject.framework.marvin.foundation.component.SpringComponentProvider;
 import org.hippoproject.framework.marvin.foundation.processor.config.ProcessorGraph;
 import org.hippoproject.framework.marvin.foundation.processor.config.ProcessorGraphBuilder;
 import org.hippoproject.framework.marvin.foundation.processor.config.ProcessorNodeBuilder;
@@ -36,7 +37,7 @@ public class ProcessorLaunchDemo {
         
         String executorType = System.getProperty("mx.processor.executorType", "flink");
 		
-	    IComponentProvider componentProvider = new ClassInstantiationComponentProvider();
+	    IComponentProvider componentProvider = new SpringComponentProvider();
 	    
 	    StandaloneProcessExecutor standaloneProcessExecutor = new StandaloneProcessExecutor(componentProvider);
 	    FlinkProcessExecutor flinkProcessExecutor = new FlinkProcessExecutor(componentProvider);

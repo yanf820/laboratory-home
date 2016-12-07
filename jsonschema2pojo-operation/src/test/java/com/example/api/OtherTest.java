@@ -14,6 +14,6 @@ public class OtherTest {
     public void voidTest(){
         System.out.println(Void.TYPE);
         Integer a=Integer.valueOf(0);
-        assert 1==3;
+        assert 1==1;
     }
 }

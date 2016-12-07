@@ -1,0 +1,452 @@
+<!DOCTYPE HTML><html><head><title>eternity API API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/raml2html/raml2html 3.0.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code, .modal-body pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h1 {
+        font-size: 1.3em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+
+      pre code {
+        overflow: auto;
+        word-wrap: normal;
+        white-space: pre;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>eternity API API documentation <small>version 1.0</small></h1><p>http://api.startupsass.com/</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="topics" class="panel-title">/topics</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_topics___fieldSelectors_"><span class="parent">/topics</span>/~{fieldSelectors}</a> <span class="methods"><a href="#topics___fieldSelectors__post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#topics___fieldSelectors__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_topics___fieldSelectors_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Describes field selectors uri path parameter</p></div><div class="list-group"><div onclick="window.location.href = '#topics___fieldSelectors__post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div><div onclick="window.location.href = '#topics___fieldSelectors__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics___fieldSelectors__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics</span>/~{fieldSelectors}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>Dropbox supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics___fieldSelectors__post_request" data-toggle="tab">Request</a></li><li><a href="#topics___fieldSelectors__post_response" data-toggle="tab">Response</a></li><li><a href="#topics___fieldSelectors__post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics___fieldSelectors__post_request"><h3>URI Parameters</h3><ul><li><strong>Field Selectors</strong>: <em>required (string)</em><p>Many of our resources allow you to specify what fields you want returned. We call this syntax field selectors. By indicating exactly the information you need, we can optimize the amount of time needed to return your results. It also reduces the amount of data passing across the wire. The two combine to make our APIs speedy and efficient, a critical factor in any web application, and more so for anyone relying on external APIs.</p><p>Field selectors are specified after the resource identifiers and path components of a resource, prefixed by a colon, contained within parenthesis, and separated by commas. Fields will be returned in the order specified. When URL-encoding your resource URLs, ensure that the parenthesis used in selectors remain unescaped.</p><h2 id="examples">Examples</h2><p>To get a member&#39;s ID, first name, last name, and industry: <code>http://api.startupsass.com/v1/people/~:(id,first-name,last-name,industry)</code></p><p>Or the same set of information for their connections: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,industry)</code></p><p>Fields selectors can also be nested to access individual fields from a larger collection. For example, to get just the job titles and not the rest of the information about positions: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,positions:(title))</code></p><p>Field selectors with resource identifiers allow you to request information about multiple entities at once. Specify them similarly, but append a double colon - here&#39;s an example getting profile information about thee members: the first is the current member, indicated by a tilde; the next has an id of 12345; and the last has a public profile URL</p><p><code>http://api.startupsass.com/v1/people::(~, id=12345,url=http%3A%2F%2Fwww.startupsass.com%2Fin%2Fadamnash)</code></p><p><strong>Example</strong>:</p><pre>:(id,first-name,last-name,industry)</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "required": false
+    },
+    "title": {
+      "type": "string",
+      "required": false
+    },
+    "image": {
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "type": "string",
+      "reuqired": false
+    },
+    "status": {
+      "type": "string",
+      "required": false
+    },
+    "publisher": {
+      "type": "object",
+      "$ref": "publisher"
+    },
+    "tags": {
+      "type": "string",
+      "required": false
+    },
+    "funs": {
+      "type": "array",
+      "items": {
+        "$ref": "funs"
+      }
+    },
+    "posters": {
+      "type": "array",
+      "items": {
+        "$ref": "poster"
+      }
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="topics___fieldSelectors__post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>ok</p></div><div class="tab-pane" id="topics___fieldSelectors__post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. This can happen if the user or Dropbox revoked or expired an access token. To fix, you should re- authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics___fieldSelectors__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics</span>/~{fieldSelectors}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>Dropbox supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics___fieldSelectors__get_request" data-toggle="tab">Request</a></li><li><a href="#topics___fieldSelectors__get_response" data-toggle="tab">Response</a></li><li><a href="#topics___fieldSelectors__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics___fieldSelectors__get_request"><h3>URI Parameters</h3><ul><li><strong>Field Selectors</strong>: <em>required (string)</em><p>Many of our resources allow you to specify what fields you want returned. We call this syntax field selectors. By indicating exactly the information you need, we can optimize the amount of time needed to return your results. It also reduces the amount of data passing across the wire. The two combine to make our APIs speedy and efficient, a critical factor in any web application, and more so for anyone relying on external APIs.</p><p>Field selectors are specified after the resource identifiers and path components of a resource, prefixed by a colon, contained within parenthesis, and separated by commas. Fields will be returned in the order specified. When URL-encoding your resource URLs, ensure that the parenthesis used in selectors remain unescaped.</p><h2 id="examples">Examples</h2><p>To get a member&#39;s ID, first name, last name, and industry: <code>http://api.startupsass.com/v1/people/~:(id,first-name,last-name,industry)</code></p><p>Or the same set of information for their connections: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,industry)</code></p><p>Fields selectors can also be nested to access individual fields from a larger collection. For example, to get just the job titles and not the rest of the information about positions: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,positions:(title))</code></p><p>Field selectors with resource identifiers allow you to request information about multiple entities at once. Specify them similarly, but append a double colon - here&#39;s an example getting profile information about thee members: the first is the current member, indicated by a tilde; the next has an id of 12345; and the last has a public profile URL</p><p><code>http://api.startupsass.com/v1/people::(~, id=12345,url=http%3A%2F%2Fwww.startupsass.com%2Fin%2Fadamnash)</code></p><p><strong>Example</strong>:</p><pre>:(id,first-name,last-name,industry)</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>membership-state</strong>: <em>(one of non-member, awaiting-confirmation, awaiting-parent-group-confirmation, member, moderator, manager, owner)</em><p>The state of the callers membership to the specified group. Use the value member to retrieve the groups to which a user belongs.</p></li><li><strong>count</strong>: <em>(integer - default: 10)</em><p>Maximum</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer)</em><p>The offset by which to start Network Update pagination</p></li></ul></div><div class="tab-pane" id="topics___fieldSelectors__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "required": false
+    },
+    "title": {
+      "type": "string",
+      "required": false
+    },
+    "image": {
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "type": "string",
+      "reuqired": false
+    },
+    "status": {
+      "type": "string",
+      "required": false
+    },
+    "publisher": {
+      "type": "object",
+      "$ref": "publisher"
+    },
+    "tags": {
+      "type": "string",
+      "required": false
+    },
+    "funs": {
+      "type": "array",
+      "items": {
+        "$ref": "funs"
+      }
+    },
+    "posters": {
+      "type": "array",
+      "items": {
+        "$ref": "poster"
+      }
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="topics___fieldSelectors__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. This can happen if the user or Dropbox revoked or expired an access token. To fix, you should re- authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_topics___fieldSelectors___topicId_"><span class="parent">/topics/~{fieldSelectors}</span>/{topicId}</a> <span class="methods"><a href="#topics___fieldSelectors___topicId__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_topics___fieldSelectors___topicId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#topics___fieldSelectors___topicId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics___fieldSelectors___topicId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics/~{fieldSelectors}</span>/{topicId}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>Dropbox supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics___fieldSelectors___topicId__get_request" data-toggle="tab">Request</a></li><li><a href="#topics___fieldSelectors___topicId__get_response" data-toggle="tab">Response</a></li><li><a href="#topics___fieldSelectors___topicId__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics___fieldSelectors___topicId__get_request"><h3>URI Parameters</h3><ul><li><strong>Field Selectors</strong>: <em>required (string)</em><p>Many of our resources allow you to specify what fields you want returned. We call this syntax field selectors. By indicating exactly the information you need, we can optimize the amount of time needed to return your results. It also reduces the amount of data passing across the wire. The two combine to make our APIs speedy and efficient, a critical factor in any web application, and more so for anyone relying on external APIs.</p><p>Field selectors are specified after the resource identifiers and path components of a resource, prefixed by a colon, contained within parenthesis, and separated by commas. Fields will be returned in the order specified. When URL-encoding your resource URLs, ensure that the parenthesis used in selectors remain unescaped.</p><h2 id="examples">Examples</h2><p>To get a member&#39;s ID, first name, last name, and industry: <code>http://api.startupsass.com/v1/people/~:(id,first-name,last-name,industry)</code></p><p>Or the same set of information for their connections: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,industry)</code></p><p>Fields selectors can also be nested to access individual fields from a larger collection. For example, to get just the job titles and not the rest of the information about positions: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,positions:(title))</code></p><p>Field selectors with resource identifiers allow you to request information about multiple entities at once. Specify them similarly, but append a double colon - here&#39;s an example getting profile information about thee members: the first is the current member, indicated by a tilde; the next has an id of 12345; and the last has a public profile URL</p><p><code>http://api.startupsass.com/v1/people::(~, id=12345,url=http%3A%2F%2Fwww.startupsass.com%2Fin%2Fadamnash)</code></p><p><strong>Example</strong>:</p><pre>:(id,first-name,last-name,industry)</pre></li><li><strong>Numeric group ID</strong>: <em>required (integer)</em><p>The unique identifier for a topic</p></li></ul><h3>Headers</h3><ul><li><strong>x-la-format</strong>: <em>(one of json)</em><p>Type of data</p></li></ul></div><div class="tab-pane" id="topics___fieldSelectors___topicId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Request succeeded</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Your request was not formatted correctly</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "requestId": "Y703T8HXBF",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>The OAuth signature was bad</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "requestId": "Y703T8HXBF",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Access to the resource was denied. Usually this means you have reached a throttle limit. Can also mean you do not have permission to access this resource.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "requestId": "Y703T8HXBF",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The resource was not found (i.e. you asked for a non-existent user or URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "requestId": "Y703T8HXBF",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>Usually this means you used the wrong HTTP method (GET when you should POST, etc)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "requestId": "Y703T8HXBF",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>There was an application error on the server.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "requestId": "Y703T8HXBF",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="topics___fieldSelectors___topicId__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. This can happen if the user or Dropbox revoked or expired an access token. To fix, you should re- authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#topics">/topics</a></li></ul></div></div></div></div></body></html>

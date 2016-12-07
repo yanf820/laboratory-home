@@ -39,7 +39,7 @@ public class WhatUnsafe {
 
     public static void main(String[] args) throws InterruptedException {
 
-WhatUnsafe whatUnsafe=new WhatUnsafe(true);
-whatUnsafe.test();
+//WhatUnsafe whatUnsafe=new WhatUnsafe(true);
+//whatUnsafe.test();
     }
 }

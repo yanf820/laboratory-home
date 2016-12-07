@@ -1,5 +1,6 @@
 package org.flink;
 
+import com.ricston.blog.contactsapp.rest.api.model.ApiContact;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
@@ -13,6 +14,15 @@ import org.apache.flink.util.Collector;
 public class WordCount {
 
     public static void main(String[] args) throws Exception {
+
+        ApiContact apiContact=new ApiContact();
+
+        apiContact.setId("adadsa");
+
+
+
+        System.out.println("load apiContext >>>>>>>>>>>>>>>>>>>>>  id: "+ apiContact.getId());
+
 
         // Checking input parameters
         final ParameterTool params = ParameterTool.fromArgs(args);
