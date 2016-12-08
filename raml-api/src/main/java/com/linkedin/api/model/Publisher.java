@@ -3,7 +3,6 @@ package com.linkedin.api.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,42 +11,72 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "code"
+    "id",
+    "name"
 })
-public class Visibility {
+public class Publisher {
 
     /**
      * 
      */
-    @JsonProperty("code")
-    private String code;
+    @JsonProperty("id")
+    private Integer id;
+    /**
+     * 
+     */
+    @JsonProperty("name")
+    private String name;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The code
+     *     The id
      */
-    @JsonProperty("code")
-    public String getCode() {
-        return code;
+    @JsonProperty("id")
+    public Integer getId() {
+        return id;
     }
 
     /**
      * 
-     * @param code
-     *     The code
+     * @param id
+     *     The id
      */
-    @JsonProperty("code")
-    public void setCode(String code) {
-        this.code = code;
+    @JsonProperty("id")
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Visibility withCode(String code) {
-        this.code = code;
+    public Publisher withId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * 
+     * @return
+     *     The name
+     */
+    @JsonProperty("name")
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * 
+     * @param name
+     *     The name
+     */
+    @JsonProperty("name")
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Publisher withName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -61,7 +90,7 @@ public class Visibility {
         this.additionalProperties.put(name, value);
     }
 
-    public Visibility withAdditionalProperty(String name, Object value) {
+    public Publisher withAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
         return this;
     }

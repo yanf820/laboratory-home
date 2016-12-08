@@ -33,11 +33,22 @@ traits:
 
 securedBy: [ oauth_2_0 ]
 /topics:
-  /~{fieldSelectors}:
+  /~{fieldSelectors}{groupId}:
     displayName: Topic API
     type: { fieldSelectorMember: {type :  topic} }
+    uriParameters:
+      fieldSelectors:
+        displayName: Numeric group ID
+        type: string
+        required: true
+      groupId:
+        displayName: Numeric group ID
+        description: |
+          The unique identifier for a LinkedIn group
+        type: integer
+        required: true
+
     get:
-      securedBy: [ oauth_2_0 ]
       is: [ paged, hasMembership ]
       description: |
     post:

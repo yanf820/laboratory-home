@@ -29,10 +29,10 @@ public class Library {
     }
 
     @PUT
-    @Path("/book/{isbn}")
-    public void addBook(@PathParam("isbn") String isbn, @QueryParam("name") String name){
+    @Path("/book/{isbn}{title}")
+    public void addBook(@PathParam("isbn") int isbn,@PathParam("title") String title, @QueryParam("name") String name){
 
-        System.out.println("add the book with name : "+name+", isbn : "+isbn);
+        System.out.println("add the book with name : "+name+", isbn : "+isbn + "title :"+title);
     }
 
     @DELETE

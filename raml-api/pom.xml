@@ -63,7 +63,7 @@
             <version>1.3.4</version>
             <configuration>
                 <!--<sourceDirectory>${basedir}/raml/LinkedIn-v1/</sourceDirectory>-->
-                <sourceDirectory>${basedir}/raml/LinkedIn-v1</sourceDirectory>
+                <sourceDirectory>${basedir}/raml/s/raml</sourceDirectory>
                 <!--<sourcePaths>-->
                 <!--<sourcePath>${basedir}/raml/*.raml</sourcePath>-->
                 <!--</sourcePaths>-->
@@ -76,6 +76,9 @@
                 <jsonMapper>jackson2</jsonMapper>
                 <removeOldOutput>true</removeOldOutput>
                 <!--<customAnnotator>com.lashou.common.extend.annotator.QueryDslAnnotator</customAnnotator>-->
+                <!--<extensions>-->
+                    <!--<param>com.lashou.common.extend.extensions.CustomExtension</param>-->
+                <!--</extensions>-->
             </configuration>
             <executions>
                 <execution>
@@ -85,6 +88,13 @@
                     <phase>generate-sources</phase>
                 </execution>
             </executions>
+            <dependencies>
+                <dependency>
+                    <groupId>com.eternity.common</groupId>
+                    <artifactId>eternity-common</artifactId>
+                    <version>1.0-SNAPSHOT</version>
+                </dependency>
+            </dependencies>
             </plugin>
         </plugins>
     </build>
