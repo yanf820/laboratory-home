@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -15,186 +16,60 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "id",
-    "title",
-    "image",
-    "desc",
-    "status",
-    "publisher",
-    "tags",
-    "funs",
-    "posters"
+    "address",
+    "phoneNumber"
 })
 public class Topic {
 
     /**
      * 
-     */
-    @JsonProperty("id")
-    private String id;
-    /**
+     * (Required)
      * 
      */
-    @JsonProperty("title")
-    private String title;
-    /**
-     * 
-     */
-    @JsonProperty("image")
-    private String image;
-    @JsonProperty("desc")
-    private String desc;
-    /**
-     * 
-     */
-    @JsonProperty("status")
-    private String status;
+    @JsonProperty("address")
+    @Valid
+    @NotNull
+    private Address address;
     /**
      * 
      * (Required)
      * 
      */
+    @JsonProperty("phoneNumber")
+    @Valid
     @NotNull
-    @JsonProperty("publisher")
-    @Valid
-    private Publisher publisher;
-    /**
-     * 
-     */
-    @JsonProperty("tags")
-    private String tags;
-    @JsonProperty("funs")
-    @Valid
-    private List<Fun> funs = new ArrayList<Fun>();
-    @JsonProperty("posters")
-    @Valid
-    private List<Poster> posters = new ArrayList<Poster>();
+    private List<PhoneNumber> phoneNumber = new ArrayList<PhoneNumber>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
-     * @return
-     *     The id
-     */
-    @JsonProperty("id")
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * 
-     * @param id
-     *     The id
-     */
-    @JsonProperty("id")
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Topic withId(String id) {
-        this.id = id;
-        return this;
-    }
-
-    /**
+     * (Required)
      * 
      * @return
-     *     The title
+     *     The address
      */
-    @JsonProperty("title")
-    public String getTitle() {
-        return title;
+    @JsonProperty("address")
+    public Address getAddress() {
+        return address;
     }
 
     /**
      * 
-     * @param title
-     *     The title
-     */
-    @JsonProperty("title")
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Topic withTitle(String title) {
-        this.title = title;
-        return this;
-    }
-
-    /**
+     * (Required)
      * 
-     * @return
-     *     The image
+     * @param address
+     *     The address
      */
-    @JsonProperty("image")
-    public String getImage() {
-        return image;
+    @JsonProperty("address")
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    /**
-     * 
-     * @param image
-     *     The image
-     */
-    @JsonProperty("image")
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Topic withImage(String image) {
-        this.image = image;
-        return this;
-    }
-
-    /**
-     * 
-     * @return
-     *     The desc
-     */
-    @JsonProperty("desc")
-    public String getDesc() {
-        return desc;
-    }
-
-    /**
-     * 
-     * @param desc
-     *     The desc
-     */
-    @JsonProperty("desc")
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public Topic withDesc(String desc) {
-        this.desc = desc;
-        return this;
-    }
-
-    /**
-     * 
-     * @return
-     *     The status
-     */
-    @JsonProperty("status")
-    public String getStatus() {
-        return status;
-    }
-
-    /**
-     * 
-     * @param status
-     *     The status
-     */
-    @JsonProperty("status")
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Topic withStatus(String status) {
-        this.status = status;
+    public Topic withAddress(Address address) {
+        this.address = address;
         return this;
     }
 
@@ -203,102 +78,27 @@ public class Topic {
      * (Required)
      * 
      * @return
-     *     The publisher
+     *     The phoneNumber
      */
-    @JsonProperty("publisher")
-    public Publisher getPublisher() {
-        return publisher;
+    @JsonProperty("phoneNumber")
+    public List<PhoneNumber> getPhoneNumber() {
+        return phoneNumber;
     }
 
     /**
      * 
      * (Required)
      * 
-     * @param publisher
-     *     The publisher
+     * @param phoneNumber
+     *     The phoneNumber
      */
-    @JsonProperty("publisher")
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
+    @JsonProperty("phoneNumber")
+    public void setPhoneNumber(List<PhoneNumber> phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public Topic withPublisher(Publisher publisher) {
-        this.publisher = publisher;
-        return this;
-    }
-
-    /**
-     * 
-     * @return
-     *     The tags
-     */
-    @JsonProperty("tags")
-    public String getTags() {
-        return tags;
-    }
-
-    /**
-     * 
-     * @param tags
-     *     The tags
-     */
-    @JsonProperty("tags")
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    public Topic withTags(String tags) {
-        this.tags = tags;
-        return this;
-    }
-
-    /**
-     * 
-     * @return
-     *     The funs
-     */
-    @JsonProperty("funs")
-    public List<Fun> getFuns() {
-        return funs;
-    }
-
-    /**
-     * 
-     * @param funs
-     *     The funs
-     */
-    @JsonProperty("funs")
-    public void setFuns(List<Fun> funs) {
-        this.funs = funs;
-    }
-
-    public Topic withFuns(List<Fun> funs) {
-        this.funs = funs;
-        return this;
-    }
-
-    /**
-     * 
-     * @return
-     *     The posters
-     */
-    @JsonProperty("posters")
-    public List<Poster> getPosters() {
-        return posters;
-    }
-
-    /**
-     * 
-     * @param posters
-     *     The posters
-     */
-    @JsonProperty("posters")
-    public void setPosters(List<Poster> posters) {
-        this.posters = posters;
-    }
-
-    public Topic withPosters(List<Poster> posters) {
-        this.posters = posters;
+    public Topic withPhoneNumber(List<PhoneNumber> phoneNumber) {
+        this.phoneNumber = phoneNumber;
         return this;
     }
 

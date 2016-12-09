@@ -64,6 +64,7 @@
             <configuration>
                 <!--<sourceDirectory>${basedir}/raml/LinkedIn-v1/</sourceDirectory>-->
                 <sourceDirectory>${basedir}/raml/s/raml</sourceDirectory>
+                <!--<sourceDirectory>${basedir}/raml/lashou</sourceDirectory>-->
                 <!--<sourcePaths>-->
                 <!--<sourcePath>${basedir}/raml/*.raml</sourcePath>-->
                 <!--</sourcePaths>-->
@@ -74,11 +75,14 @@
 
                 <useJsr303Annotations>true</useJsr303Annotations>
                 <jsonMapper>jackson2</jsonMapper>
+                <jsonMapperConfiguration>
+                    <useLongIntegers>true</useLongIntegers>
+                </jsonMapperConfiguration>
                 <removeOldOutput>true</removeOldOutput>
                 <!--<customAnnotator>com.lashou.common.extend.annotator.QueryDslAnnotator</customAnnotator>-->
-                <!--<extensions>-->
-                    <!--<param>com.lashou.common.extend.extensions.CustomExtension</param>-->
-                <!--</extensions>-->
+                <extensions>
+                    <param>com.lashou.common.extend.extensions.CustomExtension</param>
+                </extensions>
             </configuration>
             <executions>
                 <execution>

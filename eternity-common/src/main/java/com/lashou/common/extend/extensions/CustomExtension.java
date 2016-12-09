@@ -1,21 +1,18 @@
 package com.lashou.common.extend.extensions;
 
-import com.fasterxml.jackson.annotation.JacksonAnnotation;
 import com.sun.codemodel.*;
-import org.mongodb.morphia.annotations.Entity;
 import org.raml.jaxrs.codegen.core.ext.GeneratorExtension;
 import org.raml.model.Action;
 import org.raml.model.MimeType;
 import org.raml.model.Raml;
 import org.raml.model.Resource;
 import org.raml.model.parameter.AbstractParam;
+import org.raml.model.parameter.UriParameter;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import java.lang.annotation.Annotation;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 /**
  * Created by yf on 2016/11/25.
@@ -47,12 +44,32 @@ public class CustomExtension implements GeneratorExtension {
 //        System.out.println(parenturi);
 //        System.out.println(uri);
         Collection<JAnnotationUse> list=method.annotations();
+
         Iterator<JAnnotationUse> it=list.iterator();
+
+        StringBuffer stringBuffer=new StringBuffer("");
 
         while(it.hasNext()){
             JAnnotationUse jAnnotationUse=it.next();
             if("Path".equals(jAnnotationUse.getAnnotationClass().name())){
-                jAnnotationUse.param("value","walter");
+                Map<String, UriParameter> map=action.getResource().getUriParameters();
+                Set<String> keyset=map.keySet();
+                Iterator<String> uriKeysIt=keyset.iterator();
+
+                while(uriKeysIt.hasNext()){
+
+                    String key=uriKeysIt.next();
+
+                    if(key.endsWith("Selectors")){
+                        stringBuffer.append("{"+key+":"+"[a-zA-Z]*}");
+                    }
+                    else if(key.endsWith("Id")){
+                        stringBuffer.append("{"+key+":"+"[0-9]*}");
+                    }
+                }
+
+                jAnnotationUse.param("value",stringBuffer.toString());
+
             }
         }
 //        method.annotate(Path.class).param("value","walter");
@@ -68,6 +85,28 @@ public class CustomExtension implements GeneratorExtension {
 //        System.out.println(action.getResource().getUri());
 //        System.out.println(action.getBaseUriParameters());
 //        System.out.println("============================>>>>>>>>>>>>");
+    }
+
+    private String transformPathToRegex(JAnnotationUse jAnnotationUse) {
+
+        String finalPath=null;
+
+        return finalPath;
+    }
+
+    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+//        Class c=Class.forName("com.sun.codemodel.JAnnotationStringValue");
+//        c.getDeclaredMethods();
+//
+//        Constructor[] constructors = c.getDeclaredConstructors();
+//        Constructor constructors1=constructors[0];
+//        constructors1.setAccessible(true);
+//
+//
+//        Object a=constructors1.newInstance(JExpr.lit("walter"));
+//
+//
+//        System.out.println(a.toString());
     }
 
     /**

@@ -45,11 +45,12 @@ securedBy: [ oauth_2_0 ]
         displayName: Numeric group ID
         description: |
           The unique identifier for a LinkedIn group
-        type: integer
         required: true
 
     get:
       is: [ paged, hasMembership ]
+      body:
+
       description: |
     post:
       description: |

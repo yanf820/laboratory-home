@@ -22,6 +22,11 @@ public interface TopicsResource {
 
     /**
      * 
+     * @param groupId
+     *     The unique identifier for a LinkedIn group
+     *     
+     * @param entity
+     *     
      * @param fieldSelectors
      *     Many of our resources allow you to specify what fields you want returned. We call this syntax field selectors.
      *     By indicating exactly the information you need, we can optimize the amount of time needed to return your results.
@@ -50,19 +55,14 @@ public interface TopicsResource {
      *     
      *       `http://api.startupsass.com/v1/people::(~, id=12345,url=http%3A%2F%2Fwww.startupsass.com%2Fin%2Fadamnash)`
      *      e.g. :(id,first-name,last-name,industry)
-     * @param groupId
-     *     The unique identifier for a LinkedIn group
-     *     
-     * @param entity
-     *     
      */
     @POST
-    @Path("~{fieldSelectors}{groupId}")
+    @Path("{groupId:[0-9]*}{fieldSelectors:[a-zA-Z]*}")
     @Consumes("application/json")
     TopicsResource.PostTopicsByFieldSelectorsByGroupIdResponse postTopicsByFieldSelectorsByGroupId(
         @PathParam("groupId")
         @NotNull
-        int groupId,
+        String groupId,
         @PathParam("fieldSelectors")
         @NotNull
         String fieldSelectors, Topic entity)
@@ -71,6 +71,13 @@ public interface TopicsResource {
 
     /**
      * 
+     * @param groupId
+     *     The unique identifier for a LinkedIn group
+     *     
+     * @param count
+     *     Maximum e.g. 10
+     * @param start
+     *     The offset by which to start Network Update pagination e.g. 0
      * @param fieldSelectors
      *     Many of our resources allow you to specify what fields you want returned. We call this syntax field selectors.
      *     By indicating exactly the information you need, we can optimize the amount of time needed to return your results.
@@ -99,27 +106,20 @@ public interface TopicsResource {
      *     
      *       `http://api.startupsass.com/v1/people::(~, id=12345,url=http%3A%2F%2Fwww.startupsass.com%2Fin%2Fadamnash)`
      *      e.g. :(id,first-name,last-name,industry)
-     * @param groupId
-     *     The unique identifier for a LinkedIn group
-     *     
-     * @param count
-     *     Maximum e.g. 10
-     * @param start
-     *     The offset by which to start Network Update pagination e.g. 0
      * @param membershipState
      *     The state of the callers membership to the specified group. Use the value member to retrieve the groups to which a
      *     user belongs.
      *     
      */
     @GET
-    @Path("~{fieldSelectors}{groupId}")
+    @Path("{groupId:[0-9]*}{fieldSelectors:[a-zA-Z]*}")
     @Produces({
         "application/json"
     })
     TopicsResource.GetTopicsByFieldSelectorsByGroupIdResponse getTopicsByFieldSelectorsByGroupId(
         @PathParam("groupId")
         @NotNull
-        int groupId,
+        String groupId,
         @PathParam("fieldSelectors")
         @NotNull
         String fieldSelectors,
@@ -135,8 +135,11 @@ public interface TopicsResource {
 
     /**
      * 
-     * @param topicId
-     *     The unique identifier for a topic
+     * @param groupId
+     *     The unique identifier for a LinkedIn group
+     *     
+     * @param xLaFormat
+     *     Type of data
      *     
      * @param fieldSelectors
      *     Many of our resources allow you to specify what fields you want returned. We call this syntax field selectors.
@@ -166,15 +169,12 @@ public interface TopicsResource {
      *     
      *       `http://api.startupsass.com/v1/people::(~, id=12345,url=http%3A%2F%2Fwww.startupsass.com%2Fin%2Fadamnash)`
      *      e.g. :(id,first-name,last-name,industry)
-     * @param groupId
-     *     The unique identifier for a LinkedIn group
-     *     
-     * @param xLaFormat
-     *     Type of data
+     * @param topicId
+     *     The unique identifier for a topic
      *     
      */
     @GET
-    @Path("~{fieldSelectors}{groupId}/{topicId}")
+    @Path("{topicId:[0-9]*}")
     @Produces({
         "application/json"
     })
@@ -184,7 +184,7 @@ public interface TopicsResource {
         int topicId,
         @PathParam("groupId")
         @NotNull
-        int groupId,
+        String groupId,
         @PathParam("fieldSelectors")
         @NotNull
         String fieldSelectors,

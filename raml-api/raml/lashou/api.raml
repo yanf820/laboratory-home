@@ -70,12 +70,14 @@ traits:
   - keywords: !include traits/keywords.raml
 
 
+
 /subjects:
   type : collection
   get:
     queryParameters:
       name:
         type: string
+        pattern: [0-9]*
     responses:
       200:
         body:
@@ -84,7 +86,8 @@ traits:
   post:
     body:
       application/x-www-form-urlencoded:
-        schema: !include schemas/common/address-schema.json
+        schema:
+
     responses:
       200:
         body:
@@ -92,6 +95,9 @@ traits:
             schema: subject
   /{subjectId}:
     type: member
+    uriParameters:
+      subjectId:
+        pattern: [0-9]*
     get:
       is: [field]
       responses:

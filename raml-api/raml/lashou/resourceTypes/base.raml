@@ -1,7 +1,11 @@
 get?:
-  responses: &standardResponses
-    200:
-  description: OK
+   responses: &standardResponses
+     200:
+      description: OK
+     401:
+      description: error
+     500:
+      description: bibi
 put?:
    responses: *standardResponses
 patch?:
