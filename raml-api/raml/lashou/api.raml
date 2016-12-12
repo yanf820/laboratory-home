@@ -77,7 +77,6 @@ traits:
     queryParameters:
       name:
         type: string
-        pattern: [0-9]*
     responses:
       200:
         body:
@@ -97,7 +96,6 @@ traits:
     type: member
     uriParameters:
       subjectId:
-        pattern: [0-9]*
     get:
       is: [field]
       responses:

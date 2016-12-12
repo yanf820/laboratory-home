@@ -1,6 +1,8 @@
 package com.lashou.common.extend.extensions;
 
 import com.sun.codemodel.*;
+import org.apache.http.HttpRequest;
+import org.apache.http.message.BasicHttpRequest;
 import org.raml.jaxrs.codegen.core.ext.GeneratorExtension;
 import org.raml.model.Action;
 import org.raml.model.MimeType;
@@ -12,6 +14,8 @@ import org.raml.model.parameter.UriParameter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -38,13 +42,12 @@ public class CustomExtension implements GeneratorExtension {
      */
     @Override
     public void onAddResourceMethod(JMethod method, Action action, MimeType bodyMimeType, Collection<MimeType> uniqueResponseMimeTypes) {
-//        Resource resource=action.getResource();
-//        String uri=resource.getRelativeUri();
-//        String parenturi=resource.getParentUri();
-//        System.out.println(parenturi);
-//        System.out.println(uri);
-        Collection<JAnnotationUse> list=method.annotations();
 
+
+    }
+
+    private void transformPathToRegex(JMethod method, Action action) {
+        Collection<JAnnotationUse> list=method.annotations();
         Iterator<JAnnotationUse> it=list.iterator();
 
         StringBuffer stringBuffer=new StringBuffer("");
@@ -72,26 +75,6 @@ public class CustomExtension implements GeneratorExtension {
 
             }
         }
-//        method.annotate(Path.class).param("value","walter");
-
-//        resource.setRelativeUri("/{walter_test}");
-//        resource.setParentUri(parenturi+"/{walter_test}");
-                ;
-//        action.setResource(resource);
-//
-//        System.out.println("-----------------------");
-//
-//        System.out.println(action.getResource().getParentUri());
-//        System.out.println(action.getResource().getUri());
-//        System.out.println(action.getBaseUriParameters());
-//        System.out.println("============================>>>>>>>>>>>>");
-    }
-
-    private String transformPathToRegex(JAnnotationUse jAnnotationUse) {
-
-        String finalPath=null;
-
-        return finalPath;
     }
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
@@ -125,7 +108,9 @@ public class CustomExtension implements GeneratorExtension {
 
     @Override
     public void setRaml(Raml raml) {
-
+        int i=0;
+        System.out.println(raml);
+        raml.setBaseUri("unicom");
     }
 
     @Override

@@ -44,13 +44,14 @@ securedBy: [ oauth_2_0 ]
       groupId:
         displayName: Numeric group ID
         description: |
-          The unique identifier for a LinkedIn group
+          LinkIn Group的唯一定位符
         required: true
 
     get:
       is: [ paged, hasMembership ]
       body:
-
+       application/json:
+         schema: funs
       description: |
     post:
       description: |
