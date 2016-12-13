@@ -22,7 +22,7 @@ npm install [git-url] --save
 npm link
 
 # Link in project to local module
-npm link eternity-api
+npm link startup-api
 ```
 
 **Note:** You should publish it before you use it publicly.
@@ -34,15 +34,15 @@ npm link eternity-api
 npm publish
 
 # Install from npm
-npm install eternity-api --save
+npm install startup-api --save
 ```
 
 ## Bower
 
 ```bash
 # Register with bower
-bower register eternity-api [git-url]
+bower register startup-api [git-url]
 
 # Install from bower
-bower install eternity-api --save
+bower install startup-api --save
 ```
