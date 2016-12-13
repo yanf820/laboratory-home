@@ -1,55 +1,58 @@
+usage: |
+  定义基础操作：Get，Post，Put，Patch，Delete
+  被上层reource继承
 get?:
   is: [ common ]
   headers:
     x-la-format:
       description: |
-        Type of data
+        自定义header字段，标识响应结果的格式。 枚举类型：[json]
       enum:
         - json
   responses:
     200:
       description: |
-        Request succeeded
+        请求成功
       body:
         application/json:
     400:
       description: |
-        Your request was not formatted correctly
+        请求格式不正确
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     401:
       description: |
-        The OAuth signature was bad
+        OAuth签名不正确
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     403:
       description: |
-        Access to the resource was denied. Usually this means you have reached a throttle limit. Can also mean you do not have permission to access this resource.
+        对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     404:
       description: |
-        The resource was not found (i.e. you asked for a non-existent user or URL)
+        资源未发现(例如：请求一个不存在的用户或URL)
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     405:
       description: |
-        Usually this means you used the wrong HTTP method (GET when you should POST, etc)
+        通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     500:
       description: |
-        There was an application error on the server.
+        在服务端有应用错误
       body:
         application/json:
           schema: error-schema
@@ -58,58 +61,58 @@ put?:
   headers:
     x-la-format:
       description: |
-        Type of data
+        自定义header字段，标识响应结果的格式。 枚举类型：[json]
       enum:
         - json
   responses:
     200:
       description: |
-        Request succeeded
+        请求成功
       body:
         application/json:
     201:
       description: |
-        Your request to POST or PUT a record was successful. A Location HTTP header is often returned when we respond with a 201.
+        创建或替换一条记录的请求成功. 当返回201时，Location头字段通常跟随返回
       body:
         application/json:
     400:
       description: |
-        Your request was not formatted correctly
+        请求格式不正确
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     401:
       description: |
-        The OAuth signature was bad
+        OAuth签名不正确
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     403:
       description: |
-        Access to the resource was denied. Usually this means you have reached a throttle limit. Can also mean you do not have permission to access this resource.
+        对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     404:
       description: |
-        The resource was not found (i.e. you asked for a non-existent user or URL)
+        资源未发现(例如：请求一个不存在的用户或URL)
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     405:
       description: |
-        Usually this means you used the wrong HTTP method (GET when you should POST, etc)
+        通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     500:
       description: |
-        There was an application error on the server.
+        在服务端有应用错误
       body:
         application/json:
           schema: error-schema
@@ -118,56 +121,58 @@ patch?:
   headers:
     x-la-format:
       description: |
-        Type of data
+        自定义header字段，标识响应结果的格式。 枚举类型：[json]
       enum:
         - json
   responses:
     200:
       description: |
-        Request succeeded
+        请求成功
       body:
         application/json:
     201:
       description: |
-        Your request to POST or PUT a record was successful. A Location HTTP header is often returned when we respond with a 201.
+        创建或替换一条记录的请求成功. 当返回201时，Location头字段通常跟随返回
       body:
         application/json:
     400:
       description: |
-        Your request was not formatted correctly
+        请求格式不正确
       body:
         application/json:
+          schema: error-schema
           example: !include ../examples/error-example.json
     401:
       description: |
-        The OAuth signature was bad
+        OAuth签名不正确
       body:
         application/json:
+          schema: error-schema
           example: !include ../examples/error-example.json
     403:
       description: |
-        Access to the resource was denied. Usually this means you have reached a throttle limit. Can also mean you do not have permission to access this resource.
+        对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     404:
       description: |
-        The resource was not found (i.e. you asked for a non-existent user or URL)
+        资源未发现(例如：请求一个不存在的用户或URL)
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     405:
       description: |
-        Usually this means you used the wrong HTTP method (GET when you should POST, etc)
+        通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     500:
       description: |
-        There was an application error on the server.
+        在服务端有应用错误
       body:
         application/json:
           schema: error-schema
@@ -176,111 +181,111 @@ post?:
   headers:
     x-la-format:
       description: |
-        Type of data
+        自定义header字段，标识响应结果的格式。 枚举类型：[json]
       enum:
         - json
   responses:
     200:
       description: |
-        Request succeeded
+        请求成功
       body:
         application/json:
     201:
       description: |
-        Your request to POST or PUT a record was successful. A Location HTTP header is often returned when we respond with a 201.
+        创建或替换一条记录的请求成功. 当返回201时，Location头字段通常跟随返回
       body:
         application/json:
     400:
       description: |
-        Your request was not formatted correctly
+        请求格式不正确
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     401:
       description: |
-        The OAuth signature was bad
+        OAuth签名不正确
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     403:
       description: |
-        Access to the resource was denied. Usually this means you have reached a throttle limit. Can also mean you do not have permission to access this resource.
+        对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     404:
       description: |
-        The resource was not found (i.e. you asked for a non-existent user or URL)
+        资源未发现(例如：请求一个不存在的用户或URL)
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     405:
       description: |
-        Usually this means you used the wrong HTTP method (GET when you should POST, etc)
+        通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     500:
       description: |
-        There was an application error on the LinkedIn server.
+        在服务端有应用错误
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
 delete?:
-   headers:
+  headers:
     x-la-format:
       description: |
-        Type of data
+        自定义header字段，标识响应结果的格式。 枚举类型：[json]
       enum:
         - json
-   responses:
+  responses:
     204:
       description: |
-        Your request to DELETE a record was successful
+        删除记录请求成功
     400:
       description: |
-        Your request was not formatted correctly
+        请求格式不正确
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     401:
       description: |
-        The OAuth signature was bad
+        OAuth签名不正确
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     403:
       description: |
-        Access to the resource was denied. Usually this means you have reached a throttle limit. Can also mean you do not have permission to access this resource.
+        对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     404:
       description: |
-        The resource was not found (i.e. you asked for a non-existent user or URL)
+        资源未发现(例如：请求一个不存在的用户或URL)
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     405:
       description: |
-        Usually this means you used the wrong HTTP method (GET when you should POST, etc)
+        通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)
       body:
         application/json:
           schema: error-schema
           example: !include ../examples/error-example.json
     500:
       description: |
-        There was an application error on the server.
+        在服务端有应用错误
       body:
         application/json:
           schema: error-schema

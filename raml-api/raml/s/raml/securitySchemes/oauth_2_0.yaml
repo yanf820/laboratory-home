@@ -5,8 +5,7 @@ describedBy:
   headers:
     Authorization:
       description: |
-        Used to send a valid OAuth 2 access token. Do not use
-        with the "access_token" query string parameter.
+        通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用
       type: string
   queryParameters:
     access_token:
@@ -17,13 +16,10 @@ describedBy:
   responses:
     401:
       description: |
-        Bad or expired token. This can happen if the user or Dropbox
-        revoked or expired an access token. To fix, you should re-
-        authenticate the user.
+        错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户
     403:
       description: |
-        Bad OAuth request (wrong consumer key, bad nonce, expired
-        timestamp...). Unfortunately, re-authenticating the user won't help here.
+        错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用
 settings:
   authorizationUri: https://www.startupsass.com/1/oauth2/authorize
   accessTokenUri: https://api.startupsass.com/1/oauth2/token

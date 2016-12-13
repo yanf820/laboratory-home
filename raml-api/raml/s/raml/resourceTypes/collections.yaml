@@ -1,3 +1,5 @@
+usage: |
+  用于集合的操作
 get?:
   responses:
     200:

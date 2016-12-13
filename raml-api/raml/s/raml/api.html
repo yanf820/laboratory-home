@@ -1,0 +1,4111 @@
+<!DOCTYPE HTML><html><head><title>STARTUP API API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/raml2html/raml2html 3.0.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code, .modal-body pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h1 {
+        font-size: 1.3em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+
+      pre code {
+        overflow: auto;
+        word-wrap: normal;
+        white-space: pre;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>STARTUP API API documentation <small>version 1.0</small></h1><p>http://api.startupsass.com/</p><h3 id="----------"><a href="#----------">创业服务平台接口规范</a></h3><p>Get: 获取资源的某个表述</p><p>Post: 基于给定的表述信息，在当前资源的下一级创建新的资源</p><p>Put: 用给定的表述信息替换资源的当前状态</p><p>Delete: 销毁一个资源</p><p>Patch: 根据提供的表述信息修改资源的部分状态。如果有某些资源状态在提供的表述中没有被提到， 这些状态就保持不变。类似于Put，但是允许对资源状态进行一些细粒度的改动</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="topics" class="panel-title">/topics</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_topics___field_selectors_"><span class="parent">/topics</span>/~{field_selectors}</a> <span class="methods"><a href="#topics___field_selectors__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#topics___field_selectors__post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_topics___field_selectors_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#topics___field_selectors__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div><div onclick="window.location.href = '#topics___field_selectors__post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics___field_selectors__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics</span>/~{field_selectors}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics___field_selectors__get_request" data-toggle="tab">Request</a></li><li><a href="#topics___field_selectors__get_response" data-toggle="tab">Response</a></li><li><a href="#topics___field_selectors__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics___field_selectors__get_request"><h3>URI Parameters</h3><ul><li><strong>字段选择器</strong>: <em>required (string)</em><p>很多资源允许你指定想要返回的字段。我们称这种语法结构为字段选择器。通过准确的指出你需要的信息，我们可以优化返回结果花费的时间。 这样也能减少传输的数据。这两点让我们的APIs快速且高效，这是任何一个web应用程序的关键点，对于其他任何依赖外部API的人来说更是如此。</p><h2 id="example">Example</h2><p>如果想要获得people先关的id,first-name,last-name,industry可以这样使用: <code>http://api.startupsass.com/v1/people/~:(id,first-name,last-name,industry)</code></p><p>或者: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,industry)</code></p><p>字段选择器可以选择成员对象中的字段: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,positions:(title))</code></p><p><strong>Example</strong>:</p><pre>:(id,first-name,last-name,industry)</pre></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>Maximum</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 0)</em><p>The offset by which to start Network Update pagination</p></li><li><strong>通用Header</strong>: <em>(string)</em><p>经过校验后生成值</p></li><li><strong>keywords</strong>: <em>(string)</em></li></ul></div><div class="tab-pane" id="topics___field_selectors__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "description": "主题集合",
+  "properties": {
+    "topics": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "topic"
+      }
+    },
+    "totalResult": {
+      "description": "主题数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="topics___field_selectors__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics___field_selectors__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics</span>/~{field_selectors}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics___field_selectors__post_request" data-toggle="tab">Request</a></li><li><a href="#topics___field_selectors__post_response" data-toggle="tab">Response</a></li><li><a href="#topics___field_selectors__post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics___field_selectors__post_request"><h3>URI Parameters</h3><ul><li><strong>字段选择器</strong>: <em>required (string)</em><p>很多资源允许你指定想要返回的字段。我们称这种语法结构为字段选择器。通过准确的指出你需要的信息，我们可以优化返回结果花费的时间。 这样也能减少传输的数据。这两点让我们的APIs快速且高效，这是任何一个web应用程序的关键点，对于其他任何依赖外部API的人来说更是如此。</p><h2 id="example">Example</h2><p>如果想要获得people先关的id,first-name,last-name,industry可以这样使用: <code>http://api.startupsass.com/v1/people/~:(id,first-name,last-name,industry)</code></p><p>或者: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,industry)</code></p><p>字段选择器可以选择成员对象中的字段: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,positions:(title))</code></p><p><strong>Example</strong>:</p><pre>:(id,first-name,last-name,industry)</pre></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-session</strong>: <em>(string)</em><p>当前用户的sessionId</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "title": {
+      "description": "标题",
+      "type": "string",
+      "required": false
+    },
+    "image": {
+      "description": "图片",
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "description": "描述",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "当前状态",
+      "type": "string",
+      "required": false
+    },
+    "publisher": {
+      "description": "发布者",
+      "type": "object",
+      "$ref": "publisher"
+    },
+    "publishTime": {
+      "description": "发布时间",
+      "type": "string",
+      "required": false
+    },
+    "tags": {
+      "description": "标签",
+      "type": "string",
+      "required": false
+    },
+    "fans": {
+      "description": "粉丝",
+      "type": "array",
+      "items": {
+        "$ref": "fans"
+      }
+    },
+    "posters": {
+      "description": "帖子集合",
+      "type": "array",
+      "items": {
+        "$ref": "poster"
+      }
+    },
+    "updateTime": {
+      "description": "更新时间",
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="topics___field_selectors__post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>ok</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "updateObjectId" : {
+      "type": "integer",
+      "required": false
+    },
+    "result": {
+      "type": "object",
+      "properties" : {
+        "updateResultEnum" : {
+          "type" : "boolean",
+          "enum" : [true, false]
+        }
+      }
+    },
+    "updateTime": {
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>创建或替换一条记录的请求成功. 当返回201时，Location头字段通常跟随返回</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="topics___field_selectors__post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_topics__topic_id_"><span class="parent">/topics</span>/{topic_id}</a> <span class="methods"><a href="#topics__topic_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#topics__topic_id__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#topics__topic_id__patch"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_topics__topic_id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#topics__topic_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div><div onclick="window.location.href = '#topics__topic_id__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div><div onclick="window.location.href = '#topics__topic_id__patch'" class="list-group-item"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics__topic_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics</span>/{topic_id}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics__topic_id__get_request" data-toggle="tab">Request</a></li><li><a href="#topics__topic_id__get_response" data-toggle="tab">Response</a></li><li><a href="#topics__topic_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics__topic_id__get_request"><h3>URI Parameters</h3><ul><li><strong>topic_id</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Query Parameters</h3><ul><li><strong>通用Header</strong>: <em>(string)</em><p>经过校验后生成值</p></li></ul></div><div class="tab-pane" id="topics__topic_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "title": {
+      "description": "标题",
+      "type": "string",
+      "required": false
+    },
+    "image": {
+      "description": "图片",
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "description": "描述",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "当前状态",
+      "type": "string",
+      "required": false
+    },
+    "publisher": {
+      "description": "发布者",
+      "type": "object",
+      "$ref": "publisher"
+    },
+    "publishTime": {
+      "description": "发布时间",
+      "type": "string",
+      "required": false
+    },
+    "tags": {
+      "description": "标签",
+      "type": "string",
+      "required": false
+    },
+    "fans": {
+      "description": "粉丝",
+      "type": "array",
+      "items": {
+        "$ref": "fans"
+      }
+    },
+    "posters": {
+      "description": "帖子集合",
+      "type": "array",
+      "items": {
+        "$ref": "poster"
+      }
+    },
+    "updateTime": {
+      "description": "更新时间",
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="topics__topic_id__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics__topic_id__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics</span>/{topic_id}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics__topic_id__put_request" data-toggle="tab">Request</a></li><li><a href="#topics__topic_id__put_response" data-toggle="tab">Response</a></li><li><a href="#topics__topic_id__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics__topic_id__put_request"><h3>URI Parameters</h3><ul><li><strong>topic_id</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-modified-since</strong>: <em>(integer - minimum: 0)</em><p>Value as a Unix time stamp of milliseconds since epoch.</p><p><strong>Example</strong>:</p><pre><code>1267401600000</code></pre></li><li><strong>x-la-modified</strong>: <em>(one of updated, create)</em><p>Values are updated or new.</p></li><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-session</strong>: <em>(string)</em><p>当前用户的sessionId</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "title": {
+      "description": "标题",
+      "type": "string",
+      "required": false
+    },
+    "image": {
+      "description": "图片",
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "description": "描述",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "当前状态",
+      "type": "string",
+      "required": false
+    },
+    "publisher": {
+      "description": "发布者",
+      "type": "object",
+      "$ref": "publisher"
+    },
+    "publishTime": {
+      "description": "发布时间",
+      "type": "string",
+      "required": false
+    },
+    "tags": {
+      "description": "标签",
+      "type": "string",
+      "required": false
+    },
+    "fans": {
+      "description": "粉丝",
+      "type": "array",
+      "items": {
+        "$ref": "fans"
+      }
+    },
+    "posters": {
+      "description": "帖子集合",
+      "type": "array",
+      "items": {
+        "$ref": "poster"
+      }
+    },
+    "updateTime": {
+      "description": "更新时间",
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="topics__topic_id__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>创建或替换一条记录的请求成功. 当返回201时，Location头字段通常跟随返回</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="topics__topic_id__put_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics__topic_id__patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics</span>/{topic_id}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics__topic_id__patch_request" data-toggle="tab">Request</a></li><li><a href="#topics__topic_id__patch_response" data-toggle="tab">Response</a></li><li><a href="#topics__topic_id__patch_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics__topic_id__patch_request"><h3>URI Parameters</h3><ul><li><strong>topic_id</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-modified-since</strong>: <em>(integer - minimum: 0)</em><p>Value as a Unix time stamp of milliseconds since epoch.</p><p><strong>Example</strong>:</p><pre><code>1267401600000</code></pre></li><li><strong>x-la-modified</strong>: <em>(one of updated, create)</em><p>Values are updated or new.</p></li><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-session</strong>: <em>(string)</em><p>当前用户的sessionId</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "title": {
+      "description": "标题",
+      "type": "string",
+      "required": false
+    },
+    "image": {
+      "description": "图片",
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "description": "描述",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "当前状态",
+      "type": "string",
+      "required": false
+    },
+    "publisher": {
+      "description": "发布者",
+      "type": "object",
+      "$ref": "publisher"
+    },
+    "publishTime": {
+      "description": "发布时间",
+      "type": "string",
+      "required": false
+    },
+    "tags": {
+      "description": "标签",
+      "type": "string",
+      "required": false
+    },
+    "fans": {
+      "description": "粉丝",
+      "type": "array",
+      "items": {
+        "$ref": "fans"
+      }
+    },
+    "posters": {
+      "description": "帖子集合",
+      "type": "array",
+      "items": {
+        "$ref": "poster"
+      }
+    },
+    "updateTime": {
+      "description": "更新时间",
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="topics__topic_id__patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>创建或替换一条记录的请求成功. 当返回201时，Location头字段通常跟随返回</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="topics__topic_id__patch_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_topics__topic_id____posts_field_selectors_"><span class="parent">/topics/{topic_id}/~</span>/posts{field_selectors}</a> <span class="methods"><a href="#topics__topic_id____posts_field_selectors__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_topics__topic_id____posts_field_selectors_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#topics__topic_id____posts_field_selectors__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics__topic_id____posts_field_selectors__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics/{topic_id}/~</span>/posts{field_selectors}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics__topic_id____posts_field_selectors__get_request" data-toggle="tab">Request</a></li><li><a href="#topics__topic_id____posts_field_selectors__get_response" data-toggle="tab">Response</a></li><li><a href="#topics__topic_id____posts_field_selectors__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics__topic_id____posts_field_selectors__get_request"><h3>URI Parameters</h3><ul><li><strong>topic_id</strong>: <em>required (string)</em></li><li><strong>字段选择器</strong>: <em>required (string)</em><p>很多资源允许你指定想要返回的字段。我们称这种语法结构为字段选择器。通过准确的指出你需要的信息，我们可以优化返回结果花费的时间。 这样也能减少传输的数据。这两点让我们的APIs快速且高效，这是任何一个web应用程序的关键点，对于其他任何依赖外部API的人来说更是如此。</p><h2 id="example">Example</h2><p>如果想要获得people先关的id,first-name,last-name,industry可以这样使用: <code>http://api.startupsass.com/v1/people/~:(id,first-name,last-name,industry)</code></p><p>或者: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,industry)</code></p><p>字段选择器可以选择成员对象中的字段: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,positions:(title))</code></p><p><strong>Example</strong>:</p><pre>:(id,first-name,last-name,industry)</pre></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>Maximum</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 0)</em><p>The offset by which to start Network Update pagination</p></li><li><strong>通用Header</strong>: <em>(string)</em><p>经过校验后生成值</p></li></ul></div><div class="tab-pane" id="topics__topic_id____posts_field_selectors__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "posts": {
+      "type": "array",
+      "items": {
+        "$ref": "post"
+      }
+    },
+    "totalResult": {
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="topics__topic_id____posts_field_selectors__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_topics__topic_id____follow"><span class="parent">/topics/{topic_id}/~</span>/follow</a> <span class="methods"><a href="#topics__topic_id____follow_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_topics__topic_id____follow" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#topics__topic_id____follow_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics__topic_id____follow_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics/{topic_id}/~</span>/follow</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics__topic_id____follow_post_request" data-toggle="tab">Request</a></li><li><a href="#topics__topic_id____follow_post_response" data-toggle="tab">Response</a></li><li><a href="#topics__topic_id____follow_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics__topic_id____follow_post_request"><h3>URI Parameters</h3><ul><li><strong>topic_id</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-session</strong>: <em>(string)</em><p>当前用户的sessionId</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "topicId" : {
+      "type": "integer",
+      "required": false
+    },
+    "follower": {
+      "type": "object",
+      "$ref": "fans"
+    },
+    "followType": {
+      "type": "string",
+      "required": false
+    },
+    "followTime": {
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="topics__topic_id____follow_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "updateObjectId" : {
+      "type": "integer",
+      "required": false
+    },
+    "result": {
+      "type": "object",
+      "properties" : {
+        "updateResultEnum" : {
+          "type" : "boolean",
+          "enum" : [true, false]
+        }
+      }
+    },
+    "updateTime": {
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>创建或替换一条记录的请求成功. 当返回201时，Location头字段通常跟随返回</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="topics__topic_id____follow_post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="posts" class="panel-title">/posts</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_posts___field_selectors_"><span class="parent">/posts</span>/~{field_selectors}</a> <span class="methods"><a href="#posts___field_selectors__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#posts___field_selectors__post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_posts___field_selectors_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#posts___field_selectors__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div><div onclick="window.location.href = '#posts___field_selectors__post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="posts___field_selectors__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/posts</span>/~{field_selectors}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#posts___field_selectors__get_request" data-toggle="tab">Request</a></li><li><a href="#posts___field_selectors__get_response" data-toggle="tab">Response</a></li><li><a href="#posts___field_selectors__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="posts___field_selectors__get_request"><h3>URI Parameters</h3><ul><li><strong>字段选择器</strong>: <em>required (string)</em><p>很多资源允许你指定想要返回的字段。我们称这种语法结构为字段选择器。通过准确的指出你需要的信息，我们可以优化返回结果花费的时间。 这样也能减少传输的数据。这两点让我们的APIs快速且高效，这是任何一个web应用程序的关键点，对于其他任何依赖外部API的人来说更是如此。</p><h2 id="example">Example</h2><p>如果想要获得people先关的id,first-name,last-name,industry可以这样使用: <code>http://api.startupsass.com/v1/people/~:(id,first-name,last-name,industry)</code></p><p>或者: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,industry)</code></p><p>字段选择器可以选择成员对象中的字段: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,positions:(title))</code></p><p><strong>Example</strong>:</p><pre>:(id,first-name,last-name,industry)</pre></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>Maximum</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 0)</em><p>The offset by which to start Network Update pagination</p></li><li><strong>通用Header</strong>: <em>(string)</em><p>经过校验后生成值</p></li><li><strong>keywords</strong>: <em>(string)</em></li></ul></div><div class="tab-pane" id="posts___field_selectors__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "posts": {
+      "type": "array",
+      "items": {
+        "$ref": "post"
+      }
+    },
+    "totalResult": {
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="posts___field_selectors__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="posts___field_selectors__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/posts</span>/~{field_selectors}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#posts___field_selectors__post_request" data-toggle="tab">Request</a></li><li><a href="#posts___field_selectors__post_response" data-toggle="tab">Response</a></li><li><a href="#posts___field_selectors__post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="posts___field_selectors__post_request"><h3>URI Parameters</h3><ul><li><strong>字段选择器</strong>: <em>required (string)</em><p>很多资源允许你指定想要返回的字段。我们称这种语法结构为字段选择器。通过准确的指出你需要的信息，我们可以优化返回结果花费的时间。 这样也能减少传输的数据。这两点让我们的APIs快速且高效，这是任何一个web应用程序的关键点，对于其他任何依赖外部API的人来说更是如此。</p><h2 id="example">Example</h2><p>如果想要获得people先关的id,first-name,last-name,industry可以这样使用: <code>http://api.startupsass.com/v1/people/~:(id,first-name,last-name,industry)</code></p><p>或者: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,industry)</code></p><p>字段选择器可以选择成员对象中的字段: <code>http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,positions:(title))</code></p><p><strong>Example</strong>:</p><pre>:(id,first-name,last-name,industry)</pre></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-session</strong>: <em>(string)</em><p>当前用户的sessionId</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "createTime": {
+      "description": "创建时间",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "当前状态",
+      "type": "string",
+      "required": false
+    },
+    "content": {
+      "description": "内容",
+      "type": "object",
+      "$ref": "content"
+    },
+    "poster": {
+      "description": "发帖人",
+      "type": "object",
+      "$ref": "poster"
+    },
+    "topic": {
+      "description": "主题",
+      "type": "object",
+      "$ref": "topic"
+    },
+    "review": {
+      "description": "评论集合",
+      "type": "array",
+      "items": {
+        "$ref": "review"
+      }
+    },
+    "likes": {
+      "description": "点赞集合",
+      "type": "array",
+      "items": {
+        "$ref": "liker"
+     }
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="posts___field_selectors__post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "updateObjectId" : {
+      "type": "integer",
+      "required": false
+    },
+    "result": {
+      "type": "object",
+      "properties" : {
+        "updateResultEnum" : {
+          "type" : "boolean",
+          "enum" : [true, false]
+        }
+      }
+    },
+    "updateTime": {
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>创建或替换一条记录的请求成功. 当返回201时，Location头字段通常跟随返回</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="posts___field_selectors__post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_posts__postId_"><span class="parent">/posts</span>/{postId}</a> <span class="methods"><a href="#posts__postId__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#posts__postId__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#posts__postId__patch"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_posts__postId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#posts__postId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div><div onclick="window.location.href = '#posts__postId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div><div onclick="window.location.href = '#posts__postId__patch'" class="list-group-item"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="posts__postId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/posts</span>/{postId}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#posts__postId__get_request" data-toggle="tab">Request</a></li><li><a href="#posts__postId__get_response" data-toggle="tab">Response</a></li><li><a href="#posts__postId__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="posts__postId__get_request"><h3>URI Parameters</h3><ul><li><strong>postId</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Query Parameters</h3><ul><li><strong>通用Header</strong>: <em>(string)</em><p>经过校验后生成值</p></li></ul></div><div class="tab-pane" id="posts__postId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "createTime": {
+      "description": "创建时间",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "当前状态",
+      "type": "string",
+      "required": false
+    },
+    "content": {
+      "description": "内容",
+      "type": "object",
+      "$ref": "content"
+    },
+    "poster": {
+      "description": "发帖人",
+      "type": "object",
+      "$ref": "poster"
+    },
+    "topic": {
+      "description": "主题",
+      "type": "object",
+      "$ref": "topic"
+    },
+    "review": {
+      "description": "评论集合",
+      "type": "array",
+      "items": {
+        "$ref": "review"
+      }
+    },
+    "likes": {
+      "description": "点赞集合",
+      "type": "array",
+      "items": {
+        "$ref": "liker"
+     }
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="posts__postId__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="posts__postId__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/posts</span>/{postId}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#posts__postId__put_request" data-toggle="tab">Request</a></li><li><a href="#posts__postId__put_response" data-toggle="tab">Response</a></li><li><a href="#posts__postId__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="posts__postId__put_request"><h3>URI Parameters</h3><ul><li><strong>postId</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-modified-since</strong>: <em>(integer - minimum: 0)</em><p>Value as a Unix time stamp of milliseconds since epoch.</p><p><strong>Example</strong>:</p><pre><code>1267401600000</code></pre></li><li><strong>x-la-modified</strong>: <em>(one of updated, create)</em><p>Values are updated or new.</p></li><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-session</strong>: <em>(string)</em><p>当前用户的sessionId</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "createTime": {
+      "description": "创建时间",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "当前状态",
+      "type": "string",
+      "required": false
+    },
+    "content": {
+      "description": "内容",
+      "type": "object",
+      "$ref": "content"
+    },
+    "poster": {
+      "description": "发帖人",
+      "type": "object",
+      "$ref": "poster"
+    },
+    "topic": {
+      "description": "主题",
+      "type": "object",
+      "$ref": "topic"
+    },
+    "review": {
+      "description": "评论集合",
+      "type": "array",
+      "items": {
+        "$ref": "review"
+      }
+    },
+    "likes": {
+      "description": "点赞集合",
+      "type": "array",
+      "items": {
+        "$ref": "liker"
+     }
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="posts__postId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>创建或替换一条记录的请求成功. 当返回201时，Location头字段通常跟随返回</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="posts__postId__put_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="posts__postId__patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/posts</span>/{postId}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#posts__postId__patch_request" data-toggle="tab">Request</a></li><li><a href="#posts__postId__patch_response" data-toggle="tab">Response</a></li><li><a href="#posts__postId__patch_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="posts__postId__patch_request"><h3>URI Parameters</h3><ul><li><strong>postId</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-modified-since</strong>: <em>(integer - minimum: 0)</em><p>Value as a Unix time stamp of milliseconds since epoch.</p><p><strong>Example</strong>:</p><pre><code>1267401600000</code></pre></li><li><strong>x-la-modified</strong>: <em>(one of updated, create)</em><p>Values are updated or new.</p></li><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-session</strong>: <em>(string)</em><p>当前用户的sessionId</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "createTime": {
+      "description": "创建时间",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "当前状态",
+      "type": "string",
+      "required": false
+    },
+    "content": {
+      "description": "内容",
+      "type": "object",
+      "$ref": "content"
+    },
+    "poster": {
+      "description": "发帖人",
+      "type": "object",
+      "$ref": "poster"
+    },
+    "topic": {
+      "description": "主题",
+      "type": "object",
+      "$ref": "topic"
+    },
+    "review": {
+      "description": "评论集合",
+      "type": "array",
+      "items": {
+        "$ref": "review"
+      }
+    },
+    "likes": {
+      "description": "点赞集合",
+      "type": "array",
+      "items": {
+        "$ref": "liker"
+     }
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="posts__postId__patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>创建或替换一条记录的请求成功. 当返回201时，Location头字段通常跟随返回</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="posts__postId__patch_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_posts__postId____like"><span class="parent">/posts/{postId}/~</span>/like</a> <span class="methods"><a href="#posts__postId____like_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_posts__postId____like" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#posts__postId____like_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="posts__postId____like_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/posts/{postId}/~</span>/like</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#posts__postId____like_post_request" data-toggle="tab">Request</a></li><li><a href="#posts__postId____like_post_response" data-toggle="tab">Response</a></li><li><a href="#posts__postId____like_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="posts__postId____like_post_request"><h3>URI Parameters</h3><ul><li><strong>postId</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "postId" : {
+      "type": "integer",
+      "required": false
+    },
+    "action": {
+      "type": "object",
+      "enum": [ "like", "unlike"]
+    },
+    "operator": {
+      "type": "object",
+      "$ref": "liker"
+    },
+    "operateTime": {
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="posts__postId____like_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "updateObjectId" : {
+      "type": "integer",
+      "required": false
+    },
+    "result": {
+      "type": "object",
+      "properties" : {
+        "updateResultEnum" : {
+          "type" : "boolean",
+          "enum" : [true, false]
+        }
+      }
+    },
+    "updateTime": {
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>创建或替换一条记录的请求成功. 当返回201时，Location头字段通常跟随返回</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="posts__postId____like_post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_posts__postId____review"><span class="parent">/posts/{postId}/~</span>/review</a> <span class="methods"><a href="#posts__postId____review_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_posts__postId____review" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#posts__postId____review_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="posts__postId____review_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/posts/{postId}/~</span>/review</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>System supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#posts__postId____review_post_request" data-toggle="tab">Request</a></li><li><a href="#posts__postId____review_post_response" data-toggle="tab">Response</a></li><li><a href="#posts__postId____review_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="posts__postId____review_post_request"><h3>URI Parameters</h3><ul><li><strong>postId</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-session</strong>: <em>(string)</em><p>当前用户的sessionId</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "type": "object",
+  "properties": {
+    "title" : {
+      "type": "string",
+      "required": false
+    },
+    "contentDetail": {
+      "type": "array",
+      "items": {
+        "$ref": "contentDetail"
+      }
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="posts__postId____review_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>创建或替换一条记录的请求成功. 当返回201时，Location头字段通常跟随返回</p><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>请求格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>通常意味着你用了错误的http方法 (例如，Post接口却发送Get请求)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "number",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "requestId": {
+        "description": "请求ID",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "number",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "number",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="posts__postId____review_post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#topics">/topics</a></li><li><a href="#posts">/posts</a></li></ul></div></div></div></div></body></html>
