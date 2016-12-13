@@ -1,10 +1,10 @@
 usage: |
   Use this resource type when field selectors exist in resource path
-type: baseResource
+type: { member: { type: <<type>> } }
 description: |
   Describes field selectors uri path parameter
 uriParameters:
-  fieldSelectors:
+  field_selectors:
     displayName: Field Selectors
     description: |
       Many of our resources allow you to specify what fields you want returned. We call this syntax field selectors.
@@ -28,9 +28,4 @@ uriParameters:
       job titles and not the rest of the information about positions:
         `http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,positions:(title))`
 
-      Field selectors with resource identifiers allow you to request information about multiple entities at once. Specify them
-      similarly, but append a double colon - here's an example getting profile information about thee members: the first is the
-      current member, indicated by a tilde; the next has an id of 12345; and the last has a public profile URL
-
-        `http://api.startupsass.com/v1/people::(~, id=12345,url=http%3A%2F%2Fwww.startupsass.com%2Fin%2Fadamnash)`
     example: ":(id,first-name,last-name,industry)"

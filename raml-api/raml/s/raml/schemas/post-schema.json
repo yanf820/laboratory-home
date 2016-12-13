@@ -27,15 +27,15 @@
       "type": "object",
       "$ref": "topic"
     },
-    "comments": {
+    "review": {
       "type": "array",
       "items": {
-        "$ref": "comment"
+        "$ref": "review"
       }
     },
     "likes": {
       "type": "array",
-      "$ref": "like"
+      "$ref": "liker"
     }
   }
 }

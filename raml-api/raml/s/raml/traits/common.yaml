@@ -1,0 +1,16 @@
+displayName: 通用参数
+queryParameters:
+  sign:
+    description: |
+      经过校验后生成值
+    type: string
+    displayName: 通用Header
+headers:
+  x-la-app-key:
+    description: |
+      系统分配的app_key
+    type: string
+  x-la-sign-method:
+    description: |
+      系统参数签名方式
+    enum: [ MD5 ]

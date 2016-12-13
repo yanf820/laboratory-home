@@ -12,12 +12,8 @@ import javax.ws.rs.HeaderParam;
  * Created by yf on 2016/12/12.
  */
 public class TopicImpl implements TopicsResource {
-    public PostTopicsByFieldSelectorsByGroupIdResponse postTopicsByFieldSelectorsByGroupId(@NotNull String groupId, @NotNull String fieldSelectors, Topic entity) throws Exception {
-        return null;
-    }
-
-    public GetTopicsByFieldSelectorsByGroupIdResponse getTopicsByFieldSelectorsByGroupId(@NotNull String groupId, @NotNull String fieldSelectors, @DefaultValue("10") int count, Integer start, String membershipState, Funs entity) throws Exception {
-        int i=0;
+    public PostTopicsByFieldSelectorsByGroupIdResponse postTopicsByFieldSelectorsByGroupId(@NotNull String groupId, @NotNull String fieldSelectors) throws Exception {
+        System.out.println("post");
         return null;
     }
 

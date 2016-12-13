@@ -19,7 +19,7 @@ public interface TopicsResource {
      * @param groupId
      *     The unique identifier for a LinkedIn group
      *     
-     * @param entity
+     * @param
      *     
      * @param fieldSelectors
      *     Many of our resources allow you to specify what fields you want returned. We call this syntax field selectors.
@@ -59,7 +59,7 @@ public interface TopicsResource {
                     String groupId,
             @PathParam("fieldSelectors")
             @NotNull
-                    String fieldSelectors, Topic entity)
+                    String fieldSelectors)
         throws Exception
     ;
 
@@ -72,7 +72,7 @@ public interface TopicsResource {
      *     Maximum e.g. 10
      * @param start
      *     The offset by which to start Network Update pagination e.g. 0
-     * @param entity
+     * @param
      *
      * @param fieldSelectors
      *     Many of our resources allow you to specify what fields you want returned. We call this syntax field selectors.
@@ -108,7 +108,7 @@ public interface TopicsResource {
      *
      */
     @GET
-    @Path("~{fieldSelectors}{groupId}")
+    @Path("{fieldSelectors}{groupId}")
     @Consumes("application/json")
     @Produces({
         "application/json"
@@ -126,7 +126,7 @@ public interface TopicsResource {
             @QueryParam("start")
                     Integer start,
             @QueryParam("membership-state")
-                    String membershipState, Funs entity)
+                    String membershipState)
         throws Exception
     ;
 

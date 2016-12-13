@@ -3,14 +3,12 @@
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
   "properties": {
-    "posts": {
-      "type": "array",
-      "items": {
-        "$ref": "post"
-      }
-    },
-    "totalResult": {
+    "id" : {
       "type": "integer",
+      "required": false
+    },
+    "name": {
+      "type": "string",
       "required": false
     }
   }

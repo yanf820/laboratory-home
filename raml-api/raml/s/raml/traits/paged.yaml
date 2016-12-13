@@ -8,4 +8,5 @@ queryParameters:
   start:
     description: The offset by which to start Network Update pagination
     type: integer
+    default: 0
     example: 0

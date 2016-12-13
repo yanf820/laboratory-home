@@ -1,72 +1,173 @@
 #%RAML 0.8
-title: eternity API
+title: STARTUP API
 version: 1.0
 baseUri: http://api.startupsass.com/
+protocols: [ HTTP, HTTPS ]
+securedBy: [ oauth_2_0 ]
 
 securitySchemes:
-  - oauth_2_0: !include securitySchemes/oauth_2_0.yml
+  - oauth_2_0: !include securitySchemes/oauth_2_0.yaml
 
 schemas:
   - topic: !include schemas/topic-schema.json
   - topics: !include schemas/topics-schema.json
   - post: !include schemas/post-schema.json
+  - posts: !include schemas/posts-schema.json
   - publisher: !include schemas/publisher-shcema.json
   - poster: !include schemas/poster-shcema.json
   - content: !include schemas/content-shcema.json
   - contentDetail: !include schemas/contentDetail-schema.json
-  - funs: !include schemas/funs-schema.json
-  - like: !include schemas/like-schema.json
+  - fans: !include schemas/fans-schema.json
+  - follow: !include schemas/follow-schema.json
+  - liker: !include schemas/liker-schema.json
+  - like-update: !include schemas/like-update-schema.json
+  - review: !include schemas/review-schema.json
+  - reviewer: !include schemas/reviewer-schema.json
   - error-schema: !include schemas/error-schema.json
+  - update: !include schemas/update-schema.json
 
 resourceTypes:
-  - member: !include resourceTypes/member.yml
-  - baseResource: !include resourceTypes/baseResource.yml
-  - fieldSelectorMember: !include resourceTypes/fieldSelectorMember.yml
-  - fieldSelectors: !include resourceTypes/fieldSelectors.yml
-  - collection: !include resourceTypes/collections.yml
-  - fieldSelectorCollection: !include resourceTypes/fieldSelectorCollection.yml
+  - member: !include resourceTypes/member.yaml
+  - baseResource: !include resourceTypes/baseResource.yaml
+  - fieldSelectorMember: !include resourceTypes/fieldSelectorMember.yaml
+  - fieldSelectors: !include resourceTypes/fieldSelectors.yaml
+  - collection: !include resourceTypes/collections.yaml
+  - fieldSelectorCollection: !include resourceTypes/fieldSelectorCollection.yaml
 
 traits:
-  - hasModifiedFilter: !include traits/hasModifiedFilter.yml
-  - hasMembership: !include traits/hasMembership.yml
-  - paged: !include traits/paged.yml
+  - hasModifiedFilter: !include traits/hasModifiedFilter.yaml
+  - hasSession: !include traits/hasSession.yaml
+  - paged: !include traits/paged.yaml
+  - oauth: !include traits/oauth2_0.yaml
+  - common: !include traits/common.yaml
 
-securedBy: [ oauth_2_0 ]
 /topics:
-  /~{fieldSelectors}{groupId}:
-    displayName: Topic API
-    type: { fieldSelectorMember: {type :  topic} }
-    uriParameters:
-      fieldSelectors:
-        displayName: Numeric group ID
-        type: string
-        required: true
-      groupId:
-        displayName: Numeric group ID
-        description: |
-          LinkIn Group的唯一定位符
-        required: true
-
+  /~{field_selectors}:
+    type:  { fieldSelectorCollection: {type : topic} }
     get:
-      is: [ paged, hasMembership ]
-      body:
-       application/json:
-         schema: funs
-      description: |
+      is: [ paged, oauth ]
+      queryParameters:
+        keywords:
+          type: string
+      responses:
+        200:
+          body:
+            application/json:
+              schema: topics
     post:
-      description: |
+      is: [ hasSession, oauth ]
       body:
         application/json:
+          schema: topic
       responses:
         200:
           description: ok
-    /{topicId}:
-      type: baseResource
-      uriParameters:
-        topicId:
-          displayName: Numeric group ID
-          description: |
-            The unique identifier for a topic
-          type: integer
-          required: true
-      get:
+          body:
+            application/json:
+              schema: update
+  /{topic_id}:
+    type: { member: {type : topic} }
+    get:
+      is: [ oauth ]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: topic
+    put:
+      is: [ hasSession, oauth, hasModifiedFilter ]
+      responses:
+        200:
+          body:
+            application/json:
+    patch:
+      is: [ hasSession, oauth, hasModifiedFilter ]
+      responses:
+        200:
+          body:
+            application/json:
+    /~:
+      /posts{field_selectors}:
+        type:  { fieldSelectorCollection: {type : post} }
+        get:
+          is: [ paged, oauth ]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: posts
+      /follow:
+        type: baseResource
+        post:
+          is: [ hasSession, oauth ]
+          body:
+            application/json:
+              schema: follow
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: update
+/posts:
+  /~{field_selectors}:
+    type:  { fieldSelectorCollection: {type : post} }
+    get:
+      is: [ paged, oauth ]
+      queryParameters:
+        keywords:
+          type: string
+      responses:
+        200:
+          body:
+            application/json:
+              schema: posts
+    post:
+      is: [ hasSession, oauth ]
+      body:
+        application/json:
+          schema: post
+      responses:
+        200:
+          body:
+            application/json:
+              schema: update
+  /{postId}:
+    type:  { member : {type : post} }
+    get:
+      is: [ oauth ]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: post
+    put:
+      is: [ hasSession, oauth, hasModifiedFilter ]
+      responses:
+        200:
+          body:
+            application/json:
+    patch:
+      is: [ hasSession, oauth, hasModifiedFilter ]
+      responses:
+        200:
+          body:
+            application/json:
+    /~:
+      /like:
+        type: baseResource
+        post:
+          body:
+            application/json:
+              schema: like-update
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: update
+      /review:
+        type: baseResource
+        post:
+          is: [ hasSession, oauth]
+          body:
+            application/json:
+              schema: content

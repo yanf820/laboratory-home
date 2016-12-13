@@ -10,7 +10,7 @@
       }
     },
     "totalResult": {
-      "type": "number",
+      "type": "integer",
       "required": false
     }
   }

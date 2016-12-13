@@ -1,0 +1,22 @@
+usage: |
+  当你需要从资源中获取想要的字段时，可以使用filedSelector
+type: { collection: { type: <<type>> } }
+description: |
+  r
+uriParameters:
+  field_selectors:
+    displayName: 字段选择器
+    description: |
+
+      Example
+      --------
+      如果想要获得people先关的id,first-name,last-name,industry可以这样使用:
+        `http://api.startupsass.com/v1/people/~:(id,first-name,last-name,industry)`
+
+      或者:
+        `http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,industry)`
+
+      字段选择器可以选择成员对象中的字段:
+        `http://api.startupsass.com/v1/people/~/connections:(id,first-name,last-name,positions:(title))`
+
+    example: ":(id,first-name,last-name,industry)"

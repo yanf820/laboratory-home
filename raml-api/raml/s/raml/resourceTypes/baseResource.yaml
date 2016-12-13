@@ -1,4 +1,5 @@
 get?:
+  is: [ common ]
   headers:
     x-la-format:
       description: |
@@ -232,13 +233,13 @@ post?:
           schema: error-schema
           example: !include ../examples/error-example.json
 delete?:
-  headers:
+   headers:
     x-la-format:
       description: |
         Type of data
       enum:
         - json
-  responses:
+   responses:
     204:
       description: |
         Your request to DELETE a record was successful
