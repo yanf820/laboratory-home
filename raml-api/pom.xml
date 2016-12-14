@@ -64,25 +64,27 @@
             <configuration>
                 <!--<sourceDirectory>${basedir}/raml/LinkedIn-v1/</sourceDirectory>-->
                 <sourceDirectory>${basedir}/raml/s/raml</sourceDirectory>
-                <!--<sourceDirectory>${basedir}/raml/lashou</sourceDirectory>-->
+                <!--<sourceDirectory>${basedir}/raml/test/</sourceDirectory>-->
                 <!--<sourcePaths>-->
                 <!--<sourcePath>${basedir}/raml/*.raml</sourcePath>-->
                 <!--</sourcePaths>-->
+                <generateClientProxy>true</generateClientProxy>
                 <outputDirectory>${basedir}/src/main/java</outputDirectory>
                 <basePackageName>com.linkedin.api</basePackageName>
                 <!--<useSourceHierarchyInPackageName>true</useSourceHierarchyInPackageName>-->
                 <jaxrsVersion>2.0</jaxrsVersion>
 
                 <useJsr303Annotations>true</useJsr303Annotations>
+
                 <jsonMapper>jackson2</jsonMapper>
-                <jsonMapperConfiguration>
-                    <useLongIntegers>true</useLongIntegers>
-                </jsonMapperConfiguration>
+                <!--<jsonMapperConfiguration>-->
+                    <!--<useLongIntegers>true</useLongIntegers>-->
+                <!--</jsonMapperConfiguration>-->
                 <removeOldOutput>true</removeOldOutput>
                 <!--<customAnnotator>com.lashou.common.extend.annotator.QueryDslAnnotator</customAnnotator>-->
-                <extensions>
-                    <param>com.lashou.common.extend.extensions.CustomExtension</param>
-                </extensions>
+                <!--<extensions>-->
+                    <!--<param>com.lashou.common.extend.extensions.CustomExtension</param>-->
+                <!--</extensions>-->
             </configuration>
             <executions>
                 <execution>

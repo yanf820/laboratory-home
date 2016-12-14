@@ -2,7 +2,6 @@
 package com.linkedin.api.model;
 
 import com.fasterxml.jackson.annotation.*;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
 
 import javax.annotation.Generated;
 import java.util.HashMap;
@@ -15,7 +14,7 @@ import java.util.Map;
     "name",
     "image"
 })
-public class Funs {
+public class Fan {
 
     /**
      * 
@@ -55,7 +54,7 @@ public class Funs {
         this.id = id;
     }
 
-    public Funs withId(Long id) {
+    public Fan withId(Long id) {
         this.id = id;
         return this;
     }
@@ -80,7 +79,7 @@ public class Funs {
         this.name = name;
     }
 
-    public Funs withName(String name) {
+    public Fan withName(String name) {
         this.name = name;
         return this;
     }
@@ -105,7 +104,7 @@ public class Funs {
         this.image = image;
     }
 
-    public Funs withImage(String image) {
+    public Fan withImage(String image) {
         this.image = image;
         return this;
     }
@@ -120,7 +119,7 @@ public class Funs {
         this.additionalProperties.put(name, value);
     }
 
-    public Funs withAdditionalProperty(String name, Object value) {
+    public Fan withAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
         return this;
     }

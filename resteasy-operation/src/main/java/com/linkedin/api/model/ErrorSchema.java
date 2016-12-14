@@ -7,6 +7,11 @@ import javax.annotation.Generated;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * 错误，请求错误时返回
+ * 
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
@@ -19,26 +24,31 @@ import java.util.Map;
 public class ErrorSchema {
 
     /**
+     * 错误码
      * 
      */
     @JsonProperty("errorCode")
     private Double errorCode;
     /**
+     * 错误信息
      * 
      */
     @JsonProperty("message")
     private String message;
     /**
+     * 请求ID
      * 
      */
     @JsonProperty("requestId")
     private String requestId;
     /**
+     * 状态码
      * 
      */
     @JsonProperty("status")
     private Double status;
     /**
+     * 时间戳
      * 
      */
     @JsonProperty("timestamp")
@@ -47,6 +57,7 @@ public class ErrorSchema {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
+     * 错误码
      * 
      * @return
      *     The errorCode
@@ -57,6 +68,7 @@ public class ErrorSchema {
     }
 
     /**
+     * 错误码
      * 
      * @param errorCode
      *     The errorCode
@@ -72,6 +84,7 @@ public class ErrorSchema {
     }
 
     /**
+     * 错误信息
      * 
      * @return
      *     The message
@@ -82,6 +95,7 @@ public class ErrorSchema {
     }
 
     /**
+     * 错误信息
      * 
      * @param message
      *     The message
@@ -97,6 +111,7 @@ public class ErrorSchema {
     }
 
     /**
+     * 请求ID
      * 
      * @return
      *     The requestId
@@ -107,6 +122,7 @@ public class ErrorSchema {
     }
 
     /**
+     * 请求ID
      * 
      * @param requestId
      *     The requestId
@@ -122,6 +138,7 @@ public class ErrorSchema {
     }
 
     /**
+     * 状态码
      * 
      * @return
      *     The status
@@ -132,6 +149,7 @@ public class ErrorSchema {
     }
 
     /**
+     * 状态码
      * 
      * @param status
      *     The status
@@ -147,6 +165,7 @@ public class ErrorSchema {
     }
 
     /**
+     * 时间戳
      * 
      * @return
      *     The timestamp
@@ -157,6 +176,7 @@ public class ErrorSchema {
     }
 
     /**
+     * 时间戳
      * 
      * @param timestamp
      *     The timestamp

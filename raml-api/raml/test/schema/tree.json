@@ -10,7 +10,8 @@
       "type": "string"
     },
     "fruit": {
-      "type": "string"
+      "type": "object",
+      "$ref": "apiContact"
     },
     "tree": {
       "type": "object",

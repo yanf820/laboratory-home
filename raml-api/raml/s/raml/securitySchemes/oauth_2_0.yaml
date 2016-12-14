@@ -1,5 +1,5 @@
 description: |
-    System supports OAuth 2.0 for authenticating all API requests.
+    系统支持 OAuth 2.0 来验证所有的APIs
 type: OAuth 2.0
 describedBy:
   headers:

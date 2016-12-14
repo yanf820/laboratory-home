@@ -3,6 +3,7 @@ title: Contacts App
 version: v1
 
 schemas:
+  - tree: !include schema/tree.json
   - apiCreatedEntity: |
       {  "$schema": "http://json-schema.org/draft-03/schema",
          "javaType": "com.ricston.blog.contactsapp.rest.api.model.ApiCreatedEntity",
@@ -12,6 +13,7 @@ schemas:
            "id":  { "type": "string", "required": true }
          }
       }
+      
   - apiContact: |
       {  "$schema": "http://json-schema.org/draft-03/schema",
          "javaType": "com.ricston.blog.contactsapp.rest.api.model.ApiContact",
@@ -60,7 +62,7 @@ schemas:
         200:
           body:
             application/json:
-              schema: apiContact
+              schema: tree
         400:
           description: Bad Request
         500:
