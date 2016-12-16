@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import javax.annotation.Generated;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,7 @@ public class Topics {
      * 集合
      * 
      */
+    @NotNull
     @JsonProperty("topics")
     @Valid
     private List<Topic> topics = new ArrayList<Topic>();

@@ -18,11 +18,11 @@
             <artifactId>jackson-jaxrs-json-provider</artifactId>
             <version>2.8.5</version>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-xml-provider</artifactId>
-            <version>2.8.5</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.fasterxml.jackson.jaxrs</groupId>-->
+            <!--<artifactId>jackson-jaxrs-xml-provider</artifactId>-->
+            <!--<version>2.8.5</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
@@ -52,6 +52,11 @@
             <artifactId>validation-api</artifactId>
             <version>1.1.0.Final</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.3</version>
+        </dependency>
 
     </dependencies>
 
@@ -68,7 +73,7 @@
                 <!--<sourcePaths>-->
                 <!--<sourcePath>${basedir}/raml/*.raml</sourcePath>-->
                 <!--</sourcePaths>-->
-                <generateClientProxy>true</generateClientProxy>
+                <generateClientProxy>false</generateClientProxy>
                 <outputDirectory>${basedir}/src/main/java</outputDirectory>
                 <basePackageName>com.linkedin.api</basePackageName>
                 <!--<useSourceHierarchyInPackageName>true</useSourceHierarchyInPackageName>-->
@@ -80,7 +85,7 @@
                 <!--<jsonMapperConfiguration>-->
                     <!--<useLongIntegers>true</useLongIntegers>-->
                 <!--</jsonMapperConfiguration>-->
-                <removeOldOutput>true</removeOldOutput>
+                <removeOldOutput>false</removeOldOutput>
                 <!--<customAnnotator>com.lashou.common.extend.annotator.QueryDslAnnotator</customAnnotator>-->
                 <!--<extensions>-->
                     <!--<param>com.lashou.common.extend.extensions.CustomExtension</param>-->

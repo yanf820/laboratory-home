@@ -1,17 +1,16 @@
 {
-  "required": true,
+  "required": false,
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
   "properties": {
-    "posts": {
+    "posters" : {
       "type": "array",
       "items": {
-        "$ref": "post"
+        "$ref": "poster"
       }
     },
     "totalCount": {
-      "type": "integer",
-      "required": false
+      "type": "integer"
     }
   }
 }

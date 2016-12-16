@@ -1,5 +1,5 @@
 #%RAML 0.8
-title: STARTUP API
+title: STARTUP
 version: 1.0
 baseUri: http://api.startupsass.com/
 protocols: [ HTTP, HTTPS ]
@@ -15,8 +15,10 @@ schemas:
   - posts: !include schemas/posts-schema.json
   - publisher: !include schemas/publisher-shcema.json
   - poster: !include schemas/poster-shcema.json
+  - posters: !include schemas/posters-schema.json
   - content: !include schemas/content-shcema.json
   - contentDetail: !include schemas/contentDetail-schema.json
+  - fan: !include schemas/fan-schema.json
   - fans: !include schemas/fans-schema.json
   - follow: !include schemas/follow-schema.json
   - liker: !include schemas/liker-schema.json
@@ -43,21 +45,30 @@ traits:
 
 documentation:
   - title: 创业服务平台接口规范
-    content: |
-      Get: 获取资源的某个表述
-
-      Post: 基于给定的表述信息，在当前资源的下一级创建新的资源
-
-      Put: 用给定的表述信息替换资源的当前状态
-
-      Delete: 销毁一个资源
-
-      Patch: 根据提供的表述信息修改资源的部分状态。如果有某些资源状态在提供的表述中没有被提到， 这些状态就保持不变。类似于Put，但是允许对资源状态进行一些细粒度的改动
+    content: !include documentation/api.md
 
 /topics:
+  description: |
+    话题资源
+  type:  baseResource
+  post:
+    description: |
+        创建话题
+    is: [ hasSession, oauth ]
+    body:
+      application/json:
+        schema: topic
+    responses:
+      200:
+        description: 创建话题成功响应
+        body:
+          application/json:
+            schema: topic
   /~{field_selectors}:
     type:  { fieldSelectorCollection: {type : topic} }
     get:
+      description: |
+        获取话题
       is: [ paged, oauth ]
       queryParameters:
         keywords:
@@ -66,84 +77,74 @@ documentation:
         200:
           body:
             application/json:
-              schema: topics
-    post:
-      is: [ hasSession, oauth ]
-      body:
-        application/json:
-          schema: topic
-      responses:
-        200:
-          description: ok
-          body:
-            application/json:
-              schema: update
+               schema: topics
+
   /{topic_id}:
     type: { member: {type : topic} }
     get:
+      description: |
+        根据话题ID获取话题
       is: [ oauth ]
       responses:
         200:
           body:
             application/json:
               schema: topic
-    put:
-      is: [ hasSession, oauth, hasModifiedFilter ]
-      responses:
-        200:
-          body:
-            application/json:
     patch:
+      description: |
+        根据话题ID部分更新话题
       is: [ hasSession, oauth, hasModifiedFilter ]
       responses:
         200:
           body:
             application/json:
-    /~:
-      /posts{field_selectors}:
-        type:  { fieldSelectorCollection: {type : post} }
-        get:
-          is: [ paged, oauth ]
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: posts
-      /follow:
-        type: baseResource
-        post:
-          is: [ hasSession, oauth ]
-          body:
-            application/json:
-              schema: follow
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: update
+              schema: topic
+    /publish:
+      type: baseResource
+      post:
+        description: |
+          发布当前话题下的帖子
+        is: [ hasSession, oauth ]
+        body:
+          application/json:
+            schema: post
+        responses:
+          200:
+            body:
+              application/json:
+                schema: post
+    /follow:
+      type: baseResource
+      post:
+        description: |
+          关注当前话题
+        is: [ hasSession, oauth ]
+        body:
+          application/json:
+            schema: follow
+        responses:
+          200:
+            body:
+              application/json:
+                schema: follow
 /posts:
   /~{field_selectors}:
     type:  { fieldSelectorCollection: {type : post} }
     get:
+      description: |
+        查询某个话题下的帖子列表
       is: [ paged, oauth ]
       queryParameters:
         keywords:
           type: string
+        topic_id:
+          type: integer
+          required: true
       responses:
         200:
           body:
             application/json:
               schema: posts
-    post:
-      is: [ hasSession, oauth ]
-      body:
-        application/json:
-          schema: post
-      responses:
-        200:
-          body:
-            application/json:
-              schema: update
   /{postId}:
     type:  { member : {type : post} }
     get:
@@ -153,34 +154,28 @@ documentation:
           body:
             application/json:
               schema: post
-    put:
-      is: [ hasSession, oauth, hasModifiedFilter ]
-      responses:
-        200:
-          body:
-            application/json:
     patch:
       is: [ hasSession, oauth, hasModifiedFilter ]
       responses:
         200:
           body:
             application/json:
-    /~:
-      /like:
-        type: baseResource
-        post:
-          body:
-            application/json:
-              schema: like-update
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: update
-      /review:
-        type: baseResource
-        post:
-          is: [ hasSession, oauth]
-          body:
-            application/json:
-              schema: content
+              schema: post
+    /like:
+      type: baseResource
+      post:
+        body:
+          application/json:
+            schema: like-update
+        responses:
+          200:
+            body:
+              application/json:
+                schema: update
+    /review:
+      type: baseResource
+      post:
+        is: [ hasSession, oauth]
+        body:
+          application/json:
+            schema: review

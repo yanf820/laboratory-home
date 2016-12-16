@@ -1,6 +1,6 @@
 {
-  "required": true,
   "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.startup.saas.api.model.Topic",
   "type": "object",
   "properties": {
     "id": {
@@ -11,10 +11,10 @@
     "title": {
       "description": "标题",
       "type": "string",
-      "required": false
+      "required": true
     },
     "image": {
-      "description": "图片",
+      "description": "图片地址",
       "type": "string",
       "required": false
     },
@@ -30,8 +30,8 @@
     },
     "publisher": {
       "description": "发布者",
-      "type": "object",
-      "$ref": "publisher"
+      "$ref": "publisher",
+      "required": false
     },
     "publishTime": {
       "description": "发布时间",
@@ -45,17 +45,13 @@
     },
     "fans": {
       "description": "粉丝",
-      "type": "array",
-      "items": {
-        "$ref": "fans"
-      }
+      "$ref": "fans",
+      "required": false
     },
     "posters": {
-      "description": "帖子集合",
-      "type": "array",
-      "items": {
-        "$ref": "poster"
-      }
+      "description": "参与者",
+      "$ref": "posters",
+      "required": false
     },
     "updateTime": {
       "description": "更新时间",

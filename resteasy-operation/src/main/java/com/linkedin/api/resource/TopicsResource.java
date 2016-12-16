@@ -61,22 +61,8 @@ public interface TopicsResource {
     GetTopicsByFieldSelectorsResponse getTopicsByFieldSelectors(
             @PathParam("field_selectors")
                     String fieldSelectors,
-            @HeaderParam("x-la-authorization")
-                    String xLaAuthorization,
-            @HeaderParam("x-la-format")
-                    XLaFormat xLaFormat,
-            @HeaderParam("x-la-app-key")
-                    String xLaAppKey,
-            @HeaderParam("x-la-sign-method")
-                    XLaSignMethod xLaSignMethod,
-            @QueryParam("keywords")
-                    String keywords,
-            @QueryParam("count")
-            @DefaultValue("10")
-                    int count,
-            @QueryParam("start")
-            @DefaultValue("0")
-                    int start,
+
+            @NotNull
             @QueryParam("sign")
                     String sign)
         throws Exception
@@ -117,16 +103,11 @@ public interface TopicsResource {
     @Produces({
         "application/json"
     })
-    PostTopicsByFieldSelectorsResponse postTopicsByFieldSelectors(
+    TopicsResource.PostTopicsByFieldSelectorsResponse postTopicsByFieldSelectors(
             @PathParam("field_selectors")
                     String fieldSelectors,
-            @HeaderParam("x-la-session")
-                    String xLaSession,
-            @HeaderParam("x-la-authorization")
-                    String xLaAuthorization,
-            @HeaderParam("x-la-format")
-                    XLaFormat xLaFormat, Topic entity)
-        throws Exception
+            Topic entity)
+            throws Exception
     ;
 
     /**

@@ -2,6 +2,7 @@ package com.resteasy.operations.example.linkingresources.impl;
 
 import com.linkedin.api.model.Follow;
 import com.linkedin.api.model.Topic;
+import com.linkedin.api.model.Topics;
 import com.linkedin.api.resource.TopicsResource;
 
 import javax.validation.constraints.Min;
@@ -14,11 +15,15 @@ import javax.ws.rs.HeaderParam;
  */
 public class TopicImpl implements TopicsResource {
 
-    public GetTopicsByFieldSelectorsResponse getTopicsByFieldSelectors(String fieldSelectors, @HeaderParam("x-la-authorization") String xLaAuthorization, @HeaderParam("x-la-format") XLaFormat xLaFormat, @HeaderParam("x-la-app-key") String xLaAppKey, @HeaderParam("x-la-sign-method") XLaSignMethod xLaSignMethod, String keywords, @DefaultValue("10") int count, @DefaultValue("0") int start, String sign) throws Exception {
+    public GetTopicsByFieldSelectorsResponse getTopicsByFieldSelectors(String fieldSelectors, String sign) throws Exception {
+        System.out.println();
+        System.out.println("get");
         return null;
     }
 
-    public PostTopicsByFieldSelectorsResponse postTopicsByFieldSelectors(String fieldSelectors, @HeaderParam("x-la-session") String xLaSession, @HeaderParam("x-la-authorization") String xLaAuthorization, @HeaderParam("x-la-format") XLaFormat xLaFormat, Topic entity) throws Exception {
+    public PostTopicsByFieldSelectorsResponse postTopicsByFieldSelectors(String fieldSelectors, Topic entity) throws Exception {
+
+        System.out.println("post");
         return null;
     }
 
