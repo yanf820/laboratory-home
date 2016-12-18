@@ -13,6 +13,12 @@ import javax.ws.rs.core.StreamingOutput;
 @Path("topics")
 public interface TopicsResource {
 
+    @Path("test")
+    @GET
+    @Produces({
+            "application/json"
+    })
+    void getSomeThing(@NotNull @QueryParam("signs") String sign);
 
     /**
      * 
@@ -62,7 +68,7 @@ public interface TopicsResource {
             @PathParam("field_selectors")
                     String fieldSelectors,
 
-            @NotNull
+            @NotNull(message="would be nice if we had one")
             @QueryParam("sign")
                     String sign)
         throws Exception

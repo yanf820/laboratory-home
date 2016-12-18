@@ -2,10 +2,12 @@
 package com.linkedin.api.model;
 
 import com.fasterxml.jackson.annotation.*;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,18 +28,21 @@ import java.util.Map;
     "posters",
     "updateTime"
 })
+@Component
 public class Topic {
 
     /**
      * ID
      * 
      */
+    @NotNull
     @JsonProperty("id")
     private String id;
     /**
      * 标题
      * 
      */
+    @NotNull
     @JsonProperty("title")
     private String title;
     /**
@@ -97,10 +102,29 @@ public class Topic {
      * 更新时间
      * 
      */
+    @Size
     @JsonProperty("updateTime")
     private String updateTime;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @Override
+    public String toString() {
+        return "Topic{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", image='" + image + '\'' +
+                ", desc='" + desc + '\'' +
+                ", status='" + status + '\'' +
+                ", publisher=" + publisher +
+                ", publishTime='" + publishTime + '\'' +
+                ", tags='" + tags + '\'' +
+                ", fans=" + fans +
+                ", posters=" + posters +
+                ", updateTime='" + updateTime + '\'' +
+                ", additionalProperties=" + additionalProperties +
+                '}';
+    }
 
     /**
      * ID

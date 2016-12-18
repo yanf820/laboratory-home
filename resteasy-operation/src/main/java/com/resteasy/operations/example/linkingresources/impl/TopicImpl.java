@@ -2,7 +2,6 @@ package com.resteasy.operations.example.linkingresources.impl;
 
 import com.linkedin.api.model.Follow;
 import com.linkedin.api.model.Topic;
-import com.linkedin.api.model.Topics;
 import com.linkedin.api.resource.TopicsResource;
 
 import javax.validation.constraints.Min;
@@ -15,13 +14,21 @@ import javax.ws.rs.HeaderParam;
  */
 public class TopicImpl implements TopicsResource {
 
+
+    public void getSomeThing(String sign) {
+        sign.equals("");
+        System.out.println("sadas");
+    }
+
     public GetTopicsByFieldSelectorsResponse getTopicsByFieldSelectors(String fieldSelectors, String sign) throws Exception {
-        System.out.println();
+        System.out.println(sign);
+        sign.equals("");
         System.out.println("get");
         return null;
     }
 
     public PostTopicsByFieldSelectorsResponse postTopicsByFieldSelectors(String fieldSelectors, Topic entity) throws Exception {
+        System.out.println(entity.toString());
 
         System.out.println("post");
         return null;
