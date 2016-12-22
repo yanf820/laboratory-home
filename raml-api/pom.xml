@@ -80,7 +80,7 @@
                 <!--<sourcePaths>-->
                 <!--<sourcePath>${basedir}/raml/*.raml</sourcePath>-->
                 <!--</sourcePaths>-->
-                <generateClientProxy>false</generateClientProxy>
+                <generateClientProxy>true</generateClientProxy>
                 <outputDirectory>${basedir}/src/main/java</outputDirectory>
                 <basePackageName>com.linkedin.api</basePackageName>
                 <!--<useSourceHierarchyInPackageName>true</useSourceHierarchyInPackageName>-->
@@ -93,7 +93,8 @@
                     <!--<useLongIntegers>true</useLongIntegers>-->
                 <!--</jsonMapperConfiguration>-->
                 <removeOldOutput>true</removeOldOutput>
-                <customAnnotator>com.lashou.common.extend.annotator.QueryDslAnnotator</customAnnotator>
+                <!--<customAnnotator>com.lashou.common.extend.annotator.QueryDslAnnotator</customAnnotator>-->
+                <customAnnotator>com.lashou.common.extend.annotator.HideSchemaMaster</customAnnotator>
                 <extensions>
                     <param>com.lashou.common.extend.extensions.CustomExtension</param>
                 </extensions>

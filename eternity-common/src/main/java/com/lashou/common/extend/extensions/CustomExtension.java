@@ -1,19 +1,23 @@
 package com.lashou.common.extend.extensions;
 
-import com.sun.codemodel.*;
-import org.apache.http.HttpRequest;
-import org.apache.http.message.BasicHttpRequest;
+import com.sun.codemodel.JAnnotationUse;
+import com.sun.codemodel.JCodeModel;
+import com.sun.codemodel.JDefinedClass;
+import com.sun.codemodel.JMethod;
 import org.raml.jaxrs.codegen.core.ext.GeneratorExtension;
-import org.raml.model.*;
+import org.raml.model.Action;
+import org.raml.model.MimeType;
+import org.raml.model.Raml;
+import org.raml.model.Resource;
 import org.raml.model.parameter.AbstractParam;
 import org.raml.model.parameter.UriParameter;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
-import java.net.URL;
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by yf on 2016/11/25.
@@ -107,22 +111,7 @@ public class CustomExtension implements GeneratorExtension {
 
     @Override
     public void setRaml(Raml raml) {
-        raml.setBaseUri("unicoms");
-//        raml.setResources(new HashMap<String, Resource>());
-        List<Map<String,String>> schemas=raml.getSchemas();
-        for(Map<String,String> schemaMap: schemas){
 
-            Set<String> schemaKeySet=schemaMap.keySet();
-            Iterator<String> it=schemaKeySet.iterator();
-            while (it.hasNext()){
-                schemaMap.put(it.next(),"{\r\n" +
-                        "\r\n" +
-                        "}\r\n");
-            }
-
-        }
-//        raml.setSchemas(new ArrayList<Map<String, String>>());
-        System.out.println("sada");
     }
 
     @Override

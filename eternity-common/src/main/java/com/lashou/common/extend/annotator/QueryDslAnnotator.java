@@ -1,19 +1,16 @@
 package com.lashou.common.extend.annotator;
 
-import java.util.EnumSet;
-import java.util.Iterator;
-
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.jsonschema2pojo.Annotator;
-import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Entity;
-import org.springframework.data.annotation.Id;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JEnumConstant;
 import com.sun.codemodel.JFieldVar;
 import com.sun.codemodel.JMethod;
+import org.jsonschema2pojo.Annotator;
+import org.mongodb.morphia.annotations.Embedded;
+import org.springframework.data.annotation.Id;
+
+import java.util.EnumSet;
+import java.util.Iterator;
 
 public class QueryDslAnnotator implements Annotator {
 
@@ -22,22 +19,11 @@ public class QueryDslAnnotator implements Annotator {
 
 	@Override
 	public void propertyOrder(JDefinedClass clazz, JsonNode propertiesNode) {
-		System.out.println("1:"+ clazz.name());
-		clazz=null;
-//		ObjectNode on= (ObjectNode) propertiesNode;
-//		on.removeAll();
-//		System.out.println("");
-//		clazz.annotate(Entity.class);
 
 	}
 
 	@Override
 	public void propertyInclusion(JDefinedClass clazz, JsonNode schema) {
-
-//		ObjectNode on= (ObjectNode) schema;
-//		on.removeAll();
-		System.out.println("2:"+ clazz.name());
-		// TODO Auto-generated method stub
 
 	}
 
@@ -60,9 +46,6 @@ public class QueryDslAnnotator implements Annotator {
 		if (!PrimitiveBoxedEnum.isContain(typeName)) {
 			field.annotate(Embedded.class);
 		}
-	}
-
-	public static void main(String[] args) {
 	}
 
 	@Override
