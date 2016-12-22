@@ -4,6 +4,7 @@ package com.linkedin.api.resource;
 import com.linkedin.api.model.*;
 import com.linkedin.api.resource.support.PATCH;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -112,7 +113,7 @@ public interface TopicsResource {
     TopicsResource.PostTopicsByFieldSelectorsResponse postTopicsByFieldSelectors(
             @PathParam("field_selectors")
                     String fieldSelectors,
-            Topic entity)
+            @Valid Topic entity)
             throws Exception
     ;
 

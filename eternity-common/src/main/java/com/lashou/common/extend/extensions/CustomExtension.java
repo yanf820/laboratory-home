@@ -4,10 +4,7 @@ import com.sun.codemodel.*;
 import org.apache.http.HttpRequest;
 import org.apache.http.message.BasicHttpRequest;
 import org.raml.jaxrs.codegen.core.ext.GeneratorExtension;
-import org.raml.model.Action;
-import org.raml.model.MimeType;
-import org.raml.model.Raml;
-import org.raml.model.Resource;
+import org.raml.model.*;
 import org.raml.model.parameter.AbstractParam;
 import org.raml.model.parameter.UriParameter;
 
@@ -106,15 +103,29 @@ public class CustomExtension implements GeneratorExtension {
         return true;
     }
 
+
+
     @Override
     public void setRaml(Raml raml) {
-        int i=0;
-        System.out.println(raml);
-        raml.setBaseUri("unicom");
+        raml.setBaseUri("unicoms");
+//        raml.setResources(new HashMap<String, Resource>());
+        List<Map<String,String>> schemas=raml.getSchemas();
+        for(Map<String,String> schemaMap: schemas){
+
+            Set<String> schemaKeySet=schemaMap.keySet();
+            Iterator<String> it=schemaKeySet.iterator();
+            while (it.hasNext()){
+                schemaMap.put(it.next(),"{\r\n" +
+                        "\r\n" +
+                        "}\r\n");
+            }
+
+        }
+//        raml.setSchemas(new ArrayList<Map<String, String>>());
+        System.out.println("sada");
     }
 
     @Override
     public void setCodeModel(JCodeModel codeModel) {
-
     }
 }

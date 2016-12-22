@@ -182,7 +182,6 @@
                         </goals>
                         <configuration>
                             <scanIntervalSeconds>0</scanIntervalSeconds>
-                            <daemon>true</daemon>
                         </configuration>
                     </execution>
                     <execution>

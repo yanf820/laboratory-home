@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-extends/schema",
-  "javaType" : "com.startup.saas.api.model.Topic",
   "type": "object",
   "properties": {
     "id": {

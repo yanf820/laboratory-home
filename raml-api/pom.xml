@@ -57,6 +57,13 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.3</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.raml/raml-jaxrs-codegen-core -->
+        <dependency>
+            <groupId>org.raml.plugins</groupId>
+            <artifactId>raml-jaxrs-maven-plugin</artifactId>
+            <version>1.3.4</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -85,11 +92,11 @@
                 <!--<jsonMapperConfiguration>-->
                     <!--<useLongIntegers>true</useLongIntegers>-->
                 <!--</jsonMapperConfiguration>-->
-                <removeOldOutput>false</removeOldOutput>
-                <!--<customAnnotator>com.lashou.common.extend.annotator.QueryDslAnnotator</customAnnotator>-->
-                <!--<extensions>-->
-                    <!--<param>com.lashou.common.extend.extensions.CustomExtension</param>-->
-                <!--</extensions>-->
+                <removeOldOutput>true</removeOldOutput>
+                <customAnnotator>com.lashou.common.extend.annotator.QueryDslAnnotator</customAnnotator>
+                <extensions>
+                    <param>com.lashou.common.extend.extensions.CustomExtension</param>
+                </extensions>
             </configuration>
             <executions>
                 <execution>

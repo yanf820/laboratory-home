@@ -28,7 +28,6 @@ import java.util.Map;
     "posters",
     "updateTime"
 })
-@Component
 public class Topic {
 
     /**
