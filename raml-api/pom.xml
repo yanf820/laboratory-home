@@ -57,12 +57,12 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.3</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.raml/raml-jaxrs-codegen-core -->
-        <dependency>
-            <groupId>org.raml.plugins</groupId>
-            <artifactId>raml-jaxrs-maven-plugin</artifactId>
-            <version>1.3.4</version>
-        </dependency>
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.raml/raml-jaxrs-codegen-core &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.raml.plugins</groupId>-->
+            <!--<artifactId>raml-jaxrs-maven-plugin</artifactId>-->
+            <!--<version>1.3.4</version>-->
+        <!--</dependency>-->
 
 
     </dependencies>
