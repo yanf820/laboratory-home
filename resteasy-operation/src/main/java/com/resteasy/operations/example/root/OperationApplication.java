@@ -1,5 +1,6 @@
 package com.resteasy.operations.example.root;
 
+import com.linkedin.api.sdktest.impl.ContactsResourceImpl;
 import com.resteasy.operations.example.linkingresources.impl.BookStoreImpl;
 import com.resteasy.operations.example.linkingresources.impl.TopicImpl;
 import com.resteasy.operations.example.simple.Library;
@@ -21,6 +22,7 @@ public class OperationApplication extends Application {
         singletons.add(new Library());
         singletons.add(new BookStoreImpl());
         singletons.add(new TopicImpl());
+        singletons.add(new ContactsResourceImpl());
     }
 
     @Override

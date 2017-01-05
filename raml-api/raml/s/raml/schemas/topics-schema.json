@@ -8,7 +8,11 @@
       "description": "集合",
       "type": "array",
       "items": {
-        "$ref": "topic"
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
       }
     },
     "totalCount": {

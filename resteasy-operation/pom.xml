@@ -12,6 +12,7 @@
 
     <artifactId>resteasy-operation</artifactId>
     <name>resteasy operations</name>
+    <packaging>war</packaging>
 
     <properties>
         <resteasy.version>3.0.7.Final</resteasy.version>

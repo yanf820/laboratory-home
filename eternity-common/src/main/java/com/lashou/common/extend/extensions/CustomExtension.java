@@ -31,7 +31,7 @@ public class CustomExtension implements GeneratorExtension {
      */
     @Override
     public void onCreateResourceInterface(JDefinedClass resourceInterface, Resource resource) {
-
+        resourceInterface.hide();
     }
 
     /**
@@ -43,7 +43,6 @@ public class CustomExtension implements GeneratorExtension {
      */
     @Override
     public void onAddResourceMethod(JMethod method, Action action, MimeType bodyMimeType, Collection<MimeType> uniqueResponseMimeTypes) {
-
 
     }
 
