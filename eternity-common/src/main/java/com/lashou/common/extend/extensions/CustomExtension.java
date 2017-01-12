@@ -14,10 +14,7 @@ import org.raml.model.parameter.UriParameter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by yf on 2016/11/25.
@@ -47,34 +44,34 @@ public class CustomExtension implements GeneratorExtension {
     }
 
     private void transformPathToRegex(JMethod method, Action action) {
-        Collection<JAnnotationUse> list=method.annotations();
-        Iterator<JAnnotationUse> it=list.iterator();
-
-        StringBuffer stringBuffer=new StringBuffer("");
-
-        while(it.hasNext()){
-            JAnnotationUse jAnnotationUse=it.next();
-            if("Path".equals(jAnnotationUse.getAnnotationClass().name())){
-                Map<String, UriParameter> map=action.getResource().getUriParameters();
-                Set<String> keyset=map.keySet();
-                Iterator<String> uriKeysIt=keyset.iterator();
-
-                while(uriKeysIt.hasNext()){
-
-                    String key=uriKeysIt.next();
-
-                    if(key.endsWith("Selectors")){
-                        stringBuffer.append("{"+key+":"+"[a-zA-Z]*}");
-                    }
-                    else if(key.endsWith("Id")){
-                        stringBuffer.append("{"+key+":"+"[0-9]*}");
-                    }
-                }
-
-                jAnnotationUse.param("value",stringBuffer.toString());
-
-            }
-        }
+//        Collection<JAnnotationUse> list=method.annotations();
+//        Iterator<JAnnotationUse> it=list.iterator();
+//
+//        StringBuffer stringBuffer=new StringBuffer("");
+//
+//        while(it.hasNext()){
+//            JAnnotationUse jAnnotationUse=it.next();
+//            if("Path".equals(jAnnotationUse.getAnnotationClass().name())){
+//                Map<String, UriParameter> map=action.getResource().getUriParameters();
+//                Set<String> keyset=map.keySet();
+//                Iterator<String> uriKeysIt=keyset.iterator();
+//
+//                while(uriKeysIt.hasNext()){
+//
+//                    String key=uriKeysIt.next();
+//
+//                    if(key.endsWith("Selectors")){
+//                        stringBuffer.append("{"+key+":"+"[a-zA-Z]*}");
+//                    }
+//                    else if(key.endsWith("Id")){
+//                        stringBuffer.append("{"+key+":"+"[0-9]*}");
+//                    }
+//                }
+//
+//                jAnnotationUse.param("value",stringBuffer.toString());
+//
+//            }
+//        }
     }
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
@@ -110,10 +107,10 @@ public class CustomExtension implements GeneratorExtension {
 
     @Override
     public void setRaml(Raml raml) {
-
     }
 
     @Override
     public void setCodeModel(JCodeModel codeModel) {
+
     }
 }

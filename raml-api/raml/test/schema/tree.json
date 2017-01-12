@@ -1,6 +1,6 @@
 {
   "required": true,
-  "$schema": "http://json-schema.org/draft-extends/schema",
+  "$schema": "http://json-schema.org/draft-03/schema",
   "type": "object",
   "properties":{
     "root":{
@@ -9,17 +9,9 @@
     "leaf":{
       "type": "string"
     },
-    "fruit": {
-      "type": "object",
-      "$ref": "apiContact"
-    },
-    "tree": {
-      "type": "object",
-      "properties": {
-        "a": {
-          "type": "string"
-        }
-      }
+    "apiContact": {
+      "type": "array",
+      "items": { "$ref": "#/schemas/apiContact" }
     }
   }
 }

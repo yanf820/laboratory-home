@@ -2,6 +2,15 @@
   "required": true,
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
+  "definitions":
+  { 
+    "liker":
+    {
+      "properties":{
+        
+      }
+    }
+  },
   "properties": {
     "postId" : {
       "type": "integer",

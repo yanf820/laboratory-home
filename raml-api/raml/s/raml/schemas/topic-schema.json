@@ -1,6 +1,30 @@
 {
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
+  "definition":
+  {
+    "publisher":
+    {
+      "properties":
+      {
+
+      }
+    },
+    "fans":
+    {
+      "properties":
+      {
+
+      }
+    },
+    "posters":
+    {
+      "properties":
+      {
+
+      }
+    }
+  },
   "properties": {
     "id": {
       "description": "ID",
@@ -29,7 +53,7 @@
     },
     "publisher": {
       "description": "发布者",
-      "$ref": "publisher",
+      "$ref": "#/definition/publisher",
       "required": false
     },
     "publishTime": {
@@ -44,12 +68,12 @@
     },
     "fans": {
       "description": "粉丝",
-      "$ref": "fans",
+      "$ref": "#/definition/fans",
       "required": false
     },
     "posters": {
       "description": "参与者",
-      "$ref": "posters",
+      "$ref": "#/definition/posters",
       "required": false
     },
     "updateTime": {

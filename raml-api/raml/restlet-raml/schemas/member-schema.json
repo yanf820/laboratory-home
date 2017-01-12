@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.Member",
+  "description" : "用户",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "name": {
+      "description": "名称",
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "description": "头像",
+      "type": "string",
+      "required": true
+    },
+    "gender": {
+      "description": "性别",
+      "type": "string",
+      "required" : true,
+      "enum" : ["male", "female"]
+    },
+    "phone": {
+      "description": "手机号",
+      "type": "string",
+      "required": false
+    },
+    "signature": {
+      "description": "签名",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "状态",
+      "type" : "boolean",
+      "required" : false,
+      "enum" : [true, false]
+    },
+    "loginTime": {
+      "description": "登录时间",
+      "type": "string",
+      "required": false
+    },
+    "createTime": {
+      "description": "注册时间",
+      "type": "string",
+      "required": false
+    }
+  }
+}

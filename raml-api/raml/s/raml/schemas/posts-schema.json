@@ -2,11 +2,21 @@
   "required": true,
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
+  "definitions":
+  {
+    "post":
+    {
+      "properties":
+      {
+
+      }
+    }
+  },  
   "properties": {
     "posts": {
       "type": "array",
       "items": {
-        "$ref": "post"
+        "$ref": "#/definitions/post"
       }
     },
     "totalCount": {

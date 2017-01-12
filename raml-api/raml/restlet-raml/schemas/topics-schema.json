@@ -1,22 +1,19 @@
 {
   "required": true,
   "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.Topics",
   "type": "object",
-  "definitions":{
-    "fan":{
-      "properties":{
-
-      }      
-    }
-  },
+  "description": "话题集合",
   "properties": {
-    "fans" : {
+    "topics": {
+      "description": "集合",
       "type": "array",
       "items": {
-        "$ref": "#/definitions/fan"
+        "$ref": "#/schemas/topic"
       }
     },
     "totalCount": {
+      "description": "话题数量",
       "type": "integer",
       "required": false
     }

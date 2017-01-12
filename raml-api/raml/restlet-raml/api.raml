@@ -1,0 +1,183 @@
+#%RAML 0.8
+title: STARTUP
+version: 1.0
+baseUri: http://api.startupsaas.com/
+protocols: [ HTTP, HTTPS ]
+securedBy: [ oauth_2_0 ]
+
+securitySchemes:
+  - oauth_2_0: !include securitySchemes/oauth_2_0.yaml
+
+schemas:
+  - topic: !include schemas/topic-schema.json
+  - topics: !include schemas/topics-schema.json
+  - post: !include schemas/post-schema.json
+  - posts: !include schemas/posts-schema.json
+  - post-topic: !include schemas/post-topic-schema.json
+  - post-like: !include schemas/post-like-schema.json
+  - post-comment: !include schemas/post-comment-schema.json
+  - member: !include schemas/member-schema.json
+  - follows: !include schemas/follows-schema.json
+  - follow: !include schemas/follow-schema.json
+  - comments: !include schemas/comments-schema.json
+  - comment: !include schemas/comment-schema.json
+  - error-schema: !include schemas/error-schema.json
+
+resourceTypes:
+  - member: !include resourceTypes/member.yaml
+  - baseResource: !include resourceTypes/baseResource.yaml
+  - fieldSelectorMember: !include resourceTypes/fieldSelectorMember.yaml
+  - fieldSelectors: !include resourceTypes/fieldSelectors.yaml
+  - collection: !include resourceTypes/collections.yaml
+  - fieldSelectorCollection: !include resourceTypes/fieldSelectorCollection.yaml
+
+traits:
+  - hasModifiedFilter: !include traits/hasModifiedFilter.yaml
+  - hasSession: !include traits/hasSession.yaml
+  - paged: !include traits/paged.yaml
+  - oauth: !include traits/oauth2_0.yaml
+  - common: !include traits/common.yaml
+
+documentation:
+  - title: 创业服务平台gateway接口规范
+    content: !include documentation/api.md
+
+
+/topics:
+  description: |
+    创业圈/话题 资源
+  type: baseResource
+  get:
+    description: |
+      搜索创业圈
+    is: [paged, oauth]
+    queryParameters:
+      keywords:
+        type: string
+    responses:
+      200:
+        body:
+          application/json:
+            schema: topics
+
+  /hot:
+    get:
+      description: |
+        热门话题
+      is: [paged,oauth]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: topics
+  /last:
+    get:
+      description: |
+        最新话题
+      is: [paged,oauth]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: topics
+
+  /{topic_id}:
+    /posts:
+      description: |
+        当前topic下的帖子资源
+      type: baseResource
+      get:
+        description: |
+          搜索当前话题下的帖子
+        is: [paged,oauth]
+        responses:
+          200:
+            body:
+              application/json:
+                schema: posts
+    /follows:
+      get:
+        description: |
+          获取当前话题的关注者列表
+        is: [paged,oauth]
+        responses:
+          200:
+            body:
+              application/json:
+                schema: follows
+
+/posts:
+  description: |
+    帖子资源
+  type: baseResource
+  get:
+    description: |
+      查看指定话题下的帖子
+    is: [paged, oauth]
+    queryParameters:
+      topic_id:
+        type: string
+    responses:
+      200:
+        body:
+          application/json:
+            schema: posts
+  /{post_id}:
+    get:
+      description: |
+        获取当前帖子详情
+      is: [oauth]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: post
+    /likes:
+      get:
+        description: |
+          当前帖子的点赞列表
+        is: [oauth]
+        responses:
+          200:
+            body:
+              application/json:
+                schema: post-like
+    /comments:
+      get:
+        description: |
+          当前帖子的评论列表
+        is: [oauth]
+        responses:
+          200:
+            body:
+              application/json:
+                schema: post-comment
+
+
+
+/comments:
+  description: |
+    评论资源
+  type: baseResource
+  get:
+    description: |
+      搜索评论
+    is: [paged, oauth]
+    queryParameters:
+      target_id:
+        type: string
+    responses:
+      200:
+        body:
+          application/json:
+            schema: comments
+  /{comment_id}:
+    get:
+      description: |
+        最新话题
+      is: [oauth]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: comment

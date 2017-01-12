@@ -1,0 +1,34 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.Follow",
+  "type": "object",
+  "description": "关注者",
+  "properties": {
+    "followId" : {
+      "description": "关注者id",
+      "type": "string",
+      "required": false
+    },
+    "followType" : {
+      "description": "关注者type",
+      "type": "string",
+      "required": false
+    },
+    "targetId": {
+      "description": "关注对象id",
+      "type": "string",
+      "required": false
+    },
+    "targetType" : {
+      "description": "关注对象type",
+      "type": "string",
+      "required": false
+    },
+    "followTime": {
+      "description": "关注时间",
+      "type": "string",
+      "required": false
+    }
+  }
+}

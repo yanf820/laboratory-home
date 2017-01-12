@@ -1,15 +1,27 @@
 {
-  "required": false,
+  "required": true,
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
+  "definitions":
+  {
+    "poster":
+    {
+      "properties":
+      {
+
+      }
+    }
+  },  
   "properties": {
     "posters" : {
+      "description": "asdsa",
       "type": "array",
       "items": {
-        "$ref": "poster"
+        "$ref": "#/definitions/poster"
       }
     },
     "totalCount": {
+      "description": "adasd",
       "type": "integer"
     }
   }

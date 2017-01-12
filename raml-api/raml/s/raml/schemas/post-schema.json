@@ -2,6 +2,44 @@
   "required": true,
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
+  "definitions":
+  {
+    "content":
+    {
+      "properties":
+      {
+
+      }
+    },
+    "poster":
+    {
+      "properties":
+      {
+
+      }
+    },
+    "topic":
+    {
+      "properties":
+      {
+
+      }
+    },
+    "review":
+    {
+      "properties":
+      {
+
+      }
+    },
+    "liker":
+    {
+      "properties":
+      {
+
+      }
+    }       
+  },
   "properties": {
     "id": {
       "description": "ID",
@@ -21,30 +59,30 @@
     "content": {
       "description": "内容",
       "type": "object",
-      "$ref": "content"
+      "$ref": "#/definitions/content"
     },
     "poster": {
       "description": "发帖人",
       "type": "object",
-      "$ref": "poster"
+      "$ref": "#/definitions/poster"
     },
     "topic": {
       "description": "主题",
       "type": "object",
-      "$ref": "topic"
+      "$ref": "#/definitions/topic"
     },
     "review": {
       "description": "评论集合",
       "type": "array",
       "items": {
-        "$ref": "review"
+        "$ref": "#/definitions/review"
       }
     },
     "likes": {
       "description": "点赞集合",
       "type": "array",
       "items": {
-        "$ref": "liker"
+        "$ref": "#/definitions/liker"
      }
     }
   }

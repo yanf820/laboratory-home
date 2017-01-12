@@ -2,6 +2,16 @@
   "required": true,
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
+  "definitions":
+  {
+    "fans":
+    {
+      "properties":
+      {
+
+      }
+    }
+  },
   "properties": {
     "topicId" : {
       "type": "integer",
@@ -9,7 +19,7 @@
     },
     "follower": {
       "type": "object",
-      "$ref": "fans"
+      "$ref": "#/definitions/fans"
     },
     "followType": {
       "type": "string",

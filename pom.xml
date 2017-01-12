@@ -17,6 +17,7 @@
         <module>gr plugin</module>
         <module>learn-home</module>
         <module>lucene-operation</module>
+        <module>resteasy-spring-boot-operation</module>
     </modules>
 
     <properties>

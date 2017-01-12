@@ -4,6 +4,8 @@ version: v1
 
 schemas:
 
+  - tree: !include schema/tree.json
+
   - apiCreatedEntity: |
       {  "$schema": "http://json-schema.org/draft-03/schema",
          "type": "object",
@@ -13,16 +15,7 @@ schemas:
          }
       }
 
-  - apiContact: |
-      {  "$schema": "http://json-schema.org/draft-03/schema",
-         "type": "object",
-         "description": "A single apiContact",
-         "properties": {
-           "id":  { "type": "string", "required": true },
-           "name":  { "type": "string", "required": true },
-           "emails":  { "type": "array" }
-         }
-      }
+  - apiContact: !include schema/api-contact.json
 
 
 /contacts:
@@ -35,7 +28,7 @@ schemas:
         200:
           body:
             application/json:
-              schema: apiContact
+               schema: tree
         400:
           description: Bad Request
         500:

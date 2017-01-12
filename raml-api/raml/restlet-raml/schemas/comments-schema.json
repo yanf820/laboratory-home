@@ -1,22 +1,19 @@
 {
   "required": true,
   "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.Comments",
   "type": "object",
-  "definitions":{
-    "fan":{
-      "properties":{
-
-      }      
-    }
-  },
+  "description": "主题集合",
   "properties": {
-    "fans" : {
+    "comments": {
+      "description": "集合",
       "type": "array",
       "items": {
-        "$ref": "#/definitions/fan"
+        "$ref": "#/schemas/comment"
       }
     },
     "totalCount": {
+      "description": "评论数量",
       "type": "integer",
       "required": false
     }

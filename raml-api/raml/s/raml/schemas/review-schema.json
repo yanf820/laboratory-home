@@ -2,6 +2,16 @@
   "required": true,
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
+  "definitions":
+  {
+    "reviewer":
+    {
+      "properties":
+      {
+
+      }
+    }
+  },  
   "properties": {
     "id": {
       "type": "integer",
@@ -12,7 +22,7 @@
       "required": false
     },
     "reviewer": {
-      "$ref": "reviewer"
+      "$ref": "#/definitions/reviewer"
     },
     "postId": {
       "type": "integer",

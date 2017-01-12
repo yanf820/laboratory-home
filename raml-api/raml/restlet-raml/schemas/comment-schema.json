@@ -1,0 +1,39 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.Comment",
+  "type": "object",
+  "description": "评论",
+  "properties": {
+    "id" : {
+      "description": "id",
+      "type": "string",
+      "required": false
+    },
+    "content" : {
+      "description":"评论内容",
+      "type": "string",
+      "required": false
+    },
+    "contributeId": {
+      "description":"评论者id",
+      "type": "string",
+      "required": false
+    },
+    "contributeType" : {
+      "description":"评论者类型",
+      "type": "string",
+      "required": false
+    },
+    "targetId": {
+      "description":"评论对象id",
+      "type": "string",
+      "required": false
+    },
+    "targetType" : {
+      "description":"评论对象类型",
+      "type": "string",
+      "required": false
+    }
+  }
+}

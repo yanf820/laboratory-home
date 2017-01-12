@@ -2,6 +2,16 @@
   "required": true,
   "$schema": "http://json-schema.org/draft-extends/schema",
   "type": "object",
+  "definitions":
+  {
+    "topic":
+    {
+      "properties":
+      {
+
+      }
+    }
+  },
   "description": "主题集合",
   "properties": {
     "topics": {
@@ -10,7 +20,7 @@
       "items": {
         "properties": {
           "id": {
-            "type": "string"
+            "$ref": "#/definitions/topic"
           }
         }
       }
