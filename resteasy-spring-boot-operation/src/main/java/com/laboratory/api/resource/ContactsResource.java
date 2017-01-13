@@ -1,13 +1,14 @@
 
 package com.laboratory.api.resource;
 
+import com.laboratory.annotations.DoIt;
 import com.laboratory.api.model.ApiCreatedEntity;
 import com.laboratory.api.model.Tree;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-
 
 @Path("contacts")
 public interface ContactsResource {
@@ -27,6 +28,7 @@ public interface ContactsResource {
         "application/json",
         "text/plain"
     })
+    @DoIt
     PostContactsResponse postContacts(
             @FormParam("name")
             @NotNull
@@ -47,6 +49,7 @@ public interface ContactsResource {
     @Produces({
         "application/json"
     })
+    @DoIt
     GetContactsByIdResponse getContactsById(
             @PathParam("id")
             @NotNull
