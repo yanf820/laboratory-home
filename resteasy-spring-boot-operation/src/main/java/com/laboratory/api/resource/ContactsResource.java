@@ -48,7 +48,6 @@ public interface ContactsResource {
     @Produces({
         "application/json"
     })
-    @DoIt
     GetContactsByIdResponse getContactsById(
             @PathParam("id")
             @NotNull

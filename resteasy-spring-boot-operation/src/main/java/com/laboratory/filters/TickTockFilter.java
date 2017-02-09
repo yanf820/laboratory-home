@@ -3,14 +3,9 @@ package com.laboratory.filters;
 import com.laboratory.annotations.DoIt;
 import org.springframework.stereotype.Component;
 
-<<<<<<< HEAD
-import javax.annotation.Priority;
-import javax.ws.rs.container.*;
-=======
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
->>>>>>> 7204130a7cf7c91c7004b6b8c4a8ee417e5266ba
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 
