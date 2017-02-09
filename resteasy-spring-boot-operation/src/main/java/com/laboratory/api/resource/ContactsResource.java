@@ -4,7 +4,6 @@ package com.laboratory.api.resource;
 import com.laboratory.annotations.DoIt;
 import com.laboratory.api.model.ApiCreatedEntity;
 import com.laboratory.api.model.Tree;
-import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
