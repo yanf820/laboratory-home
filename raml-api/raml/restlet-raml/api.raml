@@ -13,23 +13,72 @@ schemas:
   - topics: !include schemas/topics-schema.json
   - post: !include schemas/post-schema.json
   - posts: !include schemas/posts-schema.json
-  - post-topic: !include schemas/post-topic-schema.json
-  - post-like: !include schemas/post-like-schema.json
-  - post-comment: !include schemas/post-comment-schema.json
+  - post-likes: !include schemas/post-likes-schema.json
+  - post-comments: !include schemas/post-comments-schema.json
   - member: !include schemas/member-schema.json
   - follows: !include schemas/follows-schema.json
   - follow: !include schemas/follow-schema.json
   - comments: !include schemas/comments-schema.json
   - comment: !include schemas/comment-schema.json
   - error-schema: !include schemas/error-schema.json
+  - category: !include schemas/category-schema.json
+  - product: !include schemas/product-schema.json
+  - products: !include schemas/products-schema.json
+  - replies: !include schemas/replies-schema.json
+  - reply: !include schemas/reply-schema.json
+  - tag: !include schemas/tag-schema.json
+  - topic-posts: !include schemas/topic-posts-schema.json
+  - topic-follows: !include schemas/topic-follows-schema.json
+  - product-follows: !include schemas/product-follows-schema.json
+  - product-comments: !include schemas/product-comments-schema.json
+  - product-replies: !include schemas/product-replies-schema.json
+  - colleges: !include schemas/colleges-schema.json
+  - college: !include schemas/college-schema.json
+  - college-articles: !include schemas/college-articles-schema.json
+  - articles: !include schemas/articles-schema.json
+  - article: !include schemas/article-schema.json
+  - notification: !include schemas/notification-schema.json
+  - notifications: !include schemas/notifications-schema.json
+  - account-change: !include schemas/account-change-schema.json
+  - account-changes: !include schemas/account-changes-schema.json
+  - account-frozen: !include schemas/account-frozen-schema.json
+  - account-frozens: !include schemas/account-frozens-schema.json
+  - bankcard: !include schemas/bankcard-schema.json
+  - bankcards: !include schemas/bankcards-schema.json
+  - cashaccount: !include schemas/cashaccount-schema.json
+  - flowinstance: !include schemas/flowinstance-schema.json
+  - form: !include schemas/form-schema.json
+  - forms: !include schemas/forms-schema.json
+  - member-accounts: !include schemas/member-accounts-schema.json
+  - member-articles: !include schemas/member-articles-schema.json
+  - member-article: !include schemas/member-article-schema.json
+  - member-comments: !include schemas/member-comments-schema.json
+  - member-comment: !include schemas/member-comment-schema.json
+  - member-product: !include schemas/member-product-schema.json
+  - member-products: !include schemas/member-products-schema.json
+  - member-follows: !include schemas/member-follows-schema.json
+  - member-likes: !include schemas/member-likes-schema.json
+  - member-posts: !include schemas/member-posts-schema.json
+  - member-post: !include schemas/member-post-schema.json
+  - member-publishes: !include schemas/member-publishes-schema.json
+  - member-replies: !include schemas/member-replies-schema.json
+  - member-reply: !include schemas/member-reply-schema.json
+  - member-topic: !include schemas/member-topic-schema.json
+  - member-topics: !include schemas/member-topics-schema.json
+  - members: !include schemas/members-schema.json
+  - order: !include schemas/order-schema.json
+  - orders: !include schemas/orders-schema.json
+  - potentialform: !include schemas/potentialform-schema.json
+  - potentialforms: !include schemas/potentialforms-schema.json
+  - promotionplan: !include schemas/promotionplan-schema.json
+  - promotionplans: !include schemas/promotionplans-schema.json
+  - publish: !include schemas/publish-schema.json
+  - publishes: !include schemas/publishes-schema.json
+  - virtualaccount: !include schemas/virtualaccount-schema.json
+  - wallet: !include schemas/wallet-schema.json
 
 resourceTypes:
-  - member: !include resourceTypes/member.yaml
   - baseResource: !include resourceTypes/baseResource.yaml
-  - fieldSelectorMember: !include resourceTypes/fieldSelectorMember.yaml
-  - fieldSelectors: !include resourceTypes/fieldSelectors.yaml
-  - collection: !include resourceTypes/collections.yaml
-  - fieldSelectorCollection: !include resourceTypes/fieldSelectorCollection.yaml
 
 traits:
   - hasModifiedFilter: !include traits/hasModifiedFilter.yaml
@@ -44,13 +93,9 @@ documentation:
 
 
 /topics:
-  description: |
-    创业圈/话题 资源
-  type: baseResource
   get:
     description: |
-      搜索创业圈
-    is: [paged, oauth]
+      搜索创业圈话题资源
     queryParameters:
       keywords:
         type: string
@@ -61,20 +106,20 @@ documentation:
             schema: topics
 
   /hot:
+    type: baseResource
     get:
       description: |
         热门话题
-      is: [paged,oauth]
       responses:
         200:
           body:
             application/json:
               schema: topics
-  /last:
+  /latest:
+    type: baseResource
     get:
       description: |
         最新话题
-      is: [paged,oauth]
       responses:
         200:
           body:
@@ -82,38 +127,38 @@ documentation:
               schema: topics
 
   /{topic_id}:
-    /posts:
+    get:
       description: |
-        当前topic下的帖子资源
+        当前话题详情
+      responses:
+        200:
+          body:
+            application/json:
+              schema: topic
+    /posts:
       type: baseResource
       get:
         description: |
           搜索当前话题下的帖子
-        is: [paged,oauth]
         responses:
           200:
             body:
               application/json:
-                schema: posts
+                schema: topic-posts
     /follows:
       get:
         description: |
           获取当前话题的关注者列表
-        is: [paged,oauth]
         responses:
           200:
             body:
               application/json:
-                schema: follows
+                schema: topic-follows
 
 /posts:
-  description: |
-    帖子资源
-  type: baseResource
   get:
     description: |
       查看指定话题下的帖子
-    is: [paged, oauth]
     queryParameters:
       topic_id:
         type: string
@@ -126,7 +171,6 @@ documentation:
     get:
       description: |
         获取当前帖子详情
-      is: [oauth]
       responses:
         200:
           body:
@@ -136,33 +180,25 @@ documentation:
       get:
         description: |
           当前帖子的点赞列表
-        is: [oauth]
         responses:
           200:
             body:
               application/json:
-                schema: post-like
+                schema: post-likes
     /comments:
       get:
         description: |
           当前帖子的评论列表
-        is: [oauth]
         responses:
           200:
             body:
               application/json:
-                schema: post-comment
-
-
+                schema: post-comments
 
 /comments:
-  description: |
-    评论资源
-  type: baseResource
   get:
     description: |
       搜索评论
-    is: [paged, oauth]
     queryParameters:
       target_id:
         type: string
@@ -175,9 +211,942 @@ documentation:
     get:
       description: |
         最新话题
-      is: [oauth]
       responses:
         200:
           body:
             application/json:
               schema: comment
+
+/products:
+  type: baseResource
+  get:
+    description: |
+      搜索商机
+    is: [paged, oauth]
+    queryParameters:
+      keywords:
+        type: string
+    responses:
+      200:
+        body:
+          application/json:
+            schema: products
+  /recommend:
+    type: baseResource
+    get:
+      description: |
+        商机智能推荐
+      responses:
+        200:
+          body:
+            application/json:
+              schema: products
+  /hot:
+    type: baseResource
+    get:
+      description: |
+        热门商机
+      responses:
+        200:
+          body:
+            application/json:
+              schema: products
+  /latest:
+    type: baseResource
+    get:
+      description: |
+        最新商机
+      responses:
+        200:
+          body:
+            application/json:
+              schema: products
+  /{product_id}:
+    get:
+      description: |
+        当前商机的详情
+      is: [oauth]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: product
+    /comments:
+      get:
+        description: |
+          当前商机的评论列表
+        is: [paged, oauth]
+        responses:
+          200:
+            body:
+              application/json:
+                schema: product-comments
+    /replies:
+      get:
+        description: |
+          当前商机的留言
+        is: [paged, oauth]
+        responses:
+          200:
+            body:
+              application/json:
+                schema: product-replies
+
+    /follows:
+      get:
+        description: |
+          当前这个商机被多少人关注了
+        is: [paged, oauth]
+        responses:
+          200:
+            body:
+              application/json:
+                schema: product-follows
+
+/colleges:
+  type: baseResource
+  get:
+    description: |
+      搜索创业学院
+    is: [paged, oauth]
+    queryParameters:
+      keywords:
+        type: string
+    responses:
+      200:
+        body:
+          application/json:
+            schema: colleges
+  /{college_id}:
+    /articles:
+      get:
+        description:
+          获取某个学院下的文章
+        is: [paged, oauth]
+        responses:
+          200:
+            body:
+              application/json:
+                schema: college-articles
+
+/articles:
+  get:
+    description: |
+      根据college_id获取文章列表
+    is: [paged, oauth]
+    queryParameters:
+      college_id:
+        type: string
+    responses:
+      200:
+        body:
+          application/json:
+            schema: articles
+  /{article_id}:
+    get:
+      description: |
+        获取文章详情
+      is: [paged, oauth]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: article
+
+/notifications:
+  type: baseResource
+  get:
+    description: |
+      获取消息历史记录
+    is: [paged, oauth]
+    responses:
+      200:
+        body:
+          application/json:
+            schema: notifications
+  /send:
+    description: |
+      发送消息
+    post:
+      is: [hasSession, oauth]
+      body:
+        application/json:
+          schema: notification
+      responses:
+        200:
+          body:
+            application/json:
+              schema: notification
+  /{notification_id}:
+    get:
+      description: |
+        获取消息详情
+      is: [paged, oauth]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: notification
+
+/members:
+  description: |
+    会员资源
+  type:  baseResource
+  /register:
+    post:
+      description: |
+        注册
+      is: [hasSession, oauth]
+      body:
+        application/json:
+          schema: member
+      responses:
+        200:
+          description: 注册成功响应
+          body:
+            application/json:
+              schema: member
+
+  /login:
+    type: baseResource
+    post:
+      description: |
+        登录
+      is: [hasSession, oauth]
+      body:
+        application/json:
+          schema: member
+      responses:
+        200:
+          description: 登录成功响应
+          body:
+            application/json:
+              schema: member
+
+  /{member_id}:
+    description: |
+      会员用户详情
+    type: baseResource
+    get:
+      description: |
+        获取会员用户详情
+      is: [hasSession, oauth]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: member
+    /changepassword:
+      type: baseResource
+      post:
+        description: |
+          更改密码
+        is: [hasSession, oauth]
+        body:
+          application/json:
+            schema: member
+        responses:
+          200:
+            description: 更改密码成功响应
+            body:
+              application/json:
+                schema: member
+    /resetpassword:
+      type: baseResource
+      post:
+        description: |
+          重置密码
+        is: [hasSession, oauth]
+        body:
+          application/json:
+            schema: member
+        responses:
+          200:
+            description: 重置密码成功响应
+            body:
+              application/json:
+                schema: member
+    /logout:
+      type: baseResource
+      post:
+        description: |
+          注销登陆
+        is: [hasSession, oauth]
+        body:
+          application/json:
+            schema: member
+        responses:
+          200:
+            description: 注销登录成功响应
+            body:
+              application/json:
+                schema: member
+    /follows:
+      type: baseResource
+      get:
+        description: |
+          获取当前会员关注的列表
+        is: [paged, hasSession, oauth]
+        queryParameters:
+          keywords:
+            type: string
+        responses:
+          200:
+            body:
+              application/json:
+                schema: member-follows
+      post:
+        description: |
+          当前会员关注一个内容
+        is: [hasSession, oauth]
+        body:
+          application/json:
+            schema: follow
+        responses:
+          200:
+            description: 关注成功响应
+            body:
+              application/json:
+                schema: follow
+      delete:
+        description: |
+          当前会员取消了关注
+        is: [hasSession, oauth]
+        body:
+          application/json:
+            schema: follows
+        responses:
+          200:
+      /topics:
+        type: baseResource
+        get:
+          description: |
+            获取当前会员关注的话题
+          is: [paged, hasSession, oauth]
+          queryParameters:
+            keywords:
+              type: string
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: member-topics
+        post:
+          description: |
+            关注话题
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: topic
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: topic
+        delete:
+          description: |
+            取消关注
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: topics
+          responses:
+            200:
+      /posts:
+        type: baseResource
+        get:
+          description: |
+            获取当前会员关注的帖子
+          is: [paged, hasSession, oauth]
+          queryParameters:
+            keywords:
+              type: string
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: member-posts
+        post:
+          description: |
+            关注帖子
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: post
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: post
+        delete:
+          description: |
+            取消关注
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: member-posts
+          responses:
+            200:
+      /members:
+        type: baseResource
+        get:
+          description: |
+            获取当前会员关注的人
+          is: [paged, hasSession, oauth]
+          queryParameters:
+            keywords:
+              type: string
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: members
+        post:
+          description: |
+            关注一个会员
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: follow
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: follow
+        delete:
+          description: |
+            取消关注
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: follows
+          responses:
+            200:
+        /astarget:
+          get:
+            description: |
+              获取当前会员的粉丝列表
+            is: [paged, hasSession, oauth]
+            queryParameters:
+              keywords:
+                type: string
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: members
+    /products:
+      /apply:
+        post:
+          description: |
+            申请加盟
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: product
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: product
+
+    /likes:
+      type: baseResource
+      get:
+        description: |
+          搜索当前会员点赞的帖子
+        is: [paged, hasSession, oauth]
+        queryParameters:
+          keywords:
+            type: string
+        responses:
+          200:
+            body:
+              application/json:
+                schema: member-likes
+      post:
+        description: |
+          当前会员对某个帖子点赞
+        is: [hasSession, oauth]
+        body:
+          application/json:
+            schema: post
+        responses:
+          200:
+            body:
+              application/json:
+                schema: post
+      delete:
+        description: |
+          当前会员对某个帖子取消点赞
+        is: [hasSession, oauth]
+        body:
+          application/json:
+            schema: posts
+        responses:
+          200:
+
+    /share:
+      get:
+        description: |
+          查看当前会员分享的
+        is: [paged, hasSession, oauth]
+        queryParameters:
+          keywords:
+            type: string
+        responses:
+          200:
+            body:
+              application/json:
+                schema: member-likes
+      post:
+        description: |
+          分享
+        body:
+          application/json:
+            schema: post
+        responses:
+          200:
+            body:
+              application/json:
+                schema: post
+    /published:
+      description: |
+        发布的资源
+      type: baseResource
+      get:
+        description: |
+          搜索当前会员发布的列表
+        is: [paged, hasSession, oauth]
+        queryParameters:
+          keywords:
+            type: string
+        responses:
+          200:
+            body:
+              application/json:
+                schema: member-publishes
+      post:
+        description: |
+          发布
+        is: [hasSession, oauth]
+        body:
+          application/json:
+            schema: publish
+        responses:
+          200:
+            body:
+              application/json:
+                schema: publish
+      delete:
+        description: |
+          删除
+        is: [hasSession, oauth]
+        body:
+          application/json:
+            schema: publishes
+        responses:
+          200:
+            body:
+              application/json:
+                schema: publishes
+      /replies:
+        post:
+          description: |
+            给当前商机留言
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: reply
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: reply
+      /topics:
+        type: baseResource
+        get:
+          description: |
+            获取当前会员发布的话题
+          is: [paged, hasSession, oauth]
+          queryParameters:
+            keywords:
+              type: string
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: member-topics
+        post:
+          description: |
+            发表一个话题
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: topic
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: topic
+
+      /posts:
+        type: baseResource
+        get:
+          description: |
+            获得当前会员发布的帖子列表
+          is: [paged, oauth]
+          queryParameters:
+            keywords:
+              type: string
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: member-posts
+        post:
+          description: |
+            发布帖子
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: post
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: post
+        delete:
+          description: |
+            删除贴子
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: member-posts
+          responses:
+            200:
+      /comments:
+        type: baseResource
+        get:
+          description: |
+            获得当前会员comment列表
+          is: [paged, hasSession, oauth]
+          queryParameters:
+            keywords:
+              type: string
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: member-comments
+        post:
+          description: |
+            发布评论
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: comment
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: comment
+        delete:
+          description: |
+            删除
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: comments
+          responses:
+            200:
+
+      /articles:
+        type: baseResource
+        get:
+          description: |
+            获得当前会员发布的article的列表
+          is: [paged, hasSession, oauth]
+          queryParameters:
+            keywords:
+              type: string
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: member-articles
+        post:
+          description: |
+            发布文章
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: article
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: article
+        delete:
+          description: |
+            删除
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: member-article
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: article
+    /orders:
+      description: |
+        订单资源
+      type: baseResource
+      get:
+        description: |
+          搜索会员的订单
+        is: [paged, hasSession, oauth]
+        queryParameters:
+          keywords:
+            type: string
+        responses:
+          200:
+            body:
+              application/json:
+                schema: orders
+      /{order_id}:
+        type: baseResource
+        get:
+          description: |
+            获取某个订单的详情
+          is: [hasSession, oauth]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: order
+        /flowinstance:
+          get:
+            description: |
+              获取某个订单的订单流程
+            is: [hasSession, oauth]
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: flowinstance
+        /cancelapply:
+          post:
+            description: |
+              取消订单
+            is: [hasSession, oauth, hasModifiedFilter]
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: order
+
+    /wallet:
+      description: |
+        钱包资源
+      type: baseResource
+      get:
+        description: |
+          获取当前会员的账户
+        is: [hasSession, oauth]
+        responses:
+          200:
+            body:
+              application/json:
+                schema: wallet
+      /cashaccount:
+        description: |
+          可体现账户资源
+        type: baseResource
+        get:
+          description: |
+            获取现金账户详情
+          is: [hasSession, oauth]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: cashaccount
+        /changes:
+          get:
+            description: |
+              获取账户变更记录
+            is: [hasSession, oauth]
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: account-changes
+        /holdings:
+          get:
+            description: |
+              获取冻结记录
+            is: [hasSession, oauth]
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: account-frozens
+        /withdraw:
+          post:
+            description: |
+              提现
+            is: [hasSession, oauth, hasModifiedFilter]
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: account-change
+      /virtualaccount:
+        description: |
+          虚拟账户资源
+        type: baseResource
+        get:
+          description: |
+            获取虚拟账户信息
+          is: [hasSession, oauth]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: virtualaccount
+    /bankcards:
+      description: |
+        银行卡资源
+      type: baseResource
+      get:
+        description: |
+          获取银行卡
+        is: [paged, hasSession, oauth]
+        queryParameters:
+          keywords:
+            type: string
+        responses:
+          200:
+            body:
+              application/json:
+                schema: bankcards
+      post:
+        description: |
+          添加银行卡
+        is: [hasSession, oauth]
+        body:
+          application/json:
+            schema: bankcard
+        responses:
+          200:
+            description: 添加银行卡成功响应
+            body:
+              application/json:
+                schema: bankcard
+      patch:
+        description: |
+          修改/实名认证
+        is: [hasSession, oauth, hasModifiedFilter]
+        responses:
+          200:
+            body:
+              application/json:
+                schema: bankcard
+    /forms:
+      description: |
+        表单资源
+      type: baseResource
+      get:
+        description: |
+          搜索报告
+        is: [paged, oauth]
+        queryParameters:
+          keywords:
+            type: string
+        responses:
+          200:
+            body:
+              application/json:
+                schema: forms
+      /potentialform:
+        description: |
+          潜能报告资源
+        type: baseResource
+        get:
+          description: |
+            获取已经回答过的items
+          is: [paged, oauth]
+          queryParameters:
+            keywords:
+              type: string
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: potentialforms
+        post:
+          description: |
+            回答items
+          is: [hasSession, oauth]
+          body:
+            application/json:
+              schema: potentialform
+          responses:
+            200:
+              description: 回答报告成功响应
+              body:
+                application/json:
+                  schema: potentialform
+        delete:
+          description: |
+            清空所有的题目
+          is: [hasSession, oauth]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: potentialform
+        /reports:
+          description: |
+            报告资源
+          type: baseResource
+          /default:
+            get:
+              description: |
+                获取当前默认报告
+              is: [oauth]
+              responses:
+                200:
+                  body:
+                    application/json:
+                      schema: potentialform
+          /products:
+            /{product_id}:
+              get:
+                description: |
+                  获取与某一商机匹配后的评估报告
+                is: [oauth]
+                responses:
+                  200:
+                    body:
+                      application/json:
+                        schema: potentialform
+      /promotionplans:
+        type: baseResource
+        get:
+          description: |
+            promotions的记录
+          is: [paged, oauth]
+          queryParameters:
+            keywords:
+              type: string
+            topic_id:
+              type: integer
+              required: true
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: promotionplans

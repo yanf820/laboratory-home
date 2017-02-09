@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
+@DoIt
 @Path("contacts")
 public interface ContactsResource {
 
@@ -28,7 +29,6 @@ public interface ContactsResource {
         "application/json",
         "text/plain"
     })
-    @DoIt
     PostContactsResponse postContacts(
             @FormParam("name")
             @NotNull

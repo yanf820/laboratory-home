@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.MemberTopic",
+  "type": "object",
+  "description": "会员的话题",
+  "properties": {
+    "member": {
+      "description": "会员信息",
+      "type": "object",
+      "$ref": "member"
+    },
+    "topic": {
+      "description": "话题信息",
+      "type": "object",
+      "$ref": "topic"
+    }
+  }
+}

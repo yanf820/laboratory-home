@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Products",
+  "description": "商机集合",
+  "type": "object",
+  "properties": {
+    "Products": {
+      "type": "array",
+      "items": {
+        "$ref": "product"
+      }
+    },
+    "totalCount": {
+      "type": "integer",
+      "required": false
+    }
+  }
+}

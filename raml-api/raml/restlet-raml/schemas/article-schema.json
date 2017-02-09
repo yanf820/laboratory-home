@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Article",
+  "type": "object",
+  "description": "文章schema",
+  "properties": {
+    "id": {
+      "description": "文章ID",
+      "type": "string",
+      "required": false
+    },
+    "title": {
+      "description": "文章标题",
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "description": "文章正文",
+      "type": "string",
+      "required": true
+    },
+    "creationTime": {
+      "description": "文章创建时间",
+      "type": "string",
+      "required": false
+    },
+    "publishedTime": {
+      "description": "文章发布时间",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "文章状态",
+      "type": "string",
+      "required": false
+    },
+    "categoryId": {
+      "description": "文章分类ID",
+      "type": "string",
+      "required": true
+    },
+    "tags": {
+      "description": "文章标签",
+      "type": "string",
+      "required": false
+    },
+    "authorId": {
+      "description": "作者ID",
+      "type": "string",
+      "required": true
+    },
+    "authorType": {
+      "description": "作者类型",
+      "type": "string",
+      "required": true
+    },
+    "flowInstanceId": {
+      "description": "流程实例ID",
+      "type": "string",
+      "required": false
+    }
+  }
+}

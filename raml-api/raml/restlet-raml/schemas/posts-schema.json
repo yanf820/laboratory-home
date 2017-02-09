@@ -1,15 +1,14 @@
 {
   "required": true,
-  "$schema": "http://json-schema.org/draft-extends/schema",
-  "javaType" : "com.lastartupsaas.api.model.Posts",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Posts",
   "type": "object",
   "description": "帖子集合",
   "properties": {
     "posts": {
-      "description": "集合",
       "type": "array",
       "items": {
-        "$ref": "#/schemas/post"
+        "$ref": "post"
       }
     },
     "totalCount": {

@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.PostComments",
+  "type": "object",
+  "description": "帖子评论列表",
+  "properties": {
+    "post": {
+      "description": "帖子",
+      "type": "object",
+      "$ref": "post"
+    },
+    "comments": {
+      "description": "集合",
+      "type": "object",
+      "$ref": "comments"
+    }
+  }
+}

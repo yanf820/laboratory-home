@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-extends/schema",
-  "javaType" : "com.lastartupsaas.api.model.Post",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Post",
   "type": "object",
   "description": "帖子",
   "properties": {
@@ -41,8 +41,8 @@
     },
     "topics": {
       "description": "话题标签",
-      "type": "object",
-      "$ref": "#/schemas/post-topic"
+      "type": "string",
+      "required": true
     }
   }
 }

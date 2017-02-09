@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.PotentialForms",
+  "type": "object",
+  "description": "报告",
+  "properties": {
+    "potentialforms": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "potentialform"
+      }
+    },
+    "totalCount": {
+      "description": "数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}

@@ -2,12 +2,12 @@
   "description": "错误，请求错误时返回",
   "required": false,
   "$schema": "http://json-schema.org/draft-03/schema",
-  "javaType" : "com.lastartupsaas.api.model.Error",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
   "type": "object",
   "properties" :{
     "errorCode" : {
         "description": "错误码",
-        "type": "number",
+        "type": "integer",
         "required": false
     },
     "message": {
@@ -17,12 +17,12 @@
     },
     "status": {
         "description": "状态码",
-        "type": "number",
+        "type": "integer",
         "required": false
     },
     "timestamp": {
         "description": "时间戳",
-        "type": "number",
+        "type": "integer",
         "required": false
     }
   }

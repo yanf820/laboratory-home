@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.MemberAccounts",
+  "type": "object",
+  "description": "会员关联账号schema",
+  "properties": {
+    "memberId": {
+      "description": "会员ID",
+      "type": "string",
+      "required": false
+    },
+    "memberNickname": {
+      "description": "会员昵称",
+      "type": "string",
+      "required": false
+    },
+    "memberAccounts": {
+      "description": "关联账号列表",
+      "type": "array",
+      "items": {
+        "$ref": "cashaccount"
+      }
+    }
+  }
+}

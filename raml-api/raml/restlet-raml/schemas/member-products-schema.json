@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.MemberProducts",
+  "type": "object",
+  "description": "会员关注的商机列表",
+  "properties": {
+    "member": {
+      "description": "会员信息",
+      "type": "object",
+      "$ref": "member"
+    },
+    "products": {
+      "description": "商机列表",
+      "type": "object",
+      "$ref": "products"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.TopicFollows",
+  "type": "object",
+  "description": "当前话题的关注列表",
+  "properties": {
+    "topic": {
+      "description": "话题信息",
+      "type": "object",
+      "$ref": "topic"
+    },
+    "follows": {
+      "description": "关注列表",
+      "type": "object",
+      "$ref": "follows"
+    }
+  }
+}

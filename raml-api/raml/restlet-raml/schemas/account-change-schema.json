@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.AccountChange",
+  "type": "object",
+  "description": "账号变更记录schema",
+  "properties": {
+    "type": {
+      "description": "账号类型",
+      "type": "string",
+      "required": false
+    },
+    "totalAmount": {
+      "description": "总金额",
+      "type": "number",
+      "required": true
+    },
+    "frozenAmount": {
+      "description": "冻结金额",
+      "type": "number",
+      "required": false
+    },
+    "prelicensingAmount": {
+      "description": "预授权金额",
+      "type": "number",
+      "required": false
+    },
+    "amount": {
+      "description": "可用金额",
+      "type": "number",
+      "required": false
+    },
+    "memberId": {
+      "description": "会员ID",
+      "type": "string",
+      "required": false
+    },
+    "changesTime": {
+      "description": "变更时间",
+      "type": "string",
+      "required": false
+    }
+  }
+}

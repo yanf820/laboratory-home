@@ -1,7 +1,7 @@
 {
   "required": true,
-  "$schema": "http://json-schema.org/draft-extends/schema",
-  "javaType" : "com.lastartupsaas.api.model.Topics",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Topics",
   "type": "object",
   "description": "话题集合",
   "properties": {
@@ -9,7 +9,7 @@
       "description": "集合",
       "type": "array",
       "items": {
-        "$ref": "#/schemas/topic"
+        "$ref": "topic"
       }
     },
     "totalCount": {

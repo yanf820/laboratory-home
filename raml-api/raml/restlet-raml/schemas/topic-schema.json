@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-extends/schema",
-  "javaType" : "com.lastartupsaas.api.model.Topic",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Topic",
   "type": "object",
   "description": "话题",
   "properties": {

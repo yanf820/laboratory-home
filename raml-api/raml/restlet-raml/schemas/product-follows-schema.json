@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.ProductFollows",
+  "type": "object",
+  "description": "当前商机的关注列表",
+  "properties": {
+    "product": {
+      "description": "当前商机的详情",
+      "type": "object",
+      "$ref": "product"
+    },
+    "follows": {
+      "description": "关注列表",
+      "type": "object",
+      "$ref": "follows"
+    }
+  }
+}

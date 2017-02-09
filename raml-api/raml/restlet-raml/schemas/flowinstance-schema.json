@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.FlowInstance",
+  "description" : "流程",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "type": {
+      "description": "流程类型",
+      "type": "number",
+      "required": true
+    }
+  }
+}

@@ -1,11 +1,11 @@
 {
   "required": true,
-  "$schema": "http://json-schema.org/draft-extends/schema",
-  "javaType" : "com.lastartupsaas.api.model.Comment",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Comment",
   "type": "object",
   "description": "评论",
   "properties": {
-    "id" : {
+    "id": {
       "description": "id",
       "type": "string",
       "required": false

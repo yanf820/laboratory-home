@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Wallte",
+  "type": "object",
+  "properties": {
+    "memberId": {
+      "description": "加盟者id",
+      "type": "string",
+      "required":true
+    },
+    "cashAccount": {
+      "description": "现金账户",
+      "$ref": "cashaccount",
+      "required":false
+    },
+    "virtualAccount": {
+      "description": "虚拟账户",
+      "$ref": "virtualaccount",
+      "required":false
+    }
+  }
+}

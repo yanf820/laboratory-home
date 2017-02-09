@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Colleges",
+  "type": "object",
+  "description": "创业学院集合",
+  "properties": {
+    "colleges": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "college"
+      }
+    },
+    "totalCount": {
+      "description": "创业学院数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}

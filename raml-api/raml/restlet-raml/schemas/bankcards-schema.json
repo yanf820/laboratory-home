@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.BankCards",
+  "description": "银行卡集合",
+  "type": "object",
+  "properties": {
+    "bankcards": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "bankcard"
+      }
+    },
+    "totalCount": {
+      "description": "银行卡数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}

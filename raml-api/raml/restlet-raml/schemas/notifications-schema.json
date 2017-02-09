@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Notifications",
+  "type": "object",
+  "description": "通知集合",
+  "properties": {
+    "notifications": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "notification"
+      }
+    },
+    "totalCount": {
+      "description": "通知数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}

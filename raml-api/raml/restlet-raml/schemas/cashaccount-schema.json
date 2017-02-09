@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.CashAccount",
+  "type": "object",
+  "properties": {
+    "accountId" : {
+      "description": "账户id",
+      "type": "integer",
+      "required": false
+    },
+    "memberId": {
+      "description": "加盟者id",
+      "type": "string",
+      "required":false
+    },
+    "accountType": {
+      "description": "账户类型",
+      "type":"string",
+      "required":false
+    },
+    "balance": {
+      "description": "账户余额",
+      "type":"string",
+      "required":false
+    },
+    "frozeAmount": {
+      "description": "账户冻结金额",
+      "type":"string",
+      "required":false
+    },
+    "totalAmount":{
+      "description": "账户总金额",
+      "type":"string",
+      "required":false
+    },
+    "status": {
+      "description": "账户状态",
+      "type": "string",
+      "required": false
+    }
+  }
+}

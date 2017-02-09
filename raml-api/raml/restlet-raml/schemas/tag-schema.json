@@ -1,0 +1,24 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Tag",
+  "type": "object",
+  "description": "商机的标签",
+  "properties": {
+    "id" : {
+      "description": "id",
+      "type": "string",
+      "required": false
+    },
+    "title" : {
+      "description":"标签名称",
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "description":"标签描述",
+      "type": "string",
+      "required": false
+    }
+  }
+}

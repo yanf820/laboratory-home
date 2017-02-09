@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.AccountFrozens",
+  "type": "object",
+  "description": "账号holding记录schema",
+  "properties": {
+    "accountFrozens": {
+      "description": "账号变更列表",
+      "type": "array",
+      "items": {
+        "$ref": "account-frozen"
+      }
+    },
+    "totalCount": {
+      "description": "记录总数",
+      "type": "integer",
+      "required": false
+    }
+  }
+}

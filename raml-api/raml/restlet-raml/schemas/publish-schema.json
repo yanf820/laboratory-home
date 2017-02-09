@@ -1,0 +1,38 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Publish",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "发布的类型",
+      "type": "string",
+      "required": false
+    },
+    "topic": {
+      "description": "话题",
+      "type": "object",
+      "$ref": "topic"
+    },
+    "post": {
+      "description": "帖子",
+      "type": "object",
+      "$ref": "post"
+    },
+    "comment": {
+      "description": "评论",
+      "type": "object",
+      "$ref": "comment"
+    },
+    "article": {
+      "description": "文章",
+      "type": "object",
+      "$ref": "article"
+    },
+    "reply": {
+      "description": "话题",
+      "type": "object",
+      "$ref": "reply"
+    }
+  }
+}

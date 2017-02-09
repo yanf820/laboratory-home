@@ -18,6 +18,7 @@
         <module>learn-home</module>
         <module>lucene-operation</module>
         <module>resteasy-spring-boot-operation</module>
+        <module>pluginoperaion</module>
     </modules>
 
     <properties>

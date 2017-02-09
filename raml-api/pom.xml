@@ -76,14 +76,14 @@
             <configuration>
                 <!--<sourceDirectory>${basedir}/raml/LinkedIn-v1/</sourceDirectory>-->
                 <!--<sourceDirectory>${basedir}/raml/s/raml</sourceDirectory>-->
-                <sourceDirectory>${basedir}/raml/test/</sourceDirectory>
-                <!--<sourceDirectory>${basedir}/raml/restlet-raml</sourceDirectory>-->
+                <!--<sourceDirectory>${basedir}/raml/test/</sourceDirectory>-->
+                <sourceDirectory>${basedir}/raml/restlet-raml</sourceDirectory>
                 <!--<sourcePaths>-->
                  <!--<sourcePath>${basedir}/raml/generated/ATM_and_Branch_Locations-v1/financialservices-locations.raml</sourcePath>-->
                 <!--</sourcePaths>-->
-                <generateClientProxy>false</generateClientProxy>
+                <generateClientProxy>true</generateClientProxy>
                 <outputDirectory>${basedir}/src/main/java</outputDirectory>
-                <basePackageName>com.laboratory.api</basePackageName>
+                <basePackageName>com.lastartupsaas.api.gateway</basePackageName>
                 <!--<useSourceHierarchyInPackageName>true</useSourceHierarchyInPackageName>-->
                 <jaxrsVersion>2.0</jaxrsVersion>
 

@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.PromotionPlans",
+  "type": "object",
+  "description": "助力计划集合",
+  "properties": {
+    "promotionplans": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "promotionplan"
+      }
+    },
+    "totalCount": {
+      "description": "数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}

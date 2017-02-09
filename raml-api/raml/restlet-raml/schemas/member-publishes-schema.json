@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.MemberPublishes",
+  "type": "object",
+  "description": "将relation和member封装到一个schema中，方便api-gateway使用",
+  "properties": {
+    "member": {
+      "description": "ID",
+      "type": "object",
+      "$ref": "member"
+    },
+    "publishes": {
+      "description": "ID",
+      "type": "object",
+      "$ref": "publishes"
+    }
+
+  }
+}

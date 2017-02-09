@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.productComments",
+  "type": "object",
+  "description": "商机的评论列表",
+  "properties": {
+    "product": {
+      "description": "商机的详情",
+      "type": "object",
+      "$ref": "product"
+    },
+    "comments": {
+      "description": "评论列表",
+      "type": "object",
+      "$ref": "comments"
+    }
+  }
+}

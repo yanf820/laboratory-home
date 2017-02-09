@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.AccountChanges",
+  "type": "object",
+  "description": "账号独立schema",
+  "properties": {
+    "accountChanges": {
+      "description": "账号变更列表",
+      "type": "array",
+      "items": {
+        "$ref": "account-change"
+      }
+    },
+    "totalCount": {
+      "description": "记录总数",
+      "type": "integer",
+      "required": false
+    }
+  }
+}

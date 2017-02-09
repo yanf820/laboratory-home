@@ -15,15 +15,20 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.laboratory.home</groupId>
+            <artifactId>raml-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>1.4.3.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>javax.ws.rs</groupId>-->
+            <!--<artifactId>javax.ws.rs-api</artifactId>-->
+            <!--<version>2.0</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.paypal.springboot</groupId>
             <artifactId>resteasy-spring-boot-starter</artifactId>
@@ -45,6 +50,31 @@
             <!--<type>pom</type>-->
             <!--<scope>import</scope>-->
         <!--</dependency>-->
+        <!-- dubbo相关 -->
+        <!-- dubbo -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>2.8.4</version>
+        </dependency>
+        <!-- zookeeper -->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.sgroschupf</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.1</version>
+        </dependency>
+
+        <!-- resteasy-client -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-client</artifactId>
+            <version>3.0.19.Final</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -53,8 +83,30 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>User Porject Snapshot</name>
+            <url>http://devops.lashou-inc.com:8081/content/repositories/snapshots/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>User Porject Release</name>
+            <url>http://devops.lashou-inc.com:8081/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
 
 
 </project>

@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Order",
+  "description" : "订单",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "memberId": {
+      "description": "会员",
+      "type": "string",
+      "required": false
+    },
+    "money": {
+      "description": "订单金额",
+      "type": "number",
+      "required": true
+    },
+    "bankcard": {
+      "description": "银行",
+      "$ref": "bankcard",
+      "required": false
+    },
+    "status": {
+      "description": "状态",
+      "type": "string",
+      "required": false
+    },
+    "createTime": {
+      "description": "创建时间",
+      "type": "string",
+      "required": false
+    },
+    "updateTime": {
+      "description": "更新时间",
+      "type": "string",
+      "required": false
+    }
+  }
+}

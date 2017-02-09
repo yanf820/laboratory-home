@@ -1,7 +1,7 @@
 {
-  "$schema": "http://json-schema.org/draft-extends/schema",
-  "javaType" : "com.lastartupsaas.api.model.Member",
-  "description" : "用户",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Member",
+  "description" : "会员",
   "type": "object",
   "properties": {
     "id": {
@@ -14,11 +14,11 @@
       "type": "string",
       "required": true
     },
-    "image": {
-      "description": "头像",
-      "type": "string",
-      "required": true
-    },
+    "headImg": {
+     "description": "会员头像",
+     "type": "string",
+     "required": false
+   },
     "gender": {
       "description": "性别",
       "type": "string",
@@ -27,6 +27,11 @@
     },
     "phone": {
       "description": "手机号",
+      "type": "string",
+      "required": false
+    },
+    "email": {
+      "description": "会员邮箱",
       "type": "string",
       "required": false
     },

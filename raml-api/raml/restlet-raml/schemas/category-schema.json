@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Category",
+  "type": "object",
+  "description": "类型",
+  "properties": {
+    "id": {
+      "description": "分类ID",
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "description": "分类类型",
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "description": "分类标题",
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "description": "分类名称",
+      "type": "string",
+      "required": true
+    },
+    "parentId":{
+      "description": "父分类ID",
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "description": "绑定状态",
+      "type": "string",
+      "required": false
+    }
+  }
+}

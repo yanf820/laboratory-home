@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Replies",
+  "type": "object",
+  "description": "商机回复列表",
+  "properties": {
+    "replies": {
+      "description": "回复列表",
+      "type": "array",
+      "items": {
+        "$ref": "reply"
+      }
+    },
+    "totalCount": {
+      "description": "主题数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}

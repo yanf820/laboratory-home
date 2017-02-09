@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.PotentialForm",
+  "type": "object",
+  "description": "报告",
+  "properties": {
+    "id": {
+      "description": "id",
+      "type": "string",
+      "required": false
+    },
+    "memberId": {
+      "description": "会员id",
+      "type": "string",
+      "required": false
+    },
+    "title": {
+      "description": "标题",
+      "type": "string",
+      "required": false
+    },
+    "content": {
+      "description": "内容",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "状态",
+      "type": "string",
+      "required": false
+    }
+  }
+}

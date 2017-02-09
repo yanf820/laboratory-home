@@ -3,3 +3,5 @@ resteasy:
     app:
       registration: property
       classes: com.laboratory.api.JaxrsApplication
+server:
+  port: 8090

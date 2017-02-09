@@ -3,6 +3,7 @@ package com.laboratory.filters;
 import com.laboratory.annotations.DoIt;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Priority;
 import javax.ws.rs.container.*;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;

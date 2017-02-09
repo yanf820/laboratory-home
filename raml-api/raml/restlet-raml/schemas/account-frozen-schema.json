@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.AccountFrozen",
+  "type": "object",
+  "description": "账号holding记录schema",
+  "properties": {
+    "id": {
+      "description": "holdingID",
+      "type": "string",
+      "required": false
+    },
+    "frozenAmount": {
+      "description": "冻结金额",
+      "type": "number",
+      "required": false
+    },
+    "prelicensingAmount": {
+      "description": "预授权金额",
+      "type": "number",
+      "required": false
+    },
+    "memberId": {
+      "description": "账户所属会员",
+      "type": "string",
+      "required": false
+    },
+    "changesTime": {
+      "description": "变更记录时间",
+      "type": "string",
+      "required": false
+    }
+  }
+}
