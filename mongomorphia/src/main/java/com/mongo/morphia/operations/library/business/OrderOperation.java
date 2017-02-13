@@ -1,19 +1,24 @@
 package com.mongo.morphia.operations.library.business;
 
-import com.mongo.morphia.operations.library.model.Address;
-import com.mongo.morphia.operations.library.model.Book;
-import com.mongo.morphia.operations.library.model.Member;
-import com.mongo.morphia.operations.library.model.Order;
+import com.mongo.morphia.operations.library.model.*;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.aggregation.Accumulator;
+import org.mongodb.morphia.aggregation.AggregationPipeline;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+
+import static org.mongodb.morphia.aggregation.Group.grouping;
+import static org.mongodb.morphia.aggregation.Group.id;
 
 /**
  * Created by admin on 2017/2/12.
@@ -25,7 +30,7 @@ public class OrderOperation {
     Datastore datastore;
 
     void init(){
-        mongoClient=new MongoClient(new ServerAddress("192.168.110.128"));
+        mongoClient=new MongoClient(new ServerAddress("192.168.221.152"));
         morphia.mapPackage("com.mongo.morphia.operations.library.model");
         datastore=createDBS("library");
     }
@@ -34,12 +39,14 @@ public class OrderOperation {
 
         OrderOperation orderOperation=new OrderOperation();
         orderOperation.init();
-        orderOperation.saveOrder();
+//        orderOperation.saveOrder();
 //        orderOperation.updateAddress();
 //        orderOperation.updateOrder();
         orderOperation.addOrderAfterUpdateBook();
 //        orderOperation.queryAddress();
-        orderOperation.queryOrder();
+//        orderOperation.queryOrder();
+//        orderOperation.queryAggregation();
+        orderOperation.join();
     }
 
     private Datastore createDBS(String dbsName){
@@ -169,6 +176,65 @@ public class OrderOperation {
                 .field("books").hasThisOne(bookQueryquery.get());
         System.out.println(orderQueryquery.get());
         return true;
+    }
+
+    private boolean queryAggregation(){
+
+
+        AggregationPipeline pipeline=datastore.createAggregation(Order.class)
+                .group(id(grouping("books")),grouping("countAll",new Accumulator("$sum", 1)));
+
+//        while (pipeline.hasNext()){
+//            System.out.println(pipeline.next());
+//        }
+        Iterator it=pipeline.aggregate(QueryResult.class);
+        while (it.hasNext()){
+            System.out.println(it.next());
+        }
+        System.out.println(pipeline);
+        return true;
+    }
+
+    private boolean join(){
+        AggregationPipeline pipeline=datastore.createAggregation(JoinOrder.class)
+                .lookup("inventory","item","sku","inventory_docs");
+        Iterator it=pipeline.aggregate(JoinOrder.class);
+        while (it.hasNext()){
+            System.out.println(it.next());
+        }
+        return true;
+    }
+
+    @Entity
+    static class QueryResult{
+        @Id
+        private String id;
+        private Integer countAll;
+
+        @Override
+        public String toString() {
+            return "QueryResult{" +
+                    "id=" + id +
+                    ", countAll=" + countAll +
+                    '}';
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public Integer getCountAll() {
+            return countAll;
+        }
+
+        public void setCountAll(Integer countAll) {
+            this.countAll = countAll;
+        }
+
     }
 
 
