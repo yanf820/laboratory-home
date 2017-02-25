@@ -30,7 +30,7 @@ public class OrderOperation {
     Datastore datastore;
 
     void init(){
-        mongoClient=new MongoClient(new ServerAddress("192.168.221.152"));
+        mongoClient=new MongoClient(new ServerAddress("10.1.36.219"));
         morphia.mapPackage("com.mongo.morphia.operations.library.model");
         datastore=createDBS("library");
     }
@@ -39,14 +39,14 @@ public class OrderOperation {
 
         OrderOperation orderOperation=new OrderOperation();
         orderOperation.init();
-//        orderOperation.saveOrder();
+        orderOperation.saveOrder();
 //        orderOperation.updateAddress();
-//        orderOperation.updateOrder();
-        orderOperation.addOrderAfterUpdateBook();
+        orderOperation.updateOrder();
+//        orderOperation.addOrderAfterUpdateBook();
 //        orderOperation.queryAddress();
 //        orderOperation.queryOrder();
 //        orderOperation.queryAggregation();
-        orderOperation.join();
+//        orderOperation.join();
     }
 
     private Datastore createDBS(String dbsName){
@@ -122,7 +122,12 @@ public class OrderOperation {
     private boolean updateOrder(){
         Query<Order> query=datastore.createQuery(Order.class)
                        .filter("_id","UEOTIKDEW9999132193");
-//        List<Book> books=query.get().getBooks();
+        List<Book> books=query.get().getBooks();
+//        Member member=query.get().getMember();
+//        member.setName("sdas");
+//        books.forEach(book -> {
+//            book.setName("old");
+//        });
 //        books.add(new Book(){{
 //            setId("hh");
 //            setAllowance(99);
@@ -131,9 +136,11 @@ public class OrderOperation {
 //            setId("hh");
 //            setAllowance(99);
 //        }};
+books.add(books.get(0));
         UpdateOperations<Order> updateOperations=datastore.createUpdateOperations(Order.class)
-//                       .set("books",query.get().getBooks().remove(0));
-                         .push("pay","Wechat");
+//                .set("member",member);
+                       .set("books",books);
+//                         .push("pay","Wechat");
         datastore.update(query,updateOperations);
         return true;
     }
@@ -170,11 +177,15 @@ public class OrderOperation {
     }
 
     private boolean queryOrder(){
-        Query<Book> bookQueryquery=datastore.createQuery(Book.class)
-                .filter("ISBN","REDFFD9488332");
-        Query<Order> orderQueryquery=datastore.createQuery(Order.class)
-                .field("books").hasThisOne(bookQueryquery.get());
-        System.out.println(orderQueryquery.get());
+//        Query<Book> bookQueryquery=datastore.createQuery(Book.class)
+//                .filter("ISBN","REDFFD9488332");
+//        Query<Order> orderQueryquery=datastore.createQuery(Order.class)
+//                .field("books").hasThisOne(bookQueryquery.get());
+//        System.out.println(orderQueryquery.get());
+        Query<Order> orderQueryquery=datastore.createQuery(Order.class);
+        orderQueryquery.asList().forEach(l->{
+            System.out.println(l);
+        });
         return true;
     }
 
