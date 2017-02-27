@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by admin on 2017/2/12.
  */
-@Entity
+@Entity(value = "order")
 public class Order {
     @Id
     private String id;

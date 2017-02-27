@@ -132,11 +132,13 @@ public class OrderOperation {
 //            setId("hh");
 //            setAllowance(99);
 //        }});
-//        Book book=new Book(){{
-//            setId("hh");
-//            setAllowance(99);
-//        }};
-books.add(books.get(0));
+        Book book=new Book(){{
+            setId("RR");
+        }};
+        books.add(book);
+        books.add(books.get(0));
+        System.out.println(books.get(0));
+//books.remove(0);
         UpdateOperations<Order> updateOperations=datastore.createUpdateOperations(Order.class)
 //                .set("member",member);
                        .set("books",books);
