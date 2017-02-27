@@ -3,6 +3,7 @@ package com.mongo.morphia.operations;
 import com.mongo.morphia.operations.example.Employee;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class Mapping {
 
-    MongoClient mongoClient=new MongoClient(new ServerAddress("192.168.110.128"));
+    MongoClient mongoClient=new MongoClient(new ServerAddress("10.1.36.219"));
     Morphia morphia = new Morphia();
     public Mapping() {
         morphia.mapPackage("com.mongo.morphia.operations.example");
@@ -31,11 +32,22 @@ public class Mapping {
          * save
          */
         Employee elmer = new Employee("yf", 40000.0);
+        elmer.setId(new ObjectId(new String("elmer").getBytes()));
         final Employee daffy = new Employee("Daffy Duck", 40000.0);
-//        datastore.save(daffy);
+        daffy.setId(new ObjectId(new String("daffy").getBytes()));
+        Employee aa=new Employee("aa",30000);
+        aa.setId(new ObjectId(new String("aa").getBytes()));
+        daffy.setManager(aa);
+        datastore.save(aa);
+        datastore.save(daffy);
 
         final Employee pepe = new Employee("Pepé Le Pew", 45000.0);
-//        datastore.save(pepe);
+        pepe.setId(new ObjectId(new String("pepe").getBytes()));
+        Employee bb=new Employee("bb",5050);
+        bb.setId(new ObjectId(new String("bb").getBytes()));
+        pepe.setManager(bb);
+        datastore.save(bb);
+        datastore.save(pepe);
 
         List<Employee> reports=elmer.getDirectReports();
         reports.add(daffy);
@@ -48,14 +60,12 @@ public class Mapping {
         /**
          * query all
          */
-        List<Employee> list=mapping.query(datastore,Employee.class);
+//        List<Employee> list=mapping.query(datastore,Employee.class);
 
         /**
          * conditions query
          */
-//        List<Employee> list = datastore.createQuery(Employee.class)
-//                .field("salary").lessThanOrEq(30000)
-//                .asList();
+        List<Employee> list = datastore.createQuery(Employee.class).filter("name","yf").asList();
 
 
         list.forEach(n->{
@@ -76,7 +86,6 @@ public class Mapping {
 
         return true;
     }
-
     private <T> List<T> query(Datastore datastore,Class<T> clazz){
 
         Query<T> query = datastore.createQuery(clazz);

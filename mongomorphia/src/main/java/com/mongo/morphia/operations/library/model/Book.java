@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by admin on 2017/2/12.
  */
-@Entity
+@Entity(value = "book",noClassnameStored = true)
 public class Book {
     @Id
     private String id;

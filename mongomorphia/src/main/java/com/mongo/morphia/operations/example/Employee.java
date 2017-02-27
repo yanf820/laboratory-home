@@ -17,9 +17,9 @@ public class Employee {
     @Id
     private ObjectId id;
     private String name;
-    @Embedded
+    @Reference
     private Employee manager;
-    @Embedded
+    @Reference
     private List<Employee> directReports;
     @Property("wage")
     private Double salary;
