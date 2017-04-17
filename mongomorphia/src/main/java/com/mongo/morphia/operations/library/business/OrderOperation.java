@@ -207,16 +207,16 @@ public class OrderOperation {
         System.out.println(pipeline);
         return true;
     }
-
-    private boolean join(){
+    
+//    private boolean join(){
 //        AggregationPipeline pipeline=datastore.createAggregation(JoinOrder.class)
 //                .lookup("inventory","item","sku","inventory_docs");
 //        Iterator it=pipeline.aggregate(JoinOrder.class);
 //        while (it.hasNext()){
 //            System.out.println(it.next());
 //        }
-        return true;
-    }
+//        return true;
+//    }
 
     @Entity
     static class QueryResult{
