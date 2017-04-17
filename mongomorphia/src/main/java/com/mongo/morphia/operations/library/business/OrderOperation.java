@@ -209,12 +209,12 @@ public class OrderOperation {
     }
 
     private boolean join(){
-        AggregationPipeline pipeline=datastore.createAggregation(JoinOrder.class)
-                .lookup("inventory","item","sku","inventory_docs");
-        Iterator it=pipeline.aggregate(JoinOrder.class);
-        while (it.hasNext()){
-            System.out.println(it.next());
-        }
+//        AggregationPipeline pipeline=datastore.createAggregation(JoinOrder.class)
+//                .lookup("inventory","item","sku","inventory_docs");
+//        Iterator it=pipeline.aggregate(JoinOrder.class);
+//        while (it.hasNext()){
+//            System.out.println(it.next());
+//        }
         return true;
     }
 

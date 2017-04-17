@@ -1,15 +1,15 @@
 
 package com.laboratory.api.resource;
 
-import com.laboratory.annotations.DoIt;
 import com.laboratory.api.model.ApiCreatedEntity;
 import com.laboratory.api.model.Tree;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
+import javax.mail.internet.MimeMultipart;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-@DoIt
 @Path("contacts")
 public interface ContactsResource {
 
@@ -17,23 +17,18 @@ public interface ContactsResource {
     /**
      * Creates a new contact
      * 
-     * @param name
-     *     The name of the contact
-     * @param email
-     *     The email of the contact
+     * @param entity
+     *     name:  - The name of the contact<br/>
+     *     email:  - The email of the contact<br/>
+     *     
      */
     @POST
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes("multipart/form-data")
     @Produces({
         "application/json",
         "text/plain"
     })
-    PostContactsResponse postContacts(
-            @FormParam("name")
-            @NotNull
-                    String name,
-            @FormParam("email")
-                    String email)
+    ContactsResource.PostContactsResponse postContacts(MultipartFormDataInput entity)
         throws Exception
     ;
 
@@ -48,7 +43,7 @@ public interface ContactsResource {
     @Produces({
         "application/json"
     })
-    GetContactsByIdResponse getContactsById(
+    ContactsResource.GetContactsByIdResponse getContactsById(
             @PathParam("id")
             @NotNull
                     String id)
@@ -56,7 +51,7 @@ public interface ContactsResource {
     ;
 
     public class GetContactsByIdResponse
-        extends com.laboratory.api.resource.support.ResponseWrapper
+        extends com.lastartupsaas.api.gateway.resource.support.ResponseWrapper
     {
 
 
@@ -69,34 +64,34 @@ public interface ContactsResource {
          * @param entity
          *
          */
-        public static GetContactsByIdResponse withJsonOK(Tree entity) {
-            Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
+        public static ContactsResource.GetContactsByIdResponse withJsonOK(Tree entity) {
+            ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
             responseBuilder.entity(entity);
-            return new GetContactsByIdResponse(responseBuilder.build());
+            return new ContactsResource.GetContactsByIdResponse(responseBuilder.build());
         }
 
         /**
          * Bad Request
          *
          */
-        public static GetContactsByIdResponse withBadRequest() {
-            Response.ResponseBuilder responseBuilder = Response.status(400);
-            return new GetContactsByIdResponse(responseBuilder.build());
+        public static ContactsResource.GetContactsByIdResponse withBadRequest() {
+            ResponseBuilder responseBuilder = Response.status(400);
+            return new ContactsResource.GetContactsByIdResponse(responseBuilder.build());
         }
 
         /**
          * Internal Server Error
          *
          */
-        public static GetContactsByIdResponse withInternalServerError() {
-            Response.ResponseBuilder responseBuilder = Response.status(500);
-            return new GetContactsByIdResponse(responseBuilder.build());
+        public static ContactsResource.GetContactsByIdResponse withInternalServerError() {
+            ResponseBuilder responseBuilder = Response.status(500);
+            return new ContactsResource.GetContactsByIdResponse(responseBuilder.build());
         }
 
     }
 
     public class PostContactsResponse
-        extends com.laboratory.api.resource.support.ResponseWrapper
+        extends com.lastartupsaas.api.gateway.resource.support.ResponseWrapper
     {
 
 
@@ -110,19 +105,19 @@ public interface ContactsResource {
          * @param entity
          *
          */
-        public static PostContactsResponse withJsonOK(ApiCreatedEntity entity) {
-            Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
+        public static ContactsResource.PostContactsResponse withJsonOK(ApiCreatedEntity entity) {
+            ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
             responseBuilder.entity(entity);
-            return new PostContactsResponse(responseBuilder.build());
+            return new ContactsResource.PostContactsResponse(responseBuilder.build());
         }
 
         /**
          * Bad Request
          *
          */
-        public static PostContactsResponse withBadRequest() {
-            Response.ResponseBuilder responseBuilder = Response.status(400);
-            return new PostContactsResponse(responseBuilder.build());
+        public static ContactsResource.PostContactsResponse withBadRequest() {
+            ResponseBuilder responseBuilder = Response.status(400);
+            return new ContactsResource.PostContactsResponse(responseBuilder.build());
         }
 
         /**
@@ -131,10 +126,10 @@ public interface ContactsResource {
          * @param entity
          *
          */
-        public static PostContactsResponse withPlainInternalServerError(String entity) {
-            Response.ResponseBuilder responseBuilder = Response.status(500).header("Content-Type", "text/plain");
+        public static ContactsResource.PostContactsResponse withPlainInternalServerError(String entity) {
+            ResponseBuilder responseBuilder = Response.status(500).header("Content-Type", "text/plain");
             responseBuilder.entity(entity);
-            return new PostContactsResponse(responseBuilder.build());
+            return new ContactsResource.PostContactsResponse(responseBuilder.build());
         }
 
     }

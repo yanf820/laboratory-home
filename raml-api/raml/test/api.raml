@@ -36,11 +36,11 @@ schemas:
   post:
       description: Creates a new contact
       body:
-        application/x-www-form-urlencoded:
+        multipart/form-data:
           formParameters:
             name:
               description: The name of the contact
-              type: string
+              type: file
               required: true
             email:
               description: The email of the contact
