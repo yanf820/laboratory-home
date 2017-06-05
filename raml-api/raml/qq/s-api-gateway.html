@@ -1,0 +1,2396 @@
+<!DOCTYPE HTML><html><head><title>STARTUP API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/raml2html/raml2html 3.0.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code, .modal-body pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h1 {
+        font-size: 1.3em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+
+      pre code {
+        overflow: auto;
+        word-wrap: normal;
+        white-space: pre;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>STARTUP API documentation <small>version 1.0</small></h1><p>http://api.startupsaas.com/</p><h3 id="------gateway----"><a href="#------gateway----">创业服务平台gateway接口规范</a></h3><h1 id="-">创业服务平台接口规范</h1><h2 id="-">语义规范</h2><h3 id="get">Get</h3><p>获取资源的某个表述</p><h3 id="post">post</h3><p>基于给定的表述信息，在当前资源的下一级创建新的资源</p><h3 id="delete">Delete</h3><p>销毁一个资源</p><h3 id="patch">Patch</h3><p>根据提供的表述信息修改资源的部分状态。如果有某些资源状态在提供的表述中没有被提到， 这些状态就保持不变。类似于Put，但是允许对资源状态进行一些细粒度的改动</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="topics" class="panel-title">/topics</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_topics"><span class="parent"></span>/topics</a> <span class="methods"><a href="#topics_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_topics" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#topics_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>搜索创业圈话题资源</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/topics</h4></div><div class="modal-body"><div class="alert alert-info"><p>搜索创业圈话题资源</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics_get_request" data-toggle="tab">Request</a></li><li><a href="#topics_get_response" data-toggle="tab">Response</a></li><li><a href="#topics_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics_get_request"><h3>Query Parameters</h3><ul><li><strong>keywords</strong>: <em>(string)</em></li></ul></div><div class="tab-pane" id="topics_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Topics",
+  "type": "object",
+  "description": "话题集合",
+  "properties": {
+    "topics": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "topic"
+      }
+    },
+    "totalCount": {
+      "description": "话题数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="topics_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_topics_hot"><span class="parent">/topics</span>/hot</a> <span class="methods"><a href="#topics_hot_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_topics_hot" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#topics_hot_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>热门话题</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics_hot_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics</span>/hot</h4></div><div class="modal-body"><div class="alert alert-info"><p>热门话题</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics_hot_get_request" data-toggle="tab">Request</a></li><li><a href="#topics_hot_get_response" data-toggle="tab">Response</a></li><li><a href="#topics_hot_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics_hot_get_request"><h3>Headers</h3><ul><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li></ul><h3>Query Parameters</h3><ul><li><strong>sign</strong>: <em>(string)</em><p>参数签名后的值</p></li></ul></div><div class="tab-pane" id="topics_hot_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Topics",
+  "type": "object",
+  "description": "话题集合",
+  "properties": {
+    "topics": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "topic"
+      }
+    },
+    "totalCount": {
+      "description": "话题数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>参数格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="topics_hot_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_topics_last"><span class="parent">/topics</span>/last</a> <span class="methods"><a href="#topics_last_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_topics_last" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#topics_last_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>最新话题</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics_last_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics</span>/last</h4></div><div class="modal-body"><div class="alert alert-info"><p>最新话题</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics_last_get_request" data-toggle="tab">Request</a></li><li><a href="#topics_last_get_response" data-toggle="tab">Response</a></li><li><a href="#topics_last_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics_last_get_request"><h3>Headers</h3><ul><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li></ul><h3>Query Parameters</h3><ul><li><strong>sign</strong>: <em>(string)</em><p>参数签名后的值</p></li></ul></div><div class="tab-pane" id="topics_last_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Topics",
+  "type": "object",
+  "description": "话题集合",
+  "properties": {
+    "topics": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "topic"
+      }
+    },
+    "totalCount": {
+      "description": "话题数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>参数格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="topics_last_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_topics__topic_id__posts"><span class="parent">/topics/{topic_id}</span>/posts</a> <span class="methods"><a href="#topics__topic_id__posts_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_topics__topic_id__posts" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#topics__topic_id__posts_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>搜索当前话题下的帖子</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics__topic_id__posts_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics/{topic_id}</span>/posts</h4></div><div class="modal-body"><div class="alert alert-info"><p>搜索当前话题下的帖子</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics__topic_id__posts_get_request" data-toggle="tab">Request</a></li><li><a href="#topics__topic_id__posts_get_response" data-toggle="tab">Response</a></li><li><a href="#topics__topic_id__posts_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics__topic_id__posts_get_request"><h3>URI Parameters</h3><ul><li><strong>topic_id</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li></ul><h3>Query Parameters</h3><ul><li><strong>sign</strong>: <em>(string)</em><p>参数签名后的值</p></li></ul></div><div class="tab-pane" id="topics__topic_id__posts_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.TopicPost",
+  "type": "object",
+  "description": "当前话题的帖子列表",
+  "properties": {
+    "topic": {
+      "description": "话题信息",
+      "type": "object",
+      "$ref":"topic"
+    },
+    "posts": {
+      "description": "帖子列表",
+      "type": "object",
+      "$ref":"posts"
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>参数格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="topics__topic_id__posts_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_topics__topic_id__follows"><span class="parent">/topics/{topic_id}</span>/follows</a> <span class="methods"><a href="#topics__topic_id__follows_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_topics__topic_id__follows" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#topics__topic_id__follows_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>获取当前话题的关注者列表</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="topics__topic_id__follows_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/topics/{topic_id}</span>/follows</h4></div><div class="modal-body"><div class="alert alert-info"><p>获取当前话题的关注者列表</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#topics__topic_id__follows_get_request" data-toggle="tab">Request</a></li><li><a href="#topics__topic_id__follows_get_response" data-toggle="tab">Response</a></li><li><a href="#topics__topic_id__follows_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="topics__topic_id__follows_get_request"><h3>URI Parameters</h3><ul><li><strong>topic_id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="topics__topic_id__follows_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.TopicFollow",
+  "type": "object",
+  "description": "当前话题的关注列表",
+  "properties": {
+    "topic": {
+      "description": "话题信息",
+      "type": "object",
+      "$ref":"topic"
+    },
+    "follows": {
+      "description": "关注列表",
+      "type": "object",
+      "$ref":"follows"
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="topics__topic_id__follows_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="posts" class="panel-title">/posts</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_posts"><span class="parent"></span>/posts</a> <span class="methods"><a href="#posts_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_posts" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#posts_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>查看指定话题下的帖子</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="posts_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/posts</h4></div><div class="modal-body"><div class="alert alert-info"><p>查看指定话题下的帖子</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#posts_get_request" data-toggle="tab">Request</a></li><li><a href="#posts_get_response" data-toggle="tab">Response</a></li><li><a href="#posts_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="posts_get_request"><h3>Query Parameters</h3><ul><li><strong>topic_id</strong>: <em>(string)</em></li></ul></div><div class="tab-pane" id="posts_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Posts",
+  "type": "object",
+  "description": "帖子集合",
+  "properties": {
+    "posts": {
+      "type": "array",
+      "items": {
+        "$ref": "post"
+      }
+    },
+    "totalCount": {
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="posts_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_posts__post_id_"><span class="parent">/posts</span>/{post_id}</a> <span class="methods"><a href="#posts__post_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_posts__post_id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#posts__post_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>获取当前帖子详情</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="posts__post_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/posts</span>/{post_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>获取当前帖子详情</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#posts__post_id__get_request" data-toggle="tab">Request</a></li><li><a href="#posts__post_id__get_response" data-toggle="tab">Response</a></li><li><a href="#posts__post_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="posts__post_id__get_request"><h3>URI Parameters</h3><ul><li><strong>post_id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="posts__post_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Post",
+  "type": "object",
+  "description": "帖子",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "createTime": {
+      "description": "创建时间",
+      "type": "string",
+      "required": false
+    },
+    "updateTime": {
+      "description": "修改时间",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "当前状态",
+      "type": "string",
+      "required": false
+    },
+    "content": {
+      "description": "内容",
+      "type": "string",
+      "required": false
+    },
+    "postId": {
+      "description": "发帖者id",
+      "type": "string",
+      "required": true
+    },
+    "postType": {
+      "description": "发帖者类型",
+      "type": "string",
+      "required": true
+    },
+    "topics": {
+      "description": "话题标签",
+      "type": "string",
+      "required": true
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="posts__post_id__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_posts__post_id__likes"><span class="parent">/posts/{post_id}</span>/likes</a> <span class="methods"><a href="#posts__post_id__likes_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_posts__post_id__likes" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#posts__post_id__likes_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>当前帖子的点赞列表</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="posts__post_id__likes_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/posts/{post_id}</span>/likes</h4></div><div class="modal-body"><div class="alert alert-info"><p>当前帖子的点赞列表</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#posts__post_id__likes_get_request" data-toggle="tab">Request</a></li><li><a href="#posts__post_id__likes_get_response" data-toggle="tab">Response</a></li><li><a href="#posts__post_id__likes_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="posts__post_id__likes_get_request"><h3>URI Parameters</h3><ul><li><strong>post_id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="posts__post_id__likes_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.PostLike",
+  "type": "object",
+  "description": "话题点赞列表",
+  "properties": {
+    "post": {
+      "description": "帖子",
+      "type": "object",
+      "$ref":"post"
+    },
+    "likeList": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+      "$ref": "member"
+      }
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="posts__post_id__likes_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_posts__post_id__comments"><span class="parent">/posts/{post_id}</span>/comments</a> <span class="methods"><a href="#posts__post_id__comments_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_posts__post_id__comments" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#posts__post_id__comments_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>当前帖子的评论列表</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="posts__post_id__comments_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/posts/{post_id}</span>/comments</h4></div><div class="modal-body"><div class="alert alert-info"><p>当前帖子的评论列表</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#posts__post_id__comments_get_request" data-toggle="tab">Request</a></li><li><a href="#posts__post_id__comments_get_response" data-toggle="tab">Response</a></li><li><a href="#posts__post_id__comments_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="posts__post_id__comments_get_request"><h3>URI Parameters</h3><ul><li><strong>post_id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="posts__post_id__comments_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.PostComment",
+  "type": "object",
+  "description": "帖子评论列表",
+  "properties": {
+    "post": {
+      "description": "帖子",
+      "type": "object",
+      "$ref":"post"
+    },
+    "likeList": {
+      "description": "集合",
+      "type": "object",
+      "$ref": "comments"
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="posts__post_id__comments_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="comments" class="panel-title">/comments</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_comments"><span class="parent"></span>/comments</a> <span class="methods"><a href="#comments_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_comments" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#comments_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>搜索评论</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="comments_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/comments</h4></div><div class="modal-body"><div class="alert alert-info"><p>搜索评论</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#comments_get_request" data-toggle="tab">Request</a></li><li><a href="#comments_get_response" data-toggle="tab">Response</a></li><li><a href="#comments_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="comments_get_request"><h3>Query Parameters</h3><ul><li><strong>target_id</strong>: <em>(string)</em></li></ul></div><div class="tab-pane" id="comments_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Comments",
+  "type": "object",
+  "description": "主题集合",
+  "properties": {
+    "comments": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "comment"
+      }
+    },
+    "totalCount": {
+      "description": "评论数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="comments_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_comments__comment_id_"><span class="parent">/comments</span>/{comment_id}</a> <span class="methods"><a href="#comments__comment_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_comments__comment_id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#comments__comment_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>最新话题</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="comments__comment_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/comments</span>/{comment_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>最新话题</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#comments__comment_id__get_request" data-toggle="tab">Request</a></li><li><a href="#comments__comment_id__get_response" data-toggle="tab">Response</a></li><li><a href="#comments__comment_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="comments__comment_id__get_request"><h3>URI Parameters</h3><ul><li><strong>comment_id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="comments__comment_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Comment",
+  "type": "object",
+  "description": "评论",
+  "properties": {
+    "id": {
+      "description": "id",
+      "type": "string",
+      "required": false
+    },
+    "content" : {
+      "description":"评论内容",
+      "type": "string",
+      "required": false
+    },
+    "contributeId": {
+      "description":"评论者id",
+      "type": "string",
+      "required": false
+    },
+    "contributeType" : {
+      "description":"评论者类型",
+      "type": "string",
+      "required": false
+    },
+    "targetId": {
+      "description":"评论对象id",
+      "type": "string",
+      "required": false
+    },
+    "targetType" : {
+      "description":"评论对象类型",
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="comments__comment_id__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="business" class="panel-title">/business</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_business"><span class="parent"></span>/business</a> <span class="methods"><a href="#business_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_business" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#business_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>搜索商机</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="business_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/business</h4></div><div class="modal-body"><div class="alert alert-info"><p>搜索商机</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#business_get_request" data-toggle="tab">Request</a></li><li><a href="#business_get_response" data-toggle="tab">Response</a></li><li><a href="#business_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="business_get_request"><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>当前页所展示的数据个数</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 1)</em><p>开始页，默认从第一页开始</p><p><strong>Example</strong>:</p><pre><code>1</code></pre></li><li><strong>sign</strong>: <em>(string)</em><p>参数签名后的值</p></li><li><strong>keywords</strong>: <em>(string)</em></li></ul></div><div class="tab-pane" id="business_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Commerces",
+  "description": "商机集合",
+  "type": "object",
+  "properties": {
+    "commerces": {
+      "type": "array",
+      "items": {
+        "$ref": "commerce"
+      }
+    },
+    "totalCount": {
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>参数格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="business_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_business_recommend"><span class="parent">/business</span>/recommend</a> <span class="methods"><a href="#business_recommend_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_business_recommend" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#business_recommend_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>商机智能推荐</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="business_recommend_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/business</span>/recommend</h4></div><div class="modal-body"><div class="alert alert-info"><p>商机智能推荐</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#business_recommend_get_request" data-toggle="tab">Request</a></li><li><a href="#business_recommend_get_response" data-toggle="tab">Response</a></li><li><a href="#business_recommend_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="business_recommend_get_request"><h3>Headers</h3><ul><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li></ul><h3>Query Parameters</h3><ul><li><strong>sign</strong>: <em>(string)</em><p>参数签名后的值</p></li></ul></div><div class="tab-pane" id="business_recommend_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Commerces",
+  "description": "商机集合",
+  "type": "object",
+  "properties": {
+    "commerces": {
+      "type": "array",
+      "items": {
+        "$ref": "commerce"
+      }
+    },
+    "totalCount": {
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>参数格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="business_recommend_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_business_hot"><span class="parent">/business</span>/hot</a> <span class="methods"><a href="#business_hot_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_business_hot" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#business_hot_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>热门商机</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="business_hot_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/business</span>/hot</h4></div><div class="modal-body"><div class="alert alert-info"><p>热门商机</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#business_hot_get_request" data-toggle="tab">Request</a></li><li><a href="#business_hot_get_response" data-toggle="tab">Response</a></li><li><a href="#business_hot_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="business_hot_get_request"><h3>Headers</h3><ul><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li></ul><h3>Query Parameters</h3><ul><li><strong>sign</strong>: <em>(string)</em><p>参数签名后的值</p></li></ul></div><div class="tab-pane" id="business_hot_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Commerces",
+  "description": "商机集合",
+  "type": "object",
+  "properties": {
+    "commerces": {
+      "type": "array",
+      "items": {
+        "$ref": "commerce"
+      }
+    },
+    "totalCount": {
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>参数格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="business_hot_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_business_last"><span class="parent">/business</span>/last</a> <span class="methods"><a href="#business_last_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_business_last" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#business_last_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>最新商机</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="business_last_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/business</span>/last</h4></div><div class="modal-body"><div class="alert alert-info"><p>最新商机</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#business_last_get_request" data-toggle="tab">Request</a></li><li><a href="#business_last_get_response" data-toggle="tab">Response</a></li><li><a href="#business_last_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="business_last_get_request"><h3>Headers</h3><ul><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li></ul><h3>Query Parameters</h3><ul><li><strong>sign</strong>: <em>(string)</em><p>参数签名后的值</p></li></ul></div><div class="tab-pane" id="business_last_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Commerces",
+  "description": "商机集合",
+  "type": "object",
+  "properties": {
+    "commerces": {
+      "type": "array",
+      "items": {
+        "$ref": "commerce"
+      }
+    },
+    "totalCount": {
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>参数格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="business_last_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_business__business_id_"><span class="parent">/business</span>/{business_id}</a> <span class="methods"><a href="#business__business_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_business__business_id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#business__business_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>当前商机的详情</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="business__business_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/business</span>/{business_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>当前商机的详情</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#business__business_id__get_request" data-toggle="tab">Request</a></li><li><a href="#business__business_id__get_response" data-toggle="tab">Response</a></li><li><a href="#business__business_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="business__business_id__get_request"><h3>URI Parameters</h3><ul><li><strong>business_id</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li></ul></div><div class="tab-pane" id="business__business_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Commerce",
+  "type": "object",
+  "description": "商机",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "commerceName": {
+      "description": "商机名称",
+       "type": "string",
+      "required": false
+    },
+    "image":  {
+      "description": "商标",
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "description": "商机描述",
+      "type": "string",
+      "required": false
+    },
+    "categorys": {
+      "description": "类别标签",
+      "type": "array",
+      "items": {
+        "$ref": "category"
+      }
+    },
+    "follows": {
+      "description": "关注者列表",
+      "type": "array",
+      "items": {
+        "$ref": "follow"
+      }
+    },
+    "tags": {
+      "description": "标签列表",
+      "type": "array",
+      "items": {
+        "$ref": "tag"
+      }
+    },
+    "replies": {
+      "description": "回复列表",
+      "type": "array",
+      "items": {
+        "$ref": "reply"
+      }
+    },
+    "require": {
+      "description": "加盟要求",
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="business__business_id__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_business__business_id__comments"><span class="parent">/business/{business_id}</span>/comments</a> <span class="methods"><a href="#business__business_id__comments_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_business__business_id__comments" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#business__business_id__comments_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>当前商机的评论列表</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="business__business_id__comments_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/business/{business_id}</span>/comments</h4></div><div class="modal-body"><div class="alert alert-info"><p>当前商机的评论列表</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#business__business_id__comments_get_request" data-toggle="tab">Request</a></li><li><a href="#business__business_id__comments_get_response" data-toggle="tab">Response</a></li><li><a href="#business__business_id__comments_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="business__business_id__comments_get_request"><h3>URI Parameters</h3><ul><li><strong>business_id</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>当前页所展示的数据个数</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 1)</em><p>开始页，默认从第一页开始</p><p><strong>Example</strong>:</p><pre><code>1</code></pre></li></ul></div><div class="tab-pane" id="business__business_id__comments_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.CommerceComment",
+  "type": "object",
+  "description": "当前商机的评论列表",
+  "properties": {
+    "commerce": {
+      "description": "当前商机的详情",
+      "type": "object",
+      "$ref":"topic"
+    },
+    "comments": {
+      "description": "评论列表",
+      "type": "array",
+      "items": {
+      "$ref": "comments"
+      }
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="business__business_id__comments_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_business__business_id__replies"><span class="parent">/business/{business_id}</span>/replies</a> <span class="methods"><a href="#business__business_id__replies_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_business__business_id__replies" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#business__business_id__replies_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>当前商机的留言</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="business__business_id__replies_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/business/{business_id}</span>/replies</h4></div><div class="modal-body"><div class="alert alert-info"><p>当前商机的留言</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#business__business_id__replies_get_request" data-toggle="tab">Request</a></li><li><a href="#business__business_id__replies_get_response" data-toggle="tab">Response</a></li><li><a href="#business__business_id__replies_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="business__business_id__replies_get_request"><h3>URI Parameters</h3><ul><li><strong>business_id</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>当前页所展示的数据个数</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 1)</em><p>开始页，默认从第一页开始</p><p><strong>Example</strong>:</p><pre><code>1</code></pre></li></ul></div><div class="tab-pane" id="business__business_id__replies_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.CommerceReply",
+  "type": "object",
+  "description": "当前商机的留言列表",
+  "properties": {
+    "commerce": {
+      "description": "当前商机的详情",
+      "type": "object",
+      "$ref":"topic"
+    },
+    "replies": {
+      "description": "留言列表",
+      "type": "object",
+      "$ref":"replies"
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="business__business_id__replies_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_business__business_id__follows"><span class="parent">/business/{business_id}</span>/follows</a> <span class="methods"><a href="#business__business_id__follows_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_business__business_id__follows" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#business__business_id__follows_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>当前这个商机被多少人关注了</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="business__business_id__follows_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/business/{business_id}</span>/follows</h4></div><div class="modal-body"><div class="alert alert-info"><p>当前这个商机被多少人关注了</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#business__business_id__follows_get_request" data-toggle="tab">Request</a></li><li><a href="#business__business_id__follows_get_response" data-toggle="tab">Response</a></li><li><a href="#business__business_id__follows_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="business__business_id__follows_get_request"><h3>URI Parameters</h3><ul><li><strong>business_id</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>当前页所展示的数据个数</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 1)</em><p>开始页，默认从第一页开始</p><p><strong>Example</strong>:</p><pre><code>1</code></pre></li></ul></div><div class="tab-pane" id="business__business_id__follows_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.CommerceFollow",
+  "type": "object",
+  "description": "当前商机的关注列表",
+  "properties": {
+    "commerce": {
+      "description": "当前商机的详情",
+      "type": "object",
+      "$ref":"topic"
+    },
+    "follows": {
+      "description": "关注列表",
+      "type": "object",
+      "$ref":"follows"
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="business__business_id__follows_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="colleges" class="panel-title">/colleges</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_colleges"><span class="parent"></span>/colleges</a> <span class="methods"><a href="#colleges_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_colleges" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#colleges_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>搜索创业学院</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="colleges_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/colleges</h4></div><div class="modal-body"><div class="alert alert-info"><p>搜索创业学院</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#colleges_get_request" data-toggle="tab">Request</a></li><li><a href="#colleges_get_response" data-toggle="tab">Response</a></li><li><a href="#colleges_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="colleges_get_request"><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>当前页所展示的数据个数</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 1)</em><p>开始页，默认从第一页开始</p><p><strong>Example</strong>:</p><pre><code>1</code></pre></li><li><strong>sign</strong>: <em>(string)</em><p>参数签名后的值</p></li><li><strong>keywords</strong>: <em>(string)</em></li></ul></div><div class="tab-pane" id="colleges_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Colleges",
+  "type": "object",
+  "description": "创业学院集合",
+  "properties": {
+    "colleges": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "college"
+      }
+    },
+    "totalCount": {
+      "description": "创业学院数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>参数格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="colleges_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_colleges__college_id__articles"><span class="parent">/colleges/{college_id}</span>/articles</a> <span class="methods"><a href="#colleges__college_id__articles_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_colleges__college_id__articles" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#colleges__college_id__articles_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>获取某个学院下的文章</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="colleges__college_id__articles_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/colleges/{college_id}</span>/articles</h4></div><div class="modal-body"><div class="alert alert-info"><p>获取某个学院下的文章</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#colleges__college_id__articles_get_request" data-toggle="tab">Request</a></li><li><a href="#colleges__college_id__articles_get_response" data-toggle="tab">Response</a></li><li><a href="#colleges__college_id__articles_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="colleges__college_id__articles_get_request"><h3>URI Parameters</h3><ul><li><strong>college_id</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>当前页所展示的数据个数</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 1)</em><p>开始页，默认从第一页开始</p><p><strong>Example</strong>:</p><pre><code>1</code></pre></li></ul></div><div class="tab-pane" id="colleges__college_id__articles_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.CollegeArticle",
+  "type": "object",
+  "description": "当前创业学院的文章列表",
+  "properties": {
+    "college": {
+      "description": "创业学院信息",
+      "type": "object",
+      "$ref":"college"
+    },
+    "articles": {
+      "description": "文章列表",
+      "type": "object",
+      "$ref":"articles"
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="colleges__college_id__articles_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="articles" class="panel-title">/articles</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_articles"><span class="parent"></span>/articles</a> <span class="methods"><a href="#articles_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_articles" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#articles_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>根据college_id获取文章列表</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="articles_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/articles</h4></div><div class="modal-body"><div class="alert alert-info"><p>根据college_id获取文章列表</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#articles_get_request" data-toggle="tab">Request</a></li><li><a href="#articles_get_response" data-toggle="tab">Response</a></li><li><a href="#articles_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="articles_get_request"><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>当前页所展示的数据个数</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 1)</em><p>开始页，默认从第一页开始</p><p><strong>Example</strong>:</p><pre><code>1</code></pre></li><li><strong>college_id</strong>: <em>(string)</em></li></ul></div><div class="tab-pane" id="articles_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Article",
+  "type": "object",
+  "description": "文章",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "title": {
+      "description": "标题",
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "description": "内容",
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "description": "图片",
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "description": "描述",
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="articles_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_articles__article_id_"><span class="parent">/articles</span>/{article_id}</a> <span class="methods"><a href="#articles__article_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_articles__article_id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#articles__article_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>获取文章详情</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="articles__article_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/articles</span>/{article_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>获取文章详情</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#articles__article_id__get_request" data-toggle="tab">Request</a></li><li><a href="#articles__article_id__get_response" data-toggle="tab">Response</a></li><li><a href="#articles__article_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="articles__article_id__get_request"><h3>URI Parameters</h3><ul><li><strong>article_id</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>当前页所展示的数据个数</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 1)</em><p>开始页，默认从第一页开始</p><p><strong>Example</strong>:</p><pre><code>1</code></pre></li></ul></div><div class="tab-pane" id="articles__article_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Article",
+  "type": "object",
+  "description": "文章",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "title": {
+      "description": "标题",
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "description": "内容",
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "description": "图片",
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "description": "描述",
+      "type": "string",
+      "required": false
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="articles__article_id__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="notifications" class="panel-title">/notifications</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_notifications"><span class="parent"></span>/notifications</a> <span class="methods"><a href="#notifications_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_notifications" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#notifications_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>获取消息历史记录</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="notifications_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/notifications</h4></div><div class="modal-body"><div class="alert alert-info"><p>获取消息历史记录</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#notifications_get_request" data-toggle="tab">Request</a></li><li><a href="#notifications_get_response" data-toggle="tab">Response</a></li><li><a href="#notifications_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="notifications_get_request"><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-format</strong>: <em>(one of json)</em><p>自定义header字段，标识响应结果的格式。 枚举类型：[json]</p></li><li><strong>x-la-app-key</strong>: <em>(string)</em><p>系统分配的app_key</p></li><li><strong>x-la-sign-method</strong>: <em>(one of MD5)</em><p>系统参数签名方式</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>当前页所展示的数据个数</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 1)</em><p>开始页，默认从第一页开始</p><p><strong>Example</strong>:</p><pre><code>1</code></pre></li><li><strong>sign</strong>: <em>(string)</em><p>参数签名后的值</p></li></ul></div><div class="tab-pane" id="notifications_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>请求成功</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Notifications",
+  "type": "object",
+  "description": "通知集合",
+  "properties": {
+    "notifications": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "notification"
+      }
+    },
+    "totalCount": {
+      "description": "通知数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>参数格式不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>OAuth签名不正确</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>对资源的访问被拒绝。通常这意味着当前请求被限制。也可能是你没有访问此资源的权限</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>资源未发现(例如：请求一个不存在的用户或URL)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>在服务端有应用错误</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "errorCode": 0,
+  "message": "Invalid access token.",
+  "status": 401,
+  "timestamp": 1378122137646
+}
+</code></pre></div><div class="tab-pane" id="notifications_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_notifications_send"><span class="parent">/notifications</span>/send</a> <span class="methods"><a href="#notifications_send_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_notifications_send" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>发送消息</p></div><div class="list-group"><div onclick="window.location.href = '#notifications_send_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="notifications_send_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/notifications</span>/send</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#notifications_send_post_request" data-toggle="tab">Request</a></li><li><a href="#notifications_send_post_response" data-toggle="tab">Response</a></li><li><a href="#notifications_send_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="notifications_send_post_request"><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li><li><strong>x-la-session</strong>: <em>(string)</em><p>当前用户的sessionId</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Notification",
+  "type": "object",
+  "description": "消息",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "type": {
+      "description": "类型",
+      "type": "string",
+      "required": false
+    },
+    "channel": {
+      "description": "渠道",
+      "type": "string",
+      "required": false
+    },
+    "content": {
+      "description": "内容",
+      "type": "string",
+      "required": true
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="notifications_send_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Notification",
+  "type": "object",
+  "description": "消息",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "type": {
+      "description": "类型",
+      "type": "string",
+      "required": false
+    },
+    "channel": {
+      "description": "渠道",
+      "type": "string",
+      "required": false
+    },
+    "content": {
+      "description": "内容",
+      "type": "string",
+      "required": true
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="notifications_send_post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_notifications__notification_id_"><span class="parent">/notifications</span>/{notification_id}</a> <span class="methods"><a href="#notifications__notification_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_notifications__notification_id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#notifications__notification_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>获取消息详情</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="notifications__notification_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/notifications</span>/{notification_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>获取消息详情</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>系统支持 OAuth 2.0 来验证所有的APIs</p></div><ul class="nav nav-tabs"><li class="active"><a href="#notifications__notification_id__get_request" data-toggle="tab">Request</a></li><li><a href="#notifications__notification_id__get_response" data-toggle="tab">Response</a></li><li><a href="#notifications__notification_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="notifications__notification_id__get_request"><h3>URI Parameters</h3><ul><li><strong>notification_id</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>x-la-authorization</strong>: <em>(string)</em><p>使用 oauth2.0 的方式获取access_token</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - default: 10)</em><p>当前页所展示的数据个数</p><p><strong>Example</strong>:</p><pre><code>10</code></pre></li><li><strong>start</strong>: <em>(integer - default: 1)</em><p>开始页，默认从第一页开始</p><p><strong>Example</strong>:</p><pre><code>1</code></pre></li></ul></div><div class="tab-pane" id="notifications__notification_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Notification",
+  "type": "object",
+  "description": "消息",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "type": {
+      "description": "类型",
+      "type": "string",
+      "required": false
+    },
+    "channel": {
+      "description": "渠道",
+      "type": "string",
+      "required": false
+    },
+    "content": {
+      "description": "内容",
+      "type": "string",
+      "required": true
+    }
+  }
+}
+</code></pre></div><div class="tab-pane" id="notifications__notification_id__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>通常发送一个有效的OAuth 2的access token.不要和queryParameters里的access_token同时使用</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>错误或过期的token. 如果用户或Dropbox撤销或过期了访问令牌，就会发生这种情况。要解决此问题，您应该重新验证用户</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>错误的OAuth请求 (wrong consumer key, bad nonce, expired timestamp...). 不幸的是，重新验证用户也不会起作用</p></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#topics">/topics</a></li><li><a href="#posts">/posts</a></li><li><a href="#comments">/comments</a></li><li><a href="#business">/business</a></li><li><a href="#colleges">/colleges</a></li><li><a href="#articles">/articles</a></li><li><a href="#notifications">/notifications</a></li></ul></div></div></div></div></body></html>

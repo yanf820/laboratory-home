@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.MemberCommerce",
+  "type": "object",
+  "description": "申请加盟",
+  "properties": {
+    "member": {
+      "description": "加盟者信息",
+      "type": "object",
+      "$ref":"topic"
+    },
+    "commerce": {
+      "description": "商机信息",
+      "type": "object",
+      "$ref":"commerce"
+    }
+  }
+}

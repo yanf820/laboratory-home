@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.MemberReplies",
+  "type": "object",
+  "description": "加盟者相关的留言列表",
+  "properties": {
+    "member": {
+      "description": "加盟者信息",
+      "type": "object",
+      "$ref":"topic"
+    },
+    "replies": {
+      "description": "留言列表",
+      "type": "object",
+      "$ref":"replies"
+    }
+  }
+}

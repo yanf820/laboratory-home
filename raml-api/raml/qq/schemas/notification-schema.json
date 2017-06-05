@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Notification",
+  "type": "object",
+  "description": "消息",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "type": {
+      "description": "类型",
+      "type": "string",
+      "required": false
+    },
+    "channel": {
+      "description": "渠道",
+      "type": "string",
+      "required": false
+    },
+    "content": {
+      "description": "内容",
+      "type": "string",
+      "required": true
+    }
+  }
+}

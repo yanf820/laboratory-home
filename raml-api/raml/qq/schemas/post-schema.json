@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Post",
+  "type": "object",
+  "description": "帖子",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "createTime": {
+      "description": "创建时间",
+      "type": "string",
+      "required": false
+    },
+    "updateTime": {
+      "description": "修改时间",
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "description": "当前状态",
+      "type": "string",
+      "required": false
+    },
+    "content": {
+      "description": "内容",
+      "type": "string",
+      "required": false
+    },
+    "postId": {
+      "description": "发帖者id",
+      "type": "string",
+      "required": true
+    },
+    "postType": {
+      "description": "发帖者类型",
+      "type": "string",
+      "required": true
+    },
+    "topics": {
+      "description": "话题标签",
+      "type": "string",
+      "required": true
+    }
+  }
+}

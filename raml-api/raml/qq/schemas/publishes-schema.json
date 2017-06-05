@@ -1,0 +1,28 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.Publishes",
+  "type": "object",
+  "properties": {
+    "memberId": {
+      "description": "会员id",
+      "type": "string",
+      "required": false
+    },
+    "posts": {
+      "description": "帖子集合",
+      "type": "object",
+      "$ref": "posts"
+    },
+    "comments": {
+      "description": "评论集合",
+      "type": "object",
+      "$ref": "comments"
+    },
+    "articles": {
+      "description": "文章集合",
+      "type": "object",
+      "$ref": "articles"
+    }
+  }
+}

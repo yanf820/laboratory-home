@@ -1,0 +1,43 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.Account",
+  "type": "object",
+  "properties": {
+    "accountId" : {
+      "description": "账户id",
+      "type": "string",
+      "required": false
+    },
+    "memberId": {
+      "description": "加盟者id",
+      "type": "string",
+      "required":true
+    },
+    "accountType": {
+      "description": "账户类型",
+      "type":"string",
+      "required":true
+    },
+    "prelicensingAmount": {
+      "description": "预授权金额",
+      "type": "number",
+      "required": false
+    },
+    "createtime": {
+      "description": "获得时间",
+      "type":"string",
+      "required":false
+    },
+    "modifytime": {
+      "description": "使用时间",
+      "type":"string",
+      "required":false
+    },
+    "expiretime": {
+      "description": "到期时间",
+      "type":"string",
+      "required":false
+    }
+  }
+}

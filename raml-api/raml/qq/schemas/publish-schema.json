@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.Publish",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "发布的类型",
+      "type": "string",
+      "required": false
+    }
+  }
+}

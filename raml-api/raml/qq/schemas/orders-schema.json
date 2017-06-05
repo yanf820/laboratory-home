@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.Orders",
+  "description": "订单集合",
+  "type": "object",
+  "properties": {
+    "bills": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "order"
+      }
+    },
+    "totalCount": {
+      "description": "账单数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.TopicPosts",
+  "type": "object",
+  "description": "当前话题的帖子列表",
+  "properties": {
+    "topic": {
+      "description": "话题信息",
+      "type": "object",
+      "$ref":"topic"
+    },
+    "posts": {
+      "description": "帖子列表",
+      "type": "object",
+      "$ref":"posts"
+    }
+  }
+}

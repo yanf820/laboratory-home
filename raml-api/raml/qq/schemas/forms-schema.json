@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.Forms",
+  "type": "object",
+  "description": "报告集合",
+  "properties": {
+    "forms": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "form"
+      }
+    },
+    "totalCount": {
+      "description": "数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}

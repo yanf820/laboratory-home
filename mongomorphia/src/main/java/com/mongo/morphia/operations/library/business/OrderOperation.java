@@ -1,8 +1,12 @@
 package com.mongo.morphia.operations.library.business;
 
 import com.mongo.morphia.operations.library.model.*;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.aggregation.Accumulator;
@@ -37,11 +41,16 @@ public class OrderOperation {
 
     public static void main(String[] args) {
 
+
         OrderOperation orderOperation=new OrderOperation();
         orderOperation.init();
-        orderOperation.saveOrder();
+        MongoCollection<Document> collection = orderOperation.mongoClient.getDatabase("library").getCollection("book");
+        Document document=new Document();
+        document.put("name","天演论");
+
+//        orderOperation.saveOrder();
 //        orderOperation.updateAddress();
-        orderOperation.updateOrder();
+//        orderOperation.updateOrder();
 //        orderOperation.addOrderAfterUpdateBook();
 //        orderOperation.queryAddress();
 //        orderOperation.queryOrder();

@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Topic",
+  "type": "object",
+  "description": "话题",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "name": {
+      "description": "话题标题",
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "description": "图片地址",
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "description": "描述",
+      "type": "string",
+      "required": false
+    }
+  }
+}

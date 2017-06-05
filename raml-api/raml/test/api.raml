@@ -1,7 +1,6 @@
 #%RAML 0.8
 title: Contacts App
 version: v1
-
 schemas:
 
   - tree: !include schema/tree.json
@@ -16,7 +15,6 @@ schemas:
       }
 
   - apiContact: !include schema/api-contact.json
-
 
 /contacts:
   # note, changing the displayName will change the name of the generated class in ${base.package.name}.resource
@@ -33,8 +31,16 @@ schemas:
           description: Bad Request
         500:
           description: Internal Server Error
+      template:
+        System.out.println("Get :Hello World!");
+                return null;
   post:
       description: Creates a new contact
+      headers:
+        x-la-format:
+              type: integer
+              maximum: 3
+              required: true
       body:
         multipart/form-data:
           formParameters:
@@ -58,3 +64,6 @@ schemas:
           description: Internal Server Error
           body:
             text/plain:
+      template:
+        System.out.println("Post :Hello World!");
+        return null;

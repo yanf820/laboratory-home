@@ -19,6 +19,7 @@
         <module>resteasy-spring-boot-operation</module>
         <module>pluginoperaion</module>
         <module>mongomorphia</module>
+        <module>dubborun</module>
     </modules>
 
     <properties>

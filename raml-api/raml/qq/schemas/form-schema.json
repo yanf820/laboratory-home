@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.Form",
+  "type": "object",
+  "description": "报告",
+  "properties": {
+    "id": {
+      "description": "id",
+      "type": "string",
+      "required": false
+    },
+    "memberId": {
+      "description": "会员id",
+      "type": "string",
+      "required": false
+    },
+    "type": {
+      "description": "报告类型",
+      "type": "string",
+      "required": false
+    }
+  }
+}

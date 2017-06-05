@@ -1,11 +1,13 @@
 package com.laboratory.filters;
 
 import com.laboratory.annotations.DoIt;
+import com.laboratory.api.model.Tree;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.ext.Provider;
+import java.awt.print.Book;
 import java.io.IOException;
 
 /**

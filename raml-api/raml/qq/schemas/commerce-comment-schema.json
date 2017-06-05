@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.CommerceComment",
+  "type": "object",
+  "description": "当前商机的评论列表",
+  "properties": {
+    "commerce": {
+      "description": "当前商机的详情",
+      "type": "object",
+      "$ref":"topic"
+    },
+    "comments": {
+      "description": "评论列表",
+      "type": "array",
+      "items": {
+      "$ref": "comments"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Comments",
+  "type": "object",
+  "description": "主题集合",
+  "properties": {
+    "comments": {
+      "description": "集合",
+      "type": "array",
+      "items": {
+        "$ref": "comment"
+      }
+    },
+    "totalCount": {
+      "description": "评论数量",
+      "type": "integer",
+      "required": false
+    }
+  }
+}

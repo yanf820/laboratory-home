@@ -1,0 +1,29 @@
+{
+  "description": "错误，请求错误时返回",
+  "required": false,
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Error",
+  "type": "object",
+  "properties" :{
+    "errorCode" : {
+        "description": "错误码",
+        "type": "integer",
+        "required": false
+    },
+    "message": {
+        "description": "错误信息",
+        "type": "string",
+        "required": false
+    },
+    "status": {
+        "description": "状态码",
+        "type": "integer",
+        "required": false
+    },
+    "timestamp": {
+        "description": "时间戳",
+        "type": "integer",
+        "required": false
+    }
+  }
+}

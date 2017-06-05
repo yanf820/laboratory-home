@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.CollegeArticle",
+  "type": "object",
+  "description": "创业学院的文章列表",
+  "properties": {
+    "college": {
+      "description": "创业学院信息",
+      "type": "object",
+      "$ref":"college"
+    },
+    "articles": {
+      "description": "文章列表",
+      "type": "object",
+      "$ref":"articles"
+    }
+  }
+}

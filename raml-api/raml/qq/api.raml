@@ -1,0 +1,121 @@
+#%RAML 0.8
+title: STARTUP
+version: 1.0
+baseUri: http://api.startupsaas.com/
+protocols: [ HTTP, HTTPS ]
+securedBy: [ oauth_2_0 ]
+
+securitySchemes:
+  - oauth_2_0: !include securitySchemes/oauth_2_0.yaml
+
+schemas:
+  - topic: !include schemas/topic-schema.json
+  - topics: !include schemas/topics-schema.json
+  - post: !include schemas/post-schema.json
+  - posts: !include schemas/posts-schema.json
+  - post-likes: !include schemas/post-likes-schema.json
+  - post-comments: !include schemas/post-comments-schema.json
+  - member: !include schemas/member-schema.json
+  - follows: !include schemas/follows-schema.json
+  - follow: !include schemas/follow-schema.json
+  - comments: !include schemas/comments-schema.json
+  - comment: !include schemas/comment-schema.json
+  - error-schema: !include schemas/error-schema.json
+  - category: !include schemas/category-schema.json
+  - product: !include schemas/commerce-schema.json
+  - products: !include schemas/commerces-schema.json
+  - replies: !include schemas/replies-schema.json
+  - reply: !include schemas/reply-schema.json
+  - tag: !include schemas/tag-schema.json
+  - topic-posts: !include schemas/topic-posts-schema.json
+  - topic-follows: !include schemas/topic-follows-schema.json
+  - commerce-follow: !include schemas/commerce-follow-schema.json
+  - commerce-comment: !include schemas/commerce-comment-schema.json
+  - commerce-reply: !include schemas/commerce-reply-schema.json
+  - colleges: !include schemas/colleges-schema.json
+  - college: !include schemas/college-schema.json
+  - college-article: !include schemas/college-article-schema.json
+  - articles: !include schemas/article-schema.json
+  - article: !include schemas/article-schema.json
+  - notification: !include schemas/notification-schema.json
+  - notifications: !include schemas/notifications-schema.json
+  - account-change: !include schemas/account-change-schema.json
+  - account-changes: !include schemas/account-changes-schema.json
+  - account-frozen: !include schemas/account-frozen-schema.json
+  - account-frozens: !include schemas/account-frozens-schema.json
+  - bankcard: !include schemas/bankcard-schema.json
+  - bankcards: !include schemas/bankcards-schema.json
+  - cashaccount: !include schemas/cashaccount-schema.json
+  - flowinstance: !include schemas/flowinstance-schema.json
+  - form: !include schemas/form-schema.json
+  - forms: !include schemas/forms-schema.json
+  - member-accounts: !include schemas/member-accounts-schema.json
+  - member-articles: !include schemas/member-articles-schema.json
+  - member-article: !include schemas/member-article-schema.json
+  - member-comments: !include schemas/member-comments-schema.json
+  - member-comment: !include schemas/member-comment-schema.json
+  - member-product: !include schemas/member-commerce-schema.json
+  - member-products: !include schemas/member-commerces-schema.json
+  - member-follows: !include schemas/member-follows-schema.json
+  - member-likes: !include schemas/member-likes-schema.json
+  - member-posts: !include schemas/member-posts-schema.json
+  - member-post: !include schemas/member-post-schema.json
+  - member-published: !include schemas/member-published-schema.json
+  - member-replies: !include schemas/member-replies-schema.json
+  - member-reply: !include schemas/member-reply-schema.json
+  - member-topic: !include schemas/member-topic-schema.json
+  - member-topics: !include schemas/member-topics-schema.json
+  - members: !include schemas/members-schema.json
+  - order: !include schemas/order-schema.json
+  - orders: !include schemas/orders-schema.json
+  - potentialform: !include schemas/potentialform-schema.json
+  - potentialforms: !include schemas/potentialforms-schema.json
+  - promotionplan: !include schemas/promotionplan-schema.json
+  - promotionplans: !include schemas/promotionplans-schema.json
+  - publish: !include schemas/publish-schema.json
+  - publishes: !include schemas/publishes-schema.json
+  - virtualaccount: !include schemas/virtualaccount-schema.json
+  - wallet: !include schemas/wallet-schema.json
+
+resourceTypes:
+  - baseResource: !include resourceTypes/baseResource.yaml
+
+traits:
+  - hasModifiedFilter: !include traits/hasModifiedFilter.yaml
+  - hasSession: !include traits/hasSession.yaml
+  - paged: !include traits/paged.yaml
+  - oauth: !include traits/oauth2_0.yaml
+  - common: !include traits/common.yaml
+
+documentation:
+  - title: 创业服务平台gateway接口规范
+    content: !include documentation/api.md
+
+
+/topicsprovider:
+  get:
+    description: |
+      搜索创业圈话题资源
+    queryParameters:
+      keywords:
+        type: string
+    responses:
+      200:
+        body:
+          application/json:
+            schema: topics
+    template:
+      return null;
+  post:
+    description: |
+      搜索创业圈话题资源
+    queryParameters:
+      keywords:
+        type: string
+    responses:
+      200:
+        body:
+          application/json:
+            schema: topics
+    template:
+      return null;

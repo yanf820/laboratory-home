@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.College",
+  "type": "object",
+  "description": "创业学院",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "title": {
+      "description": "标题",
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "description": "图片",
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "description": "描述",
+      "type": "string",
+      "required": false
+    }
+  }
+}

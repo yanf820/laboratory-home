@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.MemberPublished",
+  "type": "object",
+  "description": "将relation和member封装到一个schema中，方便api-gateway使用",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    }
+  }
+}

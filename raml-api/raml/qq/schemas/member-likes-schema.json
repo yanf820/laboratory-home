@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.MemberLikes",
+  "type": "object",
+  "description": "话题点赞列表",
+  "properties": {
+    "member": {
+      "description": "帖子",
+      "type": "object",
+      "$ref":"member"
+    },
+    "likes": {
+      "description": "集合",
+      "type": "object",
+      "$ref":"posts"
+    }
+  }
+}

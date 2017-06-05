@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.model.BankCard",
+  "description" : "银行卡",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "bankName": {
+      "description": "银行名称",
+      "type": "string",
+      "required": true
+    },
+    "realName": {
+      "description": "开户名称",
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "description": "绑定手机号",
+      "type": "string",
+      "required": true
+    },
+    "number": {
+      "description": "卡号",
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "description": "绑定状态",
+      "type" : "boolean",
+      "enum" : [true, false]
+    },
+    "createTime": {
+      "description": "注册时间",
+      "type": "string",
+      "required": false
+    },
+    "updateTime": {
+      "description": "更新时间",
+      "type": "string",
+      "required": false
+    }
+  }
+}

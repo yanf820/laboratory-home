@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-extends/schema",
+  "javaType" : "com.lastartupsaas.api.gateway.model.Commerce",
+  "type": "object",
+  "description": "商机",
+  "properties": {
+    "id": {
+      "description": "ID",
+      "type": "string",
+      "required": false
+    },
+    "commerceName": {
+      "description": "商机名称",
+       "type": "string",
+      "required": false
+    },
+    "image":  {
+      "description": "商标",
+      "type": "string",
+      "required": false
+    },
+    "desc": {
+      "description": "商机描述",
+      "type": "string",
+      "required": false
+    },
+    "categorys": {
+      "description": "类别标签",
+      "type": "array",
+      "items": {
+        "$ref": "category"
+      }
+    },
+    "follows": {
+      "description": "关注者列表",
+      "type": "array",
+      "items": {
+        "$ref": "follow"
+      }
+    },
+    "tags": {
+      "description": "标签列表",
+      "type": "array",
+      "items": {
+        "$ref": "tag"
+      }
+    },
+    "replies": {
+      "description": "回复列表",
+      "type": "array",
+      "items": {
+        "$ref": "reply"
+      }
+    },
+    "require": {
+      "description": "加盟要求",
+      "type": "string",
+      "required": false
+    }
+  }
+}
